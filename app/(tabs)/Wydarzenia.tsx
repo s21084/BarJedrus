@@ -2,15 +2,12 @@ import { StyleSheet, View, Text, Pressable, FlatList} from 'react-native';
 import { Link } from 'expo-router';
 import EventComponent from '../../components/eventComponent';
 import Hedder from '../../components/hedder';
-import NavMenu from '../../components/navMenu';
-import events from '../../assets/data/event.ts';
+import events from '../../assets/data/event'
 
 export default function Event () {
-    
     return(
         <View>
         <Hedder />
-        <NavMenu />
         <View style={{
         alignItems: 'center'}}>
             <Text style={{padding: 10, fontSize: 30}}>Wydarzenia</Text>
@@ -31,7 +28,7 @@ export default function Event () {
         <View style={{
         alignItems: 'center'}}>
             <Link href={'/'}>
-                <Pressable  title='Powrót' style={styles.buttonBack}>
+                <Pressable style={styles.buttonBack}>
                     <Text style={styles.buttonText}>Powrót</Text>
                 </Pressable>
             </Link>

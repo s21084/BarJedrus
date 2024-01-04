@@ -1,13 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import Hedder from '../../components/hedder';
-import NavMenu from '../../components/navMenu';
 
-export default function TabOneScreen() {
+export default function Main() {
   return (
     <View>
       <Hedder />
-      <NavMenu />
       <View style={styles.container}>
           <Text>Strona Główna</Text>   
       </View>

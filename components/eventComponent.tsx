@@ -1,18 +1,24 @@
 import { StyleSheet, Text, View  } from 'react-native';
+import events from '../assets/data/event'
+import { EventType } from '../types/index';
 
 
-export default function eventComponent({ event }){
-    
+
+type EventProps = {
+    event: EventType;
+}
+
+const Event = ({ event }: EventProps) =>{
     return(
             <View>
                 <View style={styles.container}>  
                 <Text>Wydarzenie: {event.name}</Text>
                 <Text>Czy potrzebne dekoracje?: {event.decoration}</Text>
-                <Text>Ilość osób wegetariańskich: {event.Vege}</Text>
-                <Text>lość osób niewegetariańskich{event.Nonvege}</Text>
-                <Text>Przedwpłata: {event.PrePay}zł</Text>
-                <Text>Całość do zapłaty: {event.Payment}zł</Text>
-                <Text>Notatki {event.Notes}</Text>
+                <Text>Ilość osób wegetariańskich: {event.vege}</Text>
+                <Text>llość osób niewegetariańskich: {event.nonvege}</Text>
+                <Text>Przedwpłata: {event.prePay}zł</Text>
+                <Text>Całość do zapłaty: {event.payment}zł</Text>
+                <Text>Notatki {event.notes}</Text>
                 </View>
             </View>
         );
@@ -26,9 +32,10 @@ const styles = StyleSheet.create({
         padding: 20,
         marginVertical: 5,
         marginHorizontal: 5,
-        alignItems: 'left',
         backgroundColor: '#47CE83',
         borderRadius: 5, 
         overflow: 'hidden',
     },
 });
+
+export default Event;

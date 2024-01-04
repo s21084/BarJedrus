@@ -139,4 +139,7 @@ const dishes = [
     name:'Schabowy',
     price:'18 zł',
 },
-]
+];
+
+
+export default dishes;

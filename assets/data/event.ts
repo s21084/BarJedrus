@@ -1,135 +1,71 @@
 const events = [
     {
-        id:'1',
+        id:1,
         name:'Komunia',
         decoration: 'Nie',
-        Vege: '3',
-        Nonvege: '13',
-        Notes: 'Zbychu - Nic nie trzeba',
-        PrePay: '100',
-        Payment: '1000',
-        id_Dzień: '3'
+        vege: 3,
+        nonvege: 13,
+        notes: 'Zbychu - Nic nie trzeba',
+        prePay: 100,
+        payment: 1000,
+        id_Dzień: 3
     },
     {
-        id:'2',
+        id:2,
         name:'Stypa',
         decoration: 'Nie',
-        Vege: '0',
-        Nonvege: '23',
-        Notes: 'Waśka',
-        PrePay: '435',
-        Payment: '2134',
-        id_Dzień: '3'
+        vege: 0,
+        nonvege: 23,
+        notes: 'Waśka',
+        prePay: 435,
+        payment: 2134,
+        id_Dzień: 3
     },
     {
-        id:'3',
+        id:3,
         name:'Urodziny',
         decoration: 'Nie',
-        Vege: '13',
-        Nonvege: '53',
-        Notes: 'Kowalczyk',
-        PrePay: '12',
-        Payment: '123',
-        id_Dzień: '3'
+        vege: 13,
+        nonvege: 53,
+        notes: 'Kowalczyk',
+        prePay: 12,
+        payment: 123,
+        id_Dzień: 3
     },
     {
-        id:'1',
+        id:1,
         name:'Komunia',
         decoration: 'Nie',
-        Vege: '3',
-        Nonvege: '13',
-        Notes: 'Zbychu - Nic nie trzeba',
-        PrePay: '100',
-        Payment: '1000',
-        id_Dzień: '3'
+        vege: 3,
+        nonvege: 13,
+        notes: 'Zbychu - Nic nie trzeba',
+        prePay: 100,
+        payment: 1000,
+        id_Dzień: 3
     },
     {
-        id:'2',
+        id:2,
         name:'Stypa',
         decoration: 'Nie',
-        Vege: '0',
-        Nonvege: '23',
-        Notes: 'Waśka',
-        PrePay: '435',
-        Payment: '2134',
-        id_Dzień: '3'
+        vege: 0,
+        nonvege: 23,
+        notes: 'Waśka',
+        prePay: 435,
+        payment: 2134,
+        id_Dzień: 3
     },
     {
-        id:'3',
+        id:3,
         name:'Urodziny',
         decoration: 'Nie',
-        Vege: '13',
-        Nonvege: '53',
-        Notes: 'Kowalczyk',
-        PrePay: '12',
-        Payment: '123',
-        id_Dzień: '3'
-    },
-    {
-        id:'1',
-        name:'Komunia',
-        decoration: 'Nie',
-        Vege: '3',
-        Nonvege: '13',
-        Notes: 'Zbychu - Nic nie trzeba',
-        PrePay: '100',
-        Payment: '1000',
-        id_Dzień: '3'
-    },
-    {
-        id:'2',
-        name:'Stypa',
-        decoration: 'Nie',
-        Vege: '0',
-        Nonvege: '23',
-        Notes: 'Waśka',
-        PrePay: '435',
-        Payment: '2134',
-        id_Dzień: '3'
-    },
-    {
-        id:'3',
-        name:'Urodziny',
-        decoration: 'Nie',
-        Vege: '13',
-        Nonvege: '53',
-        Notes: 'Kowalczyk',
-        PrePay: '12',
-        Payment: '123',
-        id_Dzień: '3'
-    },
-    {
-        id:'1',
-        name:'Komunia',
-        decoration: 'Nie',
-        Vege: '3',
-        Nonvege: '13',
-        Notes: 'Zbychu - Nic nie trzeba',
-        PrePay: '100',
-        Payment: '1000',
-        id_Dzień: '3'
-    },
-    {
-        id:'2',
-        name:'Stypa',
-        decoration: 'Nie',
-        Vege: '0',
-        Nonvege: '23',
-        Notes: 'Waśka',
-        PrePay: '435',
-        Payment: '2134',
-        id_Dzień: '3'
-    },
-    {
-        id:'3',
-        name:'Urodziny',
-        decoration: 'Nie',
-        Vege: '13',
-        Nonvege: '53',
-        Notes: 'Kowalczyk',
-        PrePay: '12',
-        Payment: '123',
-        id_Dzień: '3'
+        vege: 13,
+        nonvege: 53,
+        notes: 'Kowalczyk',
+        prePay: 12,
+        payment: 123,
+        id_Dzień: 3
     },
     
-]
+];
+
+export default events;

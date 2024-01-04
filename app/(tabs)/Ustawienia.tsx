@@ -11,7 +11,7 @@ const Settings = () => {
             <View>
             <Hedder />
             <View style={{ alignItems: 'center' }}>
-            <Text style={{ padding: 10, fontSize: 30 }}>Ustawienia tu mam rpóbnąwersję wyświetlania dla użytkowników</Text>
+            <Text style={{ padding: 10, fontSize: 30 }}>Ustawienia tu mam próbną wersję wyświetlania dla użytkowników</Text>
             </View>
             </View>
         );

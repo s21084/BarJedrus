@@ -15,7 +15,14 @@ export type DishType = {
     price: number;
 };
 
-export type User = {
+export type UserType = {
     id?: number;
     code: string;
+};
+
+export type InfoType = {
+    id?: number;
+    openHour: string;
+    closeHour: string;
+    bonusInfo?: string;
 };

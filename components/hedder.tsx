@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Pressable} from 'react-native';
 import { Link } from 'expo-router';
 
-const userLogOn = false; /* TO PÓŹNIEJ BĘDZIE INACZEJ SPRAWDZANE */
+const userLogOn = true; /* TO PÓŹNIEJ BĘDZIE INACZEJ SPRAWDZANE */
 const Hedder = () =>{
     return(
             <View style={styles.hedder}>

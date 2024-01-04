@@ -13,12 +13,12 @@ const Event = ({ event }: EventProps) =>{
             <View>
                 <View style={styles.container}>  
                 <Text>Wydarzenie: {event.name}</Text>
-                <Text>Czy potrzebne dekoracje?: {event.decoration}</Text>
-                <Text>Ilość osób wegetariańskich: {event.vege}</Text>
-                <Text>llość osób niewegetariańskich: {event.nonvege}</Text>
-                <Text>Przedwpłata: {event.prePay}zł</Text>
-                <Text>Całość do zapłaty: {event.payment}zł</Text>
-                <Text>Notatki {event.notes}</Text>
+                {event.decoration && <Text>Czy potrzebne dekoracje?: {event.decoration}</Text>}
+                {event.vege && <Text>Ilość osób wegetariańskich: {event.vege}</Text>}
+                {event.nonvege && <Text>llość osób niewegetariańskich: {event.nonvege}</Text>}
+                {event.prePay && <Text>Przedwpłata: {event.prePay}zł</Text>}
+                {event.payment && <Text>Całość do zapłaty: {event.payment}zł</Text>}
+                {event.notes && <Text>Notatki: {event.notes}</Text>}
                 </View>
             </View>
         );

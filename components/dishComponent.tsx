@@ -9,8 +9,8 @@ const Dish = ({ dish }: DishProps) => {
     return(
             <View>
                 <View style={styles.logInWindow}>   
-                <Text>{dish.name}</Text>
-                <Text>{dish.price} zł</Text>
+                {dish.name && <Text>{dish.name}</Text>}
+                {dish.price && <Text>{dish.price} zł</Text>}
                 </View>
             </View>
         );

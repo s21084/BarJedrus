@@ -17,16 +17,6 @@ export default function Main () {
           <Text>Strona Główna</Text>   
           <Text>Może jakieś informacje o tym jak obsługiwać/ informacje "o dniu następnym"</Text>  
       <InfoComponent info= {infos[0]}/>
-      
-      
-      <View>  
-                    <EditDayDishComponent />
-        </View>
-
-      
-      
-      
-
       </View>
     </View>
   );

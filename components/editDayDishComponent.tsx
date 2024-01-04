@@ -1,84 +1,113 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet, TextInput, Button } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import {
+  View,
+  Text,
+  Modal,
+  Button,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
 
-const editDayDishComponent: React.FC = () => {
-    // State variables
-    const [isOpenModal, setIsOpenModal] = useState(false);
-    const [openHour, setOpenHour] = useState(new Date());
-    const [closeHour, setCloseHour] = useState(new Date());
-  
-    // Function to handle the save button click
-    const handleSave = () => {
-      // Handle save logic here
-      console.log('Open Hour:', openHour);
-      console.log('Close Hour:', closeHour);
-  
-      // Close the modal
-      setIsOpenModal(false);
-    };
-    return (
-        <View style={styles.container}>
-          <TouchableOpacity onPress={() => setIsOpenModal(true)}>
-            <Text>Edit Open/Close Hours</Text>
-          </TouchableOpacity>
+const editDayDishComponent: React.FC<{}> = () => {
+    // State to hold form data
     
-          <Modal visible={isOpenModal} transparent animationType="slide">
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [newDishes, setNewDishes] = useState({
+      soup: '',
+      secondDish: '',
+    });
+  
+  
+    // Handler to save changes and close the popup
+    const handleSave = () => {
+    
+        // Close the modal
+        setIsOpenModal(false);
+    };
+    const handleChange = (field: keyof typeof newDishes, value: string) => {
+        setNewDishes((prev) => ({ ...prev, [field]: value }));
+      };
+  
+    return (
+      
+        <View style={styles.container}>
+        <TouchableOpacity onPress={() => setIsOpenModal(true)}>
+          <View style={styles.buttonBack}>
+            <Text>Change Dishes of the Day</Text>
+            </View>
+            </TouchableOpacity>
+            {/* Form */}
+            <Modal visible={isOpenModal} transparent animationType="slide">
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
-                <Text>Edit Open/Close Hours</Text>
-    
-                {/* Open Hour Input */}
-                <Text>Open Hour:</Text>
-                <DateTimePicker
-                  value={openHour}
-                  mode="time"
-                  display="default"
-                  onChange={(event, selectedDate) => setOpenHour(selectedDate || openHour)}
-                />
-    
-                {/* Close Hour Input */}
-                <Text>Close Hour:</Text>
-                <DateTimePicker
-                  value={closeHour}
-                  mode="time"
-                  display="default"
-                  onChange={(event, selectedDate) => setCloseHour(selectedDate || closeHour)}
-                />
-    
-                {/* Save Button */}
-                <Button title="Save" onPress={handleSave} />
-    
-                {/* Cancel Button */}
-                <Button title="Cancel" onPress={() => setIsOpenModal(false)} />
-              </View>
+            <TextInput
+              style={styles.input}
+              placeholder="Nowa zupa"
+              value={newDishes.soup}
+              onChangeText={(text) => handleChange('soup', text)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Nowe drugie danie"
+              value={newDishes.secondDish}
+              onChangeText={(text) => handleChange('secondDish', text)}
+            />
+  
+            {/* Buttons */}
+            
+            <Button title="Zapisz" onPress={handleSave} />
+            
+            <Button title="Anuluj" onPress={() => setIsOpenModal(false)} />
             </View>
-          </Modal>
-        </View>
-      );
-    };
-    
-
-    const styles = StyleSheet.create({
-        container: {
-          flex: 1,
-          padding: 20,
-          justifyContent: 'center',
-          alignItems: 'center',
-        },
-        modalContainer: {
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        },
-        modalContent: {
-          backgroundColor: 'white',
-          padding: 200,
-          borderRadius: 10,
-          elevation: 5,
-        },
-      });
-      
+            </View>
+            </Modal>
+          </View>
+              );
+  };
+  
+  // Styles
+  const styles = StyleSheet.create({
+    container: {
+        padding: 25,
+        marginVertical: 5,
+        marginHorizontal: 5,
+        backgroundColor: '#47CE83',
+        borderRadius: 5, 
+        overflow: 'hidden',
+    },
+    buttonBack: {
+        padding: 25,
+        marginVertical: 5,
+        marginHorizontal: 5,
+        backgroundColor: '#47CE83',
+        borderRadius: 5, 
+        overflow: 'hidden',
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: 10,
+        width: '100%',
+      },
+    modalContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+      backgroundColor: 'white',
+      padding: 150,
+      borderRadius: 5,
+      elevation: 5,
+    },
+  });
+  
       export default editDayDishComponent;
+
+
+     

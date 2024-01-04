@@ -1,24 +1,28 @@
 import { StyleSheet, Text, View, Pressable} from 'react-native';
 import { Link } from 'expo-router';
 
-
+const userLogOn = false; /* TO PÓŹNIEJ BĘDZIE INACZEJ SPRAWDZANE */
 const Hedder = () =>{
     return(
             <View style={styles.hedder}>
                 <View style={styles.hello}>
                 <Link href={'/'}>
-                    <Pressable  title='Home' style={styles.textHedder}>
+                    <Pressable>
                     <Text style={styles.textHedder}>Bar Jędruś na Skarpie</Text>
                     </Pressable>
                     </Link>
                 </View>
-                <View style={styles.logOut}>
-                    <Link href={'../'}>
-                    <Pressable  title='Wyloguj' style={styles.textHedder}>
-                    <Text style={styles.buttonText}>Wyloguj</Text>
-                    </Pressable>
-                    </Link>
-                </View>
+                    {userLogOn && (
+                        <View style={styles.logOut}>
+                            <Link href={'../'}>
+                                <Pressable>
+                                    <Text style={styles.buttonText}>Wyloguj</Text>
+                                </Pressable>
+                            </Link>
+                        </View>
+                    )}
+                    
+                
 
                 
             </View>

@@ -8,6 +8,7 @@ export default function Main() {
       <Hedder />
       <View style={styles.container}>
           <Text>Strona Główna</Text>   
+          <Text>Może jakieś informacje o tym jak obsługiwać/ informacje "o dniu następnym"</Text>   
       </View>
     </View>
   );

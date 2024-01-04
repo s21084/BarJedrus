@@ -16,17 +16,28 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  
+
+
 
   return (
+    
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
       }}>
+        <Tabs.Screen
+        name="Menu"
+        options={{
+          title: 'Menu',
+          tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
+        }}
+      />
       <Tabs.Screen
         name="index"
         options={{
           title: 'Bar Jedrus',
-          tabBarIcon: ({ color }) => <TabBarIcon name="circle" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -47,23 +58,26 @@ export default function TabLayout() {
         name="Wydarzenia"
         options={{
           title: 'Wydarzenia',
-          tabBarIcon: ({ color }) => <TabBarIcon name="table" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="calendar" color={color} />,
         }}
       />
+      
       <Tabs.Screen
-        name="OfertyPracy"
+        name="Ustawienia"
         options={{
-          title: 'Oferty Pracy',
-          tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+          title: 'Ustawienia',
+          tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
         }}
       />
       <Tabs.Screen
         name="Wlasciciel"
         options={{
           title: 'Wlasciciel',
-          tabBarIcon: ({ color }) => <TabBarIcon name="info" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="lock" color={color} />,
         }}
       />
+      
+      
     </Tabs>
     
   );

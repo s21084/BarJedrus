@@ -1,13 +1,16 @@
 import { StyleSheet, Text, View, TextInput, Pressable  } from 'react-native';
 
+import { DishType } from '../types/index';
 
-export default function dishComponent(){
-    const dish;
+type DishProps = {
+    dish: DishType;
+}
+const Dish = ({ dish }: DishProps) => {
     return(
             <View>
                 <View style={styles.logInWindow}>   
                 <Text>{dish.name}</Text>
-                <Text>{dish.price}</Text>
+                <Text>{dish.price} zł</Text>
                 </View>
             </View>
         );
@@ -27,3 +30,6 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
 });
+
+
+export default Dish;

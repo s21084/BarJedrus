@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, TextInput, Pressable  } from 'react-native';
 
 
-export default function dishComponent({ dish }){
-    
+export default function dishComponent(){
+    const dish;
     return(
             <View>
                 <View style={styles.logInWindow}>   

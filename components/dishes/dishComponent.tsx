@@ -1,18 +1,21 @@
 import { StyleSheet, Text, View, TextInput, Pressable  } from 'react-native';
 
-import { DishType } from '../types/index';
+import { DishType } from '../../types/index';
+import { Link } from 'expo-router';
 
 type DishProps = {
     dish: DishType;
 }
 const Dish = ({ dish }: DishProps) => {
     return(
-            <View>
+        <Link href={`/dish/${dish.id}`}>
+            <Pressable>
                 <View style={styles.logInWindow}>   
                 {dish.name && <Text>{dish.name}</Text>}
                 {dish.price && <Text>{dish.price} zł</Text>}
                 </View>
-            </View>
+            </Pressable>
+        </Link>
         );
 }
 

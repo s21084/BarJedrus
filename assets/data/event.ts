@@ -1,6 +1,6 @@
 const events = [
     {
-        id:1,
+        id:'1',
         name:'Komunia',
         decoration: 'Nie',
         vege: 3,
@@ -11,7 +11,7 @@ const events = [
         id_Dzień: 3
     },
     {
-        id:2,
+        id:'2',
         name:'Stypa',
         decoration: 'Nie',
         vege: 0,
@@ -22,7 +22,7 @@ const events = [
         id_Dzień: 3
     },
     {
-        id:3,
+        id:'3',
         name:'Urodziny',
         decoration: 'Nie',
         vege: 13,
@@ -33,7 +33,7 @@ const events = [
         id_Dzień: 3
     },
     {
-        id:1,
+        id:'4',
         name:'Komunia',
         decoration: 'Nie',
         vege: 3,
@@ -44,7 +44,7 @@ const events = [
         id_Dzień: 3
     },
     {
-        id:2,
+        id:'5',
         name:'Stypa',
         decoration: 'Nie',
         vege: 0,
@@ -55,7 +55,7 @@ const events = [
         id_Dzień: 3
     },
     {
-        id:3,
+        id:'6',
         name:'Urodziny',
         decoration: 'Nie',
         vege: 13,

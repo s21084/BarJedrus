@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text, Pressable, FlatList} from 'react-native';
 import { Link } from 'expo-router';
-import Hedder from '../../components/hedder';
-import EditOpenHoursComponent from '../../components/editOpenHoursComponent';
-import EditDayDishComponent from '../../components/editDayDishComponent';
+import Hedder from '../../components/normal/hedder';
+import EditOpenHoursComponent from '../../components/popUps/editOpenHoursComponent';
+import EditDayDishComponent from '../../components/popUps/editDayDishComponent';
 
 export default function Wlasciciel () {
     return(
@@ -12,14 +12,6 @@ export default function Wlasciciel () {
         <View style={{flexDirection: 'row'}}>
         <EditOpenHoursComponent />
         <EditDayDishComponent />
-        <View style={styles.buttonBack}>
-            <Link href={'/'}>
-                <Pressable>
-                    <Text style={{padding: 10, fontSize: 30}}>Podstawowe informacje</Text>
-                </Pressable>
-            </Link>
-        </View>
-        
         <View style={styles.buttonBack}>
             <Link href={'/'}>
                 <Pressable>
@@ -75,13 +67,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        padding: 25,
         backgroundColor: '#E2E8CE',
     },
     buttonBack: {
-        padding: 25,
-        marginVertical: 5,
-        marginHorizontal: 5,
         backgroundColor: '#47CE83',
         borderRadius: 5, 
         overflow: 'hidden',

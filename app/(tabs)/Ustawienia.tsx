@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, Pressable, FlatList} from 'react-native';
 import { Link } from 'expo-router';
-import Hedder from '../../components/hedder';
+import Hedder from '../../components/normal/hedder';
 
 const userLogOn = true; /* TO PÓŹNIEJ BĘDZIE INACZEJ SPRAWDZANE */
 

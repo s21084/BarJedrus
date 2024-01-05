@@ -29,14 +29,14 @@ export default function TabLayout() {
         <Tabs.Screen
         name="Menu"
         options={{
-          title: 'Menu',
+          title: 'Oferta',
           tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
         }}
       />
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Bar Jedrus',
+          title: 'Bar Jedruś',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
@@ -72,7 +72,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="Wlasciciel"
         options={{
-          title: 'Wlasciciel',
+          title: 'Właściciel',
           tabBarIcon: ({ color }) => <TabBarIcon name="lock" color={color} />,
         }}
       />

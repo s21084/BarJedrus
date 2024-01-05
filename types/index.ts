@@ -1,5 +1,5 @@
 export type EventType = {
-    id?: number;
+    id?: string;
     name: string;
     decoration?: string;
     vege?: number;
@@ -10,18 +10,18 @@ export type EventType = {
 };
 
 export type DishType = {
-    id?: number;
+    id?: string;
     name: string;
     price: number;
 };
 
 export type UserType = {
-    id?: number;
+    id?: string;
     code: string;
 };
 
 export type InfoType = {
-    id?: number;
+    id?: string;
     openHour: string;
     closeHour: string;
     bonusInfo?: string;

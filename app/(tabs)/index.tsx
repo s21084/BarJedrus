@@ -1,9 +1,9 @@
 import { Pressable, StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
-import Hedder from '../../components/hedder';
-import InfoComponent from '../../components/infoComponent';
+import Hedder from '../../components/normal/hedder';
+import InfoComponent from '../../components/normal/infoComponent';
 import infos from '../../assets/data/info'
-import EditDayDishComponent from '../../components/editDayDishComponent';
+import EditDayDishComponent from '../../components/popUps/editDayDishComponent';
 import { Link } from 'expo-router';
 
 

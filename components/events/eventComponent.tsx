@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View  } from 'react-native';
-import events from '../assets/data/event'
-import { EventType } from '../types/index';
+import { StyleSheet, Text, View, Pressable  } from 'react-native';
+
+import { Link } from 'expo-router';
+import events from '../../assets/data/event'
+import { EventType } from '../../types/index';
 
 
 
@@ -10,7 +12,8 @@ type EventProps = {
 
 const Event = ({ event }: EventProps) =>{
     return(
-            <View>
+        <Link href={`/event/${event.id}`}>
+            <Pressable>
                 <View style={styles.container}>  
                 <Text>Wydarzenie: {event.name}</Text>
                 {event.decoration && <Text>Czy potrzebne dekoracje?: {event.decoration}</Text>}
@@ -20,7 +23,8 @@ const Event = ({ event }: EventProps) =>{
                 {event.payment && <Text>Całość do zapłaty: {event.payment}zł</Text>}
                 {event.notes && <Text>Notatki: {event.notes}</Text>}
                 </View>
-            </View>
+            </Pressable>
+        </Link>
         );
 }
 

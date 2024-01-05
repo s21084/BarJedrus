@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput, Pressable  } from 'react-native';
-import { InfoType } from '../types/index';
+import { InfoType } from '../../types/index';
 
 type InfoProps = {
     info: InfoType;

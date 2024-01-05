@@ -1,53 +1,60 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet, TextInput, Button } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-
+import {
+  View,
+  Text,
+  Modal,
+  Button,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
 const editOpenHoursComponent: React.FC = () => {
     // State variables
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [openHour, setOpenHour] = useState(new Date());
-    const [closeHour, setCloseHour] = useState(new Date());
+    const [newHours, setNewDishes] = useState({
+      open: '',
+      close: '',
+    });
   
     // Function to handle the save button click
     const handleSave = () => {
       // Handle save logic here
-      console.log('Open Hour:', openHour);
-      console.log('Close Hour:', closeHour);
-  
       // Close the modal
       setIsOpenModal(false);
     };
+
+    const handleChange = (field: keyof typeof newHours, value: string) => {
+      setNewDishes((prev) => ({ ...prev, [field]: value }));
+    };
+
+
     return (
         <View style={styles.container}>
           <TouchableOpacity onPress={() => setIsOpenModal(true)}>
             <View style={styles.buttonBack}>
-            <Text>Edytuj informacje o godzinach pracy bary</Text>
+            <Text>Edytuj informacje o godzinach pracy baru</Text>
             </View>
           </TouchableOpacity>
     
           <Modal visible={isOpenModal} transparent animationType="slide">
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
-                <Text>Edit Open/Close Hours</Text>
+                <Text>Edytuj informacje o godzinach pracy bary</Text>
     
                 {/* Open Hour Input */}
-                <Text>Open Hour:</Text>
-                <DateTimePicker
-                  value={openHour}
-                  mode="time"
-                  display="default"
-                  onChange={(event, selectedDate) => setOpenHour(selectedDate || openHour)}
-                />
-    
-                {/* Close Hour Input */}
-                <Text>Close Hour:</Text>
-                <DateTimePicker
-                  value={closeHour}
-                  mode="time"
-                  display="default"
-                  onChange={(event, selectedDate) => setCloseHour(selectedDate || closeHour)}
-                />
+                <TextInput
+              style={styles.input}
+              placeholder="Godzina otwarcia"
+              value={newHours.open}
+              onChangeText={(text) => handleChange('open', text)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Godzina zamknięcia"
+              value={newHours.close}
+              onChangeText={(text) => handleChange('close', text)}
+            />
     
                 {/* Save Button */}
                 <Button title="Zapisz" onPress={handleSave} />
@@ -70,6 +77,14 @@ const editOpenHoursComponent: React.FC = () => {
             backgroundColor: '#47CE83',
             borderRadius: 5, 
             overflow: 'hidden',
+        },
+        input: {
+          borderWidth: 1,
+          borderColor: '#ccc',
+          borderRadius: 5,
+          padding: 10,
+          marginBottom: 10,
+          width: '100%',
         },
         buttonBack: {
             padding: 25,

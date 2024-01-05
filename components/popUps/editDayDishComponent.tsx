@@ -42,6 +42,7 @@ const editDayDishComponent: React.FC<{}> = () => {
             <Modal visible={isOpenModal} transparent animationType="slide">
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
+                <Text>Edytuj informacje daniu dnia</Text>
             <TextInput
               style={styles.input}
               placeholder="Nowa zupa"

@@ -12,6 +12,7 @@ export default function EventScreen (){
     }
     return (
         <View style={styles.container}>  
+        <Text>DODAĆ GUZIK EDYTUJ I USUŃ DLA WŁAŚCICIELA</Text>
                 <Text>Wydarzenie: {event.name}</Text>
                 {event.decoration && <Text>Czy potrzebne dekoracje?: {event.decoration}</Text>}
                 {event.vege && <Text>Ilość osób wegetariańskich: {event.vege}</Text>}

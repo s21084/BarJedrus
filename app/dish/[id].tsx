@@ -12,6 +12,8 @@ export default function DishScreen (){
     }
     return (
         <View style={styles.logInWindow}>   
+        
+        <Text>DODAĆ GUZIK EDYTUJ I USUŃ DLA WŁAŚCICIELA</Text>
             {dish.name && <Text>{dish.name}</Text>}
             {dish.price && <Text>{dish.price} zł</Text>}
         </View>

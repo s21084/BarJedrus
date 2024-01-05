@@ -12,22 +12,15 @@ export default function Wlasciciel () {
         <View style={{flexDirection: 'row'}}>
         <EditOpenHoursComponent />
         <EditDayDishComponent />
+        
         <View style={styles.buttonBack}>
-            <Link href={'/'}>
-                <Pressable>
-                    <Text style={{padding: 10, fontSize: 30}}>Wydarzenia</Text>
-                </Pressable>
-            </Link>
-        </View>
-        <View style={styles.buttonBack}>
-            <Link href={'/'}>
+            <Link href={'/user/usersList'}>
                 <Pressable>
                     <Text style={{padding: 10, fontSize: 30}}>Użytkownicy</Text>
                 </Pressable>
             </Link>
         </View>
         </View>
-            <View style={{flexDirection: 'row'}}>
         <View style={styles.buttonBack}>
             <Link href={'/'}>
                 <Pressable>
@@ -35,31 +28,9 @@ export default function Wlasciciel () {
                 </Pressable>
             </Link>
         </View>
-            
-        <View style={styles.buttonBack}>
-            <Link href={'/'}>
-                <Pressable>
-                    <Text style={{padding: 10, fontSize: 30}}>Oferty pracy</Text>
-                </Pressable>
-            </Link>
-        </View>
-        <View style={styles.buttonBack}>
-            <Link href={'/'}>
-                <Pressable>
-                    <Text style={{padding: 10, fontSize: 30}}>Abonement</Text>
-                </Pressable>
-            </Link>
-        </View>
-        <View style={styles.buttonBack}>
-            <Link href={'/'}>
-                <Pressable>
-                    <Text style={{padding: 10, fontSize: 30}}>Karta dań</Text>
-                </Pressable>
-            </Link>
+        
         </View>
         </View>
-        </View>
-    </View>
     );
 }
 

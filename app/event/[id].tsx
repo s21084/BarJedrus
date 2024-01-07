@@ -1,15 +1,18 @@
 import { useSearchParams } from "expo-router";
-import { Text, View, StyleSheet} from 'react-native';
-import events from '../../assets/data/event'
+import { Text, View, StyleSheet, ActivityIndicator} from 'react-native';
+import { useQuery } from "@tanstack/react-query";
+import { getEvent } from "../../lib/api/events";
 
 export default function EventScreen (){
     const { id } = useSearchParams();
 
-    const event = events.find((d) => d.id == id);
+    const {data, isLoading, error} = useQuery({
+        queryKey: ['event', id],
+        queryFn: () => getEvent(id as string)
+    })
 
-    if(!event){
-        return <Text> Dania nie znaleziono </Text>
-    }
+    const event = data;
+
     return (
         <View style={styles.container}>  
         <Text>DODAĆ GUZIK EDYTUJ I USUŃ DLA WŁAŚCICIELA</Text>
@@ -22,6 +25,12 @@ export default function EventScreen (){
                 {event.notes && <Text>Notatki: {event.notes}</Text>}
                 </View>
     );
+    if(isLoading){
+        return <ActivityIndicator />
+    }
+    if(error){
+        return <Text>Wydarzenie nie znalezione</Text>
+    }
 }
 
 const styles = StyleSheet.create({

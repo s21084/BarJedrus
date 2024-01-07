@@ -13,3 +13,18 @@ export const listEvents = async () => {
             return await res.json();
             
 }
+
+export const getEvent = async (id: string) => {
+              
+        const res = await fetch(`${API_URL}/event/${id}`);
+        // const res = await fetch(url,{
+        //     headers: {
+        //         Authorization: `Bearer ${authToken}`
+        //       },
+        // });
+        if(res.status !== 200){
+                throw new Error('Error on fetching events');
+        }
+        return await res.json();
+       
+}

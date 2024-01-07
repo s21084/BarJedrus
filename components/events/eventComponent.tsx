@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Pressable  } from 'react-native';
 
 import { Link } from 'expo-router';
-import events from '../../assets/data/event'
+//import events from '../../assets/data/event'
 import { EventType } from '../../types/index';
 
 

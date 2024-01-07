@@ -1,12 +1,31 @@
 import { API_URL, authToken } from "./config";
 export const listEvents = async () => {
+        //Not working part
+         const url = "http://localhost:3000/event";
+         const authToken = '';
+        //Not working part - END
+
+
+                //Ta linijka po prostu działa
+            //const res = await fetch(`${API_URL}/event`);
+
+
+
+            //Not working part
+        //     const res = await fetch(url,{
+        //         headers: {
+        //             Authorization: `Bearer ${authToken}`
+        //           },
+        //     });
+            //Wersja B
+            const res = await fetch(url,{
+                
+            });
+        
+            //Not working part - END
+
+
             
-            const res = await fetch(`${API_URL}/event`);
-            // const res = await fetch(url,{
-            //     headers: {
-            //         Authorization: `Bearer ${authToken}`
-            //       },
-            // });
             if(res.status !== 200){
                     throw new Error('Error on fetching events');
             }

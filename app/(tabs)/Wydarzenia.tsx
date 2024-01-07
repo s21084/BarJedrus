@@ -8,12 +8,14 @@ import { listEvents } from '../../lib/api/events';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Event () {
+    //Wersja działająca
     const {data, isLoading, error } = useQuery({
         queryKey:['events'],
         queryFn: listEvents
     });
+    //Wersja działająca END
 
-
+    //To nie działa
     // const [events, setEvents] = useState([]);
     
     // useEffect(() => {
@@ -23,6 +25,8 @@ export default function Event () {
     //     }
     //     fetchEvents();
     // }, []);
+    // const data = events;
+    //Do wersji działającej:
     if(isLoading){
         return <ActivityIndicator />;
     }
@@ -30,7 +34,7 @@ export default function Event () {
     if(error) {
         return <Text>{error.message}</Text>
     }
-    
+    //END
 
     return(
         <View>

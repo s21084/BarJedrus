@@ -1,38 +1,36 @@
-import { StyleSheet, View, Text, Pressable, FlatList} from 'react-native';
+import { StyleSheet, View, Text, Pressable, FlatList, ActivityIndicator} from 'react-native';
 import { Link } from 'expo-router';
 import EventComponent from '../../components/events/eventComponent';
 import Hedder from '../../components/normal/hedder';
 //import events from '../../assets/data/event'
 import { useEffect, useState } from 'react';
+import { listEvents } from '../../lib/api/events';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Event () {
-
-    //Start API
-    const[events, setEvents] = useState([]);
-    useEffect(() => {
-        const fetchEvents = async () => {
-            //http://localhost:3000/event
-            const url = 'http://localhost:3000/event';
-            const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjo1MH0.C2EfdD9n4HXyMG0DPsDaobNgLN521vzu9mwvN2FP4RA';
-            const res = await fetch(url, {
-                mode:'no-cors',
-                headers: {
-                    Authorization: `Bearer ${authToken}`,
-                    'Content-type': 'application/json',
-                  },
-            });
-            const data = await res.json();
-            console.log(data);
-            if (res.status !== 200 ){
-                console.log("Error fetching API")
-            }
-            
-            setEvents (data);
-        }
-
-        fetchEvents();
+    const {data, isLoading, error } = useQuery({
+        queryKey:['events'],
+        queryFn: listEvents
     });
-    //END API
+
+
+    // const [events, setEvents] = useState([]);
+    
+    // useEffect(() => {
+    //     const fetchEvents = async () => {
+    //         const res = await listEvents();
+    //         setEvents(res);
+    //     }
+    //     fetchEvents();
+    // }, []);
+    if(isLoading){
+        return <ActivityIndicator />;
+    }
+
+    if(error) {
+        return <Text>{error.message}</Text>
+    }
+    
 
     return(
         <View>
@@ -40,8 +38,8 @@ export default function Event () {
         <View style={{
         alignItems: 'center'}}>
             <Text style={{padding: 10, fontSize: 30}}>Wydarzenia</Text>
-        <FlatList 
-                data={events.slice(0, 6)}
+            <FlatList 
+                data={data}
                 renderItem={({ item }) => (
                 
                         <EventComponent event={item}/>

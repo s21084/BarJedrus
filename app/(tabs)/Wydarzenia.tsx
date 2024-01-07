@@ -9,31 +9,31 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function Event () {
     //Wersja działająca
-    const {data, isLoading, error } = useQuery({
-        queryKey:['events'],
-        queryFn: listEvents
-    });
+    //const {data, isLoading, error } = useQuery({
+     //   queryKey:['events'],
+     //   queryFn: listEvents
+    //});
     //Wersja działająca END
 
     //To nie działa
-    // const [events, setEvents] = useState([]);
+     const [events, setEvents] = useState([]);
     
-    // useEffect(() => {
-    //     const fetchEvents = async () => {
-    //         const res = await listEvents();
-    //         setEvents(res);
-    //     }
-    //     fetchEvents();
-    // }, []);
-    // const data = events;
+     useEffect(() => {
+         const fetchEvents = async () => {
+             const res = await listEvents();
+             setEvents(res);
+         }
+         fetchEvents();
+     }, []);
+     const data = events;
     //Do wersji działającej:
-    if(isLoading){
-        return <ActivityIndicator />;
-    }
+    // if(isLoading){
+    //     return <ActivityIndicator />;
+    // }
 
-    if(error) {
-        return <Text>{error.message}</Text>
-    }
+    // if(error) {
+    //     return <Text>{error.message}</Text>
+    // }
     //END
 
     return(

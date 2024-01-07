@@ -2,30 +2,38 @@ import { API_URL, authToken } from "./config";
 export const listEvents = async () => {
         //Not working part
          const url = "http://localhost:3000/event";
-         const authToken = '';
+         const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjo1M30.AGejMBePzXTCxieFvKZ3dqPFkwBVz4Lmlt5ogRbZWWw';
         //Not working part - END
 
 
                 //Ta linijka po prostu działa
             //const res = await fetch(`${API_URL}/event`);
-
-
-
-            //Not working part
-        //     const res = await fetch(url,{
+        //     const settings = {
+        //         method: 'POST',
         //         headers: {
-        //             Authorization: `Bearer ${authToken}`
-        //           },
-        //     });
-            //Wersja B
+        //             Accept: 'application/json',
+        //             Authorization: `Bearer ${authToken}`,
+        //             'Content-Type': 'application/json',
+        //         }
+        //     };
+
+        //         const res = await fetch(url, settings);
+            //Not working part
             const res = await fetch(url,{
-                
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                    Test: "test",
+                  },
             });
+            //Wersja B
+        //     const res = await fetch(url,{
+                
+        //     });
         
             //Not working part - END
 
 
-            
+
             if(res.status !== 200){
                     throw new Error('Error on fetching events');
             }

@@ -10,9 +10,15 @@ export default function EventScreen (){
         queryKey: ['event', id],
         queryFn: () => getEvent(id as string)
     })
-
+    if(isLoading){
+        return <ActivityIndicator />
+    }
+    if(error){
+        return <Text>Wydarzenie nie znalezione</Text>
+    }
     const event = data;
-
+    
+    console.log(data);
     return (
         <View style={styles.container}>  
         <Text>DODAĆ GUZIK EDYTUJ I USUŃ DLA WŁAŚCICIELA</Text>
@@ -25,12 +31,7 @@ export default function EventScreen (){
                 {event.notes && <Text>Notatki: {event.notes}</Text>}
                 </View>
     );
-    if(isLoading){
-        return <ActivityIndicator />
-    }
-    if(error){
-        return <Text>Wydarzenie nie znalezione</Text>
-    }
+    
 }
 
 const styles = StyleSheet.create({

@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, Pressable  } from 'react-native';
 
-import { Link } from 'expo-router';
-import events from '../../assets/data/event'
+import { Link, useSearchParams } from 'expo-router';
+//import events from '../../assets/data/event'
 import { EventType } from '../../types/index';
+import { useQuery } from '@tanstack/react-query';
+import { getEvent } from '../../lib/api/events';
 
 
 
@@ -11,10 +13,16 @@ type EventProps = {
 }
 
 const Event = ({ event }: EventProps) =>{
+    const {id} = useSearchParams();
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['event', id],
+        queryFn: () => getEvent(id as string),
+      });
     return(
         <Link href={`/event/${event.id}`}>
             <Pressable>
                 <View style={styles.container}>  
+                <Text>ID: {event.id}</Text>
                 <Text>Wydarzenie: {event.name}</Text>
                 {event.decoration && <Text>Czy potrzebne dekoracje?: {event.decoration}</Text>}
                 {event.vege && <Text>Ilość osób wegetariańskich: {event.vege}</Text>}

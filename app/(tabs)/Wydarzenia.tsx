@@ -41,9 +41,7 @@ export default function Event () {
             <FlatList 
                 data={data}
                 renderItem={({ item }) => (
-                
                         <EventComponent event={item}/>
-                   
             )}
             horizontal={false}
             numColumns={3}

@@ -7,32 +7,12 @@ export const listEvents = async () => {
 
 
                 //Ta linijka po prostu działa
-            //const res = await fetch(`${API_URL}/event`);
-        //     const settings = {
-        //         method: 'POST',
-        //         headers: {
-        //             Accept: 'application/json',
-        //             Authorization: `Bearer ${authToken}`,
-        //             'Content-Type': 'application/json',
-        //         }
-        //     };
-
-        //         const res = await fetch(url, settings);
-            //Not working part
-            const res = await fetch(url,{
+            const res = await fetch(`${API_URL}/event`,{
                 headers: {
                     Authorization: `Bearer ${authToken}`,
-                    Test: "test",
                   },
             });
-            //Wersja B
-        //     const res = await fetch(url,{
-                
-        //     });
-        
-            //Not working part - END
-
-
+       
 
             if(res.status !== 200){
                     throw new Error('Error on fetching events');

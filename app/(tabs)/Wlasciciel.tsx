@@ -3,6 +3,7 @@ import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
 import EditOpenHoursComponent from '../../components/popUps/editOpenHoursComponent';
 import EditDayDishComponent from '../../components/popUps/editDayDishComponent';
+import NewEventComponent from '../../components/popUps/newEventComponent'
 
 export default function Wlasciciel () {
     return(
@@ -12,6 +13,7 @@ export default function Wlasciciel () {
         <View style={{flexDirection: 'row'}}>
         <EditOpenHoursComponent />
         <EditDayDishComponent />
+        <NewEventComponent />
         
         <View style={styles.buttonBack}>
             <Link href={'/user/usersList'}>

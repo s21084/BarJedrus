@@ -28,3 +28,21 @@ export const getEvent = async (id: string) => {
         return await res.json();
        
 }
+
+export const createEvent = async (data: {content: string}) => {
+              
+        const res = await fetch(`${API_URL}/event`,{
+                method: 'POST',
+                body: JSON.stringify(data),
+        });
+        // const res = await fetch(url,{
+        //     headers: {
+        //         Authorization: `Bearer ${authToken}`
+        //       },
+        // });
+        if(res.status !== 200){
+                throw new Error('Error on fetching events');
+        }
+        return await res.json();
+       
+}

@@ -16,12 +16,9 @@ const Event = ({ event }: EventProps) =>{
             <Pressable>
                 <View style={styles.container}>  
                 <Text>Wydarzenie: {event.name}</Text>
-                {event.decoration && <Text>Czy potrzebne dekoracje?: {event.decoration}</Text>}
-                {event.vege && <Text>Ilość osób wegetariańskich: {event.vege}</Text>}
-                {event.nonvege && <Text>llość osób niewegetariańskich: {event.nonvege}</Text>}
-                {event.prePay && <Text>Przedwpłata: {event.prePay}zł</Text>}
-                {event.payment && <Text>Całość do zapłaty: {event.payment}zł</Text>}
-                {event.notes && <Text>Notatki: {event.notes}</Text>}
+                {event.decoration && <Text>Czy potrzebne dekoracje?: {event.decoration &&<Text>Kupić</Text>} {!event.decoration &&<Text>Brak</Text>}</Text>}
+                {event.vegeCount && <Text>Ilość osób wegetariańskich: {event.vegeCount}</Text>}
+                {event.meatCount && <Text>llość osób niewegetariańskich: {event.meatCount}</Text>}
                 </View>
             </Pressable>
         </Link>

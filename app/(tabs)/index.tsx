@@ -12,9 +12,18 @@ export default function Main () {
     <View>
       <Hedder />
       <View style={styles.container}>
-          <Text>Strona Główna</Text>   
-          <Text>Może jakieś informacje o tym jak obsługiwać/ informacje "o dniu następnym"</Text>  
-      <InfoComponent info= {infos[0]}/>
+          <View style={styles.contenerWelcome}>
+          <Text>Witaj w panelu pracownika. </Text>  
+          <Text>Znajduje siętu 5 paneli które mogą cię zainteresować (i jeden dodatkowy dla właściciela).</Text>  
+          <Text>1. Oferta - tu znajduje się menu oraz dzisiejsze danie dnia</Text>
+          <Text>2. Bar Jędruś - strona na kórej znajdujesz się obecnie</Text>
+          <Text>z informacjami dotyczącymi jutszejszego dnia</Text>
+          <Text>3. Wydarzenia - najbliższe wydarzenia oraz parę szczegółów które pomogą Tobie</Text>
+          <Text>i współpracownikom przygotować się do pracy</Text>
+          <Text>4. Ustawienia - ustawienia użytkownika, możesz tam zmienić mail, nr telefonu i inne</Text>
+          <Text>5. Abonament - lista osób zapisanych na obiady z abonamentem (pomoże ci to w obsłudze klientów)</Text>
+          </View>
+          <InfoComponent info= {infos[0]}/>
       </View>
     </View>
   );
@@ -22,11 +31,16 @@ export default function Main () {
 
 const styles = StyleSheet.create({
   container: {
-        flex: 1,
-        alignItems: 'center',
         padding: 25,
         backgroundColor: '#E2E8CE',
+        flexDirection: 'row',
+        alignItems: 'center'
   },
+  contenerWelcome: {
+    padding: 15,
+    borderRadius:5,
+    backgroundColor: '#47CE83',
+},
   
 
 });

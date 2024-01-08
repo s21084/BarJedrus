@@ -45,14 +45,18 @@ const editDayDishComponent: React.FC<{}> = () => {
                 <Text>Edytuj informacje daniu dnia</Text>
             <TextInput
               style={styles.input}
-              placeholder="Nowa zupa"
+              placeholder="Wprowadź zupy"
               value={newDishes.soup}
+              multiline
+              numberOfLines={5}
               onChangeText={(text) => handleChange('soup', text)}
             />
             <TextInput
               style={styles.input}
-              placeholder="Nowe drugie danie"
+              placeholder="Wprowadź drugie dania"
               value={newDishes.secondDish}
+              multiline
+              numberOfLines={5}
               onChangeText={(text) => handleChange('secondDish', text)}
             />
   

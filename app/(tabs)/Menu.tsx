@@ -4,16 +4,21 @@ import Hedder from '../../components/normal/hedder';
 import DishComponent from '../../components/dishes/dishComponent';
 import DayDishComponent from '../../components/dishes/dayDishComponent';
 import dishes from '../../assets/data/dish'
+import React, { useState } from 'react';
+import { getDayDish } from '../../lib/api/dayDish';
+import { useQuery } from '@tanstack/react-query';
 
-const Offer = () => {
 
+    export default function Offer () {
+      
     return(
         
         <View>
             <Hedder />
             <View style={styles.container}>
-                    <DayDishComponent/>
+            <DayDishComponent />
         <View style={styles.menu}>
+            
              <FlatList 
                 data={dishes}
                 renderItem={({ item }) => (
@@ -53,5 +58,3 @@ const styles = StyleSheet.create({
         
     },
 });
-
-export default Offer;

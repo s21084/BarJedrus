@@ -1,5 +1,5 @@
-import { useSearchParams } from "expo-router";
-import { Text, View, StyleSheet, ActivityIndicator} from 'react-native';
+import { useSearchParams, Link } from "expo-router";
+import { Text, View, StyleSheet, ActivityIndicator, Pressable} from 'react-native';
 import { useQuery } from "@tanstack/react-query";
 import { getEvent } from "../../lib/api/events";
 
@@ -17,17 +17,26 @@ export default function EventScreen (){
         return <Text>Wydarzenie nie znalezione</Text>
     }
     const event = data;
-    
+                console.log(event);
     return (
         <View style={styles.container}>  
-        <Text>DODAĆ GUZIK EDYTUJ I USUŃ DLA WŁAŚCICIELA</Text>
-                <Text>Wydarzenie: {event.name}</Text>
-                {event.decoration && <Text>Czy potrzebne dekoracje?: {event.decoration}</Text>}
-                {event.vege && <Text>Ilość osób wegetariańskich: {event.vege}</Text>}
-                {event.nonvege && <Text>llość osób niewegetariańskich: {event.nonvege}</Text>}
-                {event.prePay && <Text>Przedwpłata: {event.prePay}zł</Text>}
-                {event.payment && <Text>Całość do zapłaty: {event.payment}zł</Text>}
-                {event.notes && <Text>Notatki: {event.notes}</Text>}
+            <View style={styles.eventContainer}>
+                <Text style={styles.hedders}>Wydarzenie: {event.name}</Text>
+                <Text style={styles.hedders}>Czy potrzebne dekoracje?: {event.decoration &&<Text>Kupić</Text>} {!event.decoration &&<Text>Brak</Text>}</Text>
+                {event.vegeCount && <Text style={styles.hedders}>Ilość osób wegetariańskich: {event.vegeCount}</Text>}
+                {event.meatCount && <Text style={styles.hedders}>llość osób niewegetariańskich: {event.meatCount}</Text>}
+                {event.prePay && <Text style={styles.hedders}>Przedwpłata: {event.prePay}zł</Text>}
+                {event.priceFull && <Text style={styles.hedders}>Całość do zapłaty: {event.priceFull}zł</Text>}
+                {event.notes && <Text style={styles.hedders}>Notatki: {event.notes}</Text>}
+            </View>
+                <View style={styles.buttonContainer}>
+                    <Pressable style={styles.button}>
+                        <Text style={styles.buttonText}>Edytuj</Text>
+                    </Pressable>
+                    <Link href="../" style={styles.button}>
+                        <Text style={styles.buttonText}>Usuń</Text>
+                    </Link>
+                </View>
                 </View>
     );
     
@@ -39,4 +48,36 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center'
     },
+    eventContainer: {
+        backgroundColor: '#E2E8CE',
+        padding: 50,
+        margin: 5,
+        borderRadius: 5,
+        alignItems: 'center'
+    },
+    hedders: {
+        fontSize:15,
+        fontWeight: "normal",
+        padding: 3
+    },
+    value: {
+        fontSize:20,
+        fontStyle: "italic"
+    },
+    buttonText: {
+        color: '#E2E8CE',
+        fontWeight: '600',
+        fontSize: 16,
+      },
+    button: {
+        backgroundColor: '#262626',
+        padding: 10,
+        margin: 5,
+        paddingHorizontal: 20,
+        borderRadius: 50,
+      },
+    buttonContainer: {
+        flexDirection: 'row',
+        marginVertical: 10,
+      },
 });

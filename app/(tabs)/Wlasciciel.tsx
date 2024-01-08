@@ -24,7 +24,7 @@ export default function Wlasciciel () {
         <View style={styles.buttonBack}>
             <Link href={'/'}>
                 <Pressable>
-                    <Text style={{padding: 10, fontSize: 30}}>Harmonogram</Text>
+                    <Text style={{padding: 10, fontSize: 30}}>Harmonogram (inProgress...)</Text>
                 </Pressable>
             </Link>
         </View>

@@ -2,10 +2,10 @@ export type EventType = {
     id?: string;
     name: string;
     decoration?: string;
-    vege?: number;
-    nonvege?: number;
+    vegeCount?: number;
+    meatCount?: number;
     prePay?: number;
-    payment?: number;
+    priceFull?: number;
     notes?: string;
 };
 
@@ -25,4 +25,8 @@ export type InfoType = {
     openHour: string;
     closeHour: string;
     bonusInfo?: string;
+};
+
+export type SubscriberType = {
+    id?: string;
 };

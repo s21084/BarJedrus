@@ -11,20 +11,7 @@ const Hedder = () =>{
                     <Text style={styles.textHedder}>Bar Jędruś na Skarpie</Text>
                     </Pressable>
                     </Link>
-                </View>
-                    {userLogOn && (
-                        <View style={styles.logOut}>
-                            <Link href={'../'}>
-                                <Pressable>
-                                    <Text style={styles.buttonText}>Wyloguj</Text>
-                                </Pressable>
-                            </Link>
-                        </View>
-                    )}
-                    
-                
-
-                
+                </View>  
             </View>
         );
 }
@@ -32,11 +19,10 @@ const Hedder = () =>{
 const styles = StyleSheet.create({
     hedder: {
         paddingHorizontal: 250,
-        flexDirection: 'row',
+        alignItems: 'center',
         paddingVertical: 20,
         backgroundColor: '#2A7F50',
         overflow: 'hidden',
-        justifyContent: "space-between"
     },
     hello: {
         padding: 5,

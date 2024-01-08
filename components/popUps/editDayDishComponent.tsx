@@ -75,18 +75,20 @@ const editDayDishComponent: React.FC<{}> = () => {
   // Styles
   const styles = StyleSheet.create({
     container: {
-        padding: 25,
         marginVertical: 5,
         marginHorizontal: 5,
-        backgroundColor: '#47CE83',
         borderRadius: 5, 
         overflow: 'hidden',
+        width:100,
+        height: 50,
+        justifyContent: 'center',
+      alignItems: 'center',
     },
     buttonBack: {
-        padding: 25,
         marginVertical: 5,
         marginHorizontal: 5,
-        backgroundColor: '#47CE83',
+        padding: 5,
+        backgroundColor: '#ACBFA4',
         borderRadius: 5, 
         overflow: 'hidden',
     },

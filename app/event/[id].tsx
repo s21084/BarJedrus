@@ -16,12 +16,15 @@ export default function EventScreen (){
     if(error){
         return <Text>Wydarzenie nie znalezione</Text>
     }
+
     const event = data;
+    const dateEvent = (event.date as unknown as string).slice(0,10);
                 console.log(event);
     return (
         <View style={styles.container}>  
             <View style={styles.eventContainer}>
                 <Text style={styles.hedders}>Wydarzenie: {event.name}</Text>
+                <Text style={styles.hedders}>Data:</Text> <Text>{dateEvent}</Text>
                 <Text style={styles.hedders}>Czy potrzebne dekoracje?: {event.decoration &&<Text>Kupić</Text>} {!event.decoration &&<Text>Brak</Text>}</Text>
                 {event.vegeCount && <Text style={styles.hedders}>Ilość osób wegetariańskich: {event.vegeCount}</Text>}
                 {event.meatCount && <Text style={styles.hedders}>llość osób niewegetariańskich: {event.meatCount}</Text>}

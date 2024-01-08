@@ -11,10 +11,13 @@ type EventProps = {
 }
 
 const Event = ({ event }: EventProps) =>{
+    const dateEvent = (event.date as unknown as string).slice(0,10);
     return(
         <Link href={`/event/${event.id}`}>
             <Pressable>
                 <View style={styles.container}>  
+                
+                <Text style={{fontWeight: 'bold'}}>{dateEvent}</Text>
                 <Text>Wydarzenie: {event.name}</Text>
                 {event.decoration && <Text>Czy potrzebne dekoracje?: {event.decoration &&<Text>Kupić</Text>} {!event.decoration &&<Text>Brak</Text>}</Text>}
                 {event.vegeCount && <Text>Ilość osób wegetariańskich: {event.vegeCount}</Text>}

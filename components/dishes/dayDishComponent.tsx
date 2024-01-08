@@ -36,10 +36,7 @@ export default function DayDishComponent(){
 const styles = StyleSheet.create({
     logInWindow: {
         flex: 1,
-        marginVertical: 5,
         alignItems: 'center',
-        paddingHorizontal: 25,
-        paddingVertical: 5,
         backgroundColor: '#ACBFA4',
         borderRadius: 5,
         overflow: 'hidden',

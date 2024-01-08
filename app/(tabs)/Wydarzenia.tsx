@@ -21,16 +21,16 @@ export default function Event () {
     if(error) {
         return <Text>{error.message}</Text>
     }
-    
-
+    const sortedData = data.slice().sort((a: { date: number; }, b: { date: number; }) => a.date - b.date); //Spróować sortować
     return(
-        <View>
+        <View style={{
+            flex: 1}}>
         <Hedder />
         <View style={{
-        alignItems: 'center'}}>
+        alignItems: 'center', flex: 1}}>
             <Text style={{padding: 10, fontSize: 30}}>Wydarzenia</Text>
             <FlatList 
-                data={data}
+                data={sortedData}
                 renderItem={({ item }) => (
                         <EventComponent event={item}/>
             )}
@@ -44,7 +44,6 @@ export default function Event () {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
         padding: 25,
         backgroundColor: '#E2E8CE',

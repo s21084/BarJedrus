@@ -8,33 +8,20 @@ import { listEvents } from '../../lib/api/events';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Event () {
-    //Wersja działająca
-    //const {data, isLoading, error } = useQuery({
-     //   queryKey:['events'],
-     //   queryFn: listEvents
-    //});
-    //Wersja działająca END
+   
+    const {data, isLoading, error } = useQuery({
+       queryKey:['events'],
+       queryFn: listEvents
+    });
+  
+    if(isLoading){
+        return <ActivityIndicator />;
+    }
 
-    //To nie działa
-     const [events, setEvents] = useState([]);
+    if(error) {
+        return <Text>{error.message}</Text>
+    }
     
-     useEffect(() => {
-         const fetchEvents = async () => {
-             const res = await listEvents();
-             setEvents(res);
-         }
-         fetchEvents();
-     }, []);
-     const data = events;
-    //Do wersji działającej:
-    // if(isLoading){
-    //     return <ActivityIndicator />;
-    // }
-
-    // if(error) {
-    //     return <Text>{error.message}</Text>
-    // }
-    //END
 
     return(
         <View>

@@ -18,7 +18,6 @@ export default function EventScreen (){
     }
     const event = data;
     
-    console.log(data);
     return (
         <View style={styles.container}>  
         <Text>DODAĆ GUZIK EDYTUJ I USUŃ DLA WŁAŚCICIELA</Text>

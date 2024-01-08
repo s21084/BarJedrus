@@ -3,7 +3,7 @@ import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
 import EditOpenHoursComponent from '../../components/popUps/editOpenHoursComponent';
 import EditDayDishComponent from '../../components/popUps/editDayDishComponent';
-import NewEventComponent from '../../components/popUps/newEventComponent'
+import NewEvent from '../new-event';
 
 export default function Wlasciciel () {
     return(
@@ -13,12 +13,10 @@ export default function Wlasciciel () {
         <View style={{flexDirection: 'row'}}>
         <EditOpenHoursComponent />
         <EditDayDishComponent />
-        <NewEventComponent />
-        
         <View style={styles.buttonBack}>
-            <Link href={'/user/usersList'}>
+            <Link href={'/new-event'}>
                 <Pressable>
-                    <Text style={{padding: 10, fontSize: 30}}>Użytkownicy</Text>
+                    <Text style={{padding: 10, fontSize: 30}}>Nowe wydarzenie</Text>
                 </Pressable>
             </Link>
         </View>

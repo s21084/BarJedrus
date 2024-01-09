@@ -11,7 +11,7 @@ export default function Offer() {
   return (
     <View style={styles.container}>
       <View style={styles.menu}>
-        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',}}>
+        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', margin: 5}}>
         <Pressable>
           <DayDishComponent />
         </Pressable>

@@ -31,3 +31,10 @@ export type InfoType = {
 export type SubscriberType = {
     id?: string;
 };
+export type ScheduleType = {
+    id?: string;
+    startHour: Date;
+    endHour: Date;
+    userId: number;
+    weekDayNumber: number;
+};

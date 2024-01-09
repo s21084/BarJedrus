@@ -1,9 +1,9 @@
 import { API_URL, authToken } from "./config";
-export const listDayDish= async () => {
+export const listDish= async () => {
         
          //const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjo1M30.AGejMBePzXTCxieFvKZ3dqPFkwBVz4Lmlt5ogRbZWWw';
         
-            const res = await fetch(`${API_URL}/dayDish`,{
+            const res = await fetch(`${API_URL}/dish`,{
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                   },
@@ -20,8 +20,9 @@ export const listDayDish= async () => {
             
 }
 
-export const getDayDish=  async (id: string) => {          
-        const res = await fetch(`${API_URL}/dayDish/${id}`,{
+export const getDish=  async (id: string) => {
+                               
+        const res = await fetch(`${API_URL}/dish/${id}`,{
                 headers: {
                         Authorization: `Bearer ${authToken}`,
                       },  
@@ -36,9 +37,9 @@ export const getDayDish=  async (id: string) => {
        
 }
 
-export const createDayDish=  async (data: {content: any}) => {
+export const createDish=  async (data: {content: any}) => {
               console.log(data.content);
-        const res = await fetch(`${API_URL}/dayDish`,{
+        const res = await fetch(`${API_URL}/dish`,{
                 method: 'POST',
                 body: data.content,
                 headers: {

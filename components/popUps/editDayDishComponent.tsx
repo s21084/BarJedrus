@@ -5,7 +5,7 @@ import {
   Modal,
   Button,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
 } from 'react-native';
 
@@ -33,11 +33,11 @@ const editDayDishComponent: React.FC<{}> = () => {
     return (
       
         <View style={styles.container}>
-        <TouchableOpacity onPress={() => setIsOpenModal(true)}>
+        <Pressable onPress={() => setIsOpenModal(true)}>
           <View style={styles.buttonBack}>
             <Text>Edytuj danie dnia</Text>
             </View>
-            </TouchableOpacity>
+            </Pressable>
             {/* Form */}
             <Modal visible={isOpenModal} transparent animationType="slide">
             <View style={styles.modalContainer}>
@@ -124,7 +124,7 @@ import {
   Text,
   Modal,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
 } from 'react-native';
 
@@ -177,12 +177,12 @@ const ChangeDishesPopup: React.FC<{
             onChangeText={(text) => handleChange('dinner', text)}
           />
 
-          <TouchableOpacity style={styles.button} onPress={handleSave}>
+          <Pressable style={styles.button} onPress={handleSave}>
             <Text style={styles.buttonText}>Save Changes</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={onClose}>
+          </Pressable>
+          <Pressable style={styles.button} onPress={onClose}>
             <Text style={styles.buttonText}>Cancel</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </Modal>

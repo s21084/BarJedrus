@@ -13,7 +13,8 @@ export type EventType = {
 export type DishType = {
     id?: string;
     name: string;
-    price: number;
+    priceForPiece: number;
+    priceForWeight: number;
 };
 
 export type UserType = {

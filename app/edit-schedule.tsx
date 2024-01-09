@@ -17,7 +17,7 @@ import { createEvent } from '../lib/api/events';
 export default function NewTweet() {
   const [text, setText] = useState('');
   const router = useRouter();
-  const [newSchedule, setNewSchedule] = useState({
+  const [newEvents, setNewEvents] = useState({
     name: '',
     decoration: '',
     date: '',
@@ -41,69 +41,69 @@ export default function NewTweet() {
  
 
   const onEventPress = async () => {
-    console.log(newSchedule);
-    mutate({content: newSchedule})
+    console.log(newEvents);
+    mutate({content: newEvents})
       // setText('');
       // router.back();
   };
-  const handleChange = (field: keyof typeof newSchedule, value: string) => {
+  const handleChange = (field: keyof typeof newEvents, value: string) => {
     
-    setNewSchedule((prev) => ({ ...prev, [field]: value }));
+    setNewEvents((prev) => ({ ...prev, [field]: value }));
   };
  
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={styles.container}>
-       <Text>TUTAJ ZMIENIĆ NA HARMONOGRAM</Text>
+       
 
         <View style={styles.inputContainer}>
         <TextInput
             style = {styles.input}
-            value={newSchedule.name}
+            value={newEvents.name}
             onChangeText={(text) => handleChange('name', text)}
             placeholder="Nazwa wydarzenia"
           />
           <TextInput
           style = {styles.input}
-            value={newSchedule.decoration}
+            value={newEvents.decoration}
             onChangeText={(text) => handleChange('decoration', text)}
             placeholder="Dekoracje"
           />
           <TextInput
           style = {styles.input}
-            value={newSchedule.date}
+            value={newEvents.date}
             onChangeText={(text) => handleChange('date', text)}
             placeholder="dd-mm-rrrr"
             numberOfLines={5}
           />
           <TextInput
           style = {styles.input}
-            value={newSchedule.vegeCount}
+            value={newEvents.vegeCount}
             onChangeText={(text) => handleChange('vegeCount', text)}
             placeholder="Osoby wegetariańskie (podaj liczbę)"
             numberOfLines={5}
           />
           <TextInput
           style = {styles.input}
-            value={newSchedule.meatCount}
+            value={newEvents.meatCount}
             onChangeText={(text) => handleChange('meatCount', text)}
             placeholder="Łączna ilość osób (podaj liczbę)"
           />
           <TextInput
           style = {styles.input}
-            value={newSchedule.prePay}
+            value={newEvents.prePay}
             onChangeText={(text) => handleChange('prePay', text)}
             placeholder="Przedwpłata (podaj tylko liczbę)"
           />
           <TextInput
           style = {styles.input}
-            value={newSchedule.priceFull}
+            value={newEvents.priceFull}
             onChangeText={(text) => handleChange('priceFull', text)}
             placeholder="Pełna cena (podaj tylko liczbę)"
           />
           <TextInput
           style = {styles.input}
-            value={newSchedule.notes}
+            value={newEvents.notes}
             onChangeText={(text) => handleChange('notes', text)}
             placeholder="Notatki"
             multiline

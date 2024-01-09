@@ -12,7 +12,8 @@ const Dish = ({ dish }: DishProps) => {
             <Pressable>
                 <View style={styles.logInWindow}>   
                 {dish.name && <Text>{dish.name}</Text>}
-                {dish.price && <Text>{dish.price} zł</Text>}
+                {dish.priceForPiece && <Text>{dish.priceForPiece} zł</Text>}
+                {dish.priceForWeight && <Text>{dish.priceForWeight} zł /100g</Text>}
                 </View>
             </Pressable>
         </Link>

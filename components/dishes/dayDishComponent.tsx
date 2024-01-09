@@ -1,19 +1,25 @@
-import { StyleSheet, Text, View, TextInput, Pressable  } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, ActivityIndicator  } from 'react-native';
 import { getDayDish } from '../../lib/api/dayDish';
 import { useQuery } from '@tanstack/react-query';
 
 
 export default function DayDishComponent(){
     
-    // const { id } = 1 as any;
+    const id  = "1";
 
-    // const {data, isLoading, error} = useQuery({
-    //     queryKey: ['dayDish', id],
-    //     queryFn: () => getDayDish(id as string)
-    // })
-    // const dayDish = data;
-    // console.log(dayDish)
+    const {data, isLoading, error} = useQuery({
+        queryKey: ['dayDish', id],
+        queryFn: () => getDayDish(id as string)
+    })
+    console.log("dday dish ", data)
 
+    if(isLoading){
+        return <ActivityIndicator />
+    }
+    if(error){
+        return <Text>Wydarzenie nie znalezione</Text>
+    }
+    
     return(
             <View style={{alignItems: 'center'}}>
                 <View style={styles.logInWindow}>
@@ -21,11 +27,11 @@ export default function DayDishComponent(){
                     <View style={styles.dishes}>
                         <View style={styles.dishType}>  
                         <Text>Zupy:</Text> 
-                            <Text>Jeszcze nie działa nwm czemu</Text>
+                        {data.soup && <Text>{data.soup}</Text>}
                         </View>
                         <View style={styles.dishType}>
                         <Text>Drugie Dania:</Text>
-                            <Text>Czemu to nie działa</Text>
+                        {data.secondDish && <Text>{data.secondDish}</Text>}
                         </View>
                     </View>
                 </View>

@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, Pressable, FlatList} from 'react-native';
 import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
 import EditOpenHoursComponent from '../../components/popUps/editOpenHoursComponent';
-import NewEvent from '../new-event';
+
 
 export default function Wlasciciel () {
     return(
@@ -18,15 +18,15 @@ export default function Wlasciciel () {
                 </Pressable>
             </Link>
         </View>
-        </View>
         <View style={styles.buttonBack}>
-            <Link href={'/'}>
+            <Link href={'/edit-schedule'}>
                 <Pressable>
-                    <Text style={styles.buttonText}>Harmonogram (inProgress...)</Text>
+                    <Text style={styles.buttonText}>Edytuj harmonogram</Text>
                 </Pressable>
             </Link>
         </View>
-        
+        </View>
+      
         </View>
         </View>
     );

@@ -110,17 +110,17 @@ const dishes = [
     price:20,
 },
 {
-    id:'3',
+    id:'35',
     name:'Schabowy',
     price:18,
 },
 {
-    id:'4',
+    id:'45',
     name:'Schabowy',
     price:18,
 },
 {
-    id:'5',
+    id:'25',
     name:'Schabowy',
     price:18,
 },

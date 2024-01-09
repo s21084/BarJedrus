@@ -1,13 +1,28 @@
 import React from 'react';
-import { StyleSheet, View, Pressable, FlatList } from 'react-native';
+import { StyleSheet, View, Pressable, FlatList, ActivityIndicator, Text } from 'react-native';
 import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
 import DishComponent from '../../components/dishes/dishComponent';
 import DayDishComponent from '../../components/dishes/dayDishComponent';
 import EditDayDishComponent from '../../components/popUps/editDayDishComponent';
 import dishes from '../../assets/data/dish';
+import { listDish } from '../../lib/api/dish';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Offer() {
+
+  const {data, isLoading, error } = useQuery({
+    queryKey:['dishes'],
+    queryFn: listDish
+ });
+
+ if(isLoading){
+  return <ActivityIndicator />
+}
+if(error){
+  return <Text>Wydarzenie nie znalezione</Text>
+}
+
   return (
     <View style={styles.container}>
       <View style={styles.menu}>
@@ -19,7 +34,7 @@ export default function Offer() {
         </View>
         <View style={{ flex: 1 }}>
           <FlatList
-            data={dishes}
+            data={data}
             renderItem={({ item }) => (
               <Link href={`/dish/${item.id}`}>
                 <Pressable>

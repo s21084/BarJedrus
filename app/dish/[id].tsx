@@ -1,22 +1,57 @@
 import { Link, useSearchParams } from "expo-router";
-import { Text, View, StyleSheet, Pressable} from 'react-native';
-import dishes from '../../assets/data/dish'
+import { Text, View, StyleSheet, Pressable, TextInput} from 'react-native';
+import { useEffect, useState } from 'react';
+//import dishes from '../../assets/data/dish'
+import { getDish } from '../../lib/api/dish';
 
 export default function DishScreen (){
+    const [name, setName] = useState('');
+    const [priceForPiece, setPriceForPiece] = useState('');
+    const [priceForWeight, setPriceForWeight] = useState('');
     const { id } = useSearchParams();
 
-    const dish = dishes.find((d) => d.id == id);
+   // const dish = dishes.find((d) => d.id == id);
 
-    if(!dish){
-        return <Text> Dania nie znaleziono </Text>
-    }
+    useEffect(() => {
+        const fetchDish = async () => {
+            const res = await getDish( id as string );
+            
+            console.log("res", res)
+            setName(res.name);
+            setPriceForPiece(res.priceForPiece);
+            setPriceForWeight(res.priceForWeight);
+            console.log(res)
+        }
+        fetchDish()
+    }, [])
+
+    
     return (
         <View style={styles.logInWindow}>   
             <View style={styles.dishContainer}>
             <Text style={styles.hedders}>Danie:</Text>
-            {dish.name && <Text style={styles.value}>{dish.name}</Text>}
-            <Text style={styles.hedders}>Cena:</Text>
-            {dish.price && <Text style={styles.value}>{dish.price} zł</Text>}
+            <Text>Nazwa dania:</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setName(newText)}
+            defaultValue={name}
+            placeholder="Nazwa"
+            />
+            <Text>Cena za porcje</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setPriceForPiece(newText)}
+            defaultValue={priceForPiece}
+            placeholder="Cena za porcje"
+            />
+            <Text>Cena za wage</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setPriceForWeight(newText)}
+            defaultValue={priceForWeight}
+            placeholder="Cena za 100g"
+            />
+            <Text>Cena która nie dotyczy powinna zostać pusta</Text>
             </View>
             <View style={styles.buttonContainer}>
                     <Pressable style={styles.button}>
@@ -43,6 +78,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: 'center'
     },
+    input: {
+        padding: 5,
+        width: 200,
+        borderColor: '#262626',
+        margin: 5,
+        backgroundColor: '#ACBFA4',
+        borderRadius:5,
+      },
     hedders: {
         fontSize:25,
         fontWeight: "bold"

@@ -1,9 +1,9 @@
 import { API_URL, authToken } from "./config";
-export const listDayDish= async () => {
+export const listUsers = async () => {
         
          //const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjo1M30.AGejMBePzXTCxieFvKZ3dqPFkwBVz4Lmlt5ogRbZWWw';
         
-            const res = await fetch(`${API_URL}/dayDish`,{
+            const res = await fetch(`${API_URL}/user`,{
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                   },
@@ -13,15 +13,16 @@ export const listDayDish= async () => {
                 throw new Error('Error with authorization');
         }
             if(res.status !== 200){
-                    throw new Error('Error on fetching dayDish');
+                    throw new Error('Error on fetching events');
             }
             
             return await res.json();
             
 }
 
-export const getDayDish=  async (id: string) => {          
-        const res = await fetch(`${API_URL}/dayDish/${id}`,{
+export const getUser = async (id: string) => {
+              
+        const res = await fetch(`${API_URL}/user/${id}`,{
                 headers: {
                         Authorization: `Bearer ${authToken}`,
                       },  
@@ -30,15 +31,15 @@ export const getDayDish=  async (id: string) => {
                 throw new Error('Error with authorization');
         }
         if(res.status !== 200){
-                throw new Error('Error on fetching dayDish');
+                throw new Error('Error on fetching events');
         }
         return await res.json();
        
 }
 
-export const createDayDish=  async (data: {content: any}) => {
+export const createUser = async (data: {content: any}) => {
               console.log(data.content);
-        const res = await fetch(`${API_URL}/dayDish`,{
+        const res = await fetch(`${API_URL}/user`,{
                 method: 'POST',
                 body: data.content,
                 headers: {
@@ -50,8 +51,9 @@ export const createDayDish=  async (data: {content: any}) => {
                 throw new Error('Error with authorization');
         }
         if(res.status !== 200){
-                throw new Error('Error on fetching dayDish');
+                throw new Error('Error on fetching events');
         }
         return await res.json();
        
 }
+

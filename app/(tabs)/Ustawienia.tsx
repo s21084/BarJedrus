@@ -1,18 +1,33 @@
 import { StyleSheet, View, Text, Pressable, FlatList, TextInput} from 'react-native';
 import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
-import {useState} from 'react';
+import { useEffect, useState } from 'react';
+import { getUser } from '../../lib/api/user';
 
-
+const onSavePress = () => {
+//Tutaj muszę zapisać pewnie fetchem nowego użytkownika
+console.log("Hello");
+};
 
 const Settings = () => {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [firstName, setFirstName] = useState('');
     const [surname, setSuname] = useState('');
-    const [street, setStreet] = useState('');
-    const [houseNumber, setHouseNumber] = useState('');
-    const [flatNumber, setFlatNumber] = useState('');
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const res = await getUser("1");;
+            setEmail(res.email);
+            setPhone(res.person.phone)
+            setFirstName(res.person.name)
+            setSuname(res.person.surname)
+        }
+        fetchUser()
+    }, [])
+    
+
+    
         return(
             <View>
             <Hedder />
@@ -42,33 +57,10 @@ const Settings = () => {
             defaultValue={phone}
             placeholder="Twój nr telefonu"
             />
-            <TextInput
-            style = {styles.input}
-            onChangeText={newText => setStreet(newText)}
-            defaultValue={street}
-            placeholder="Ulica"
-            />
-            <TextInput
-            style = {styles.input}
-            onChangeText={newText => setPhone(newText)}
-            defaultValue={phone}
-            placeholder="Numer domu"
-            />
-            <TextInput
-            style = {styles.input}
-            onChangeText={newText => setHouseNumber(newText)}
-            defaultValue={houseNumber}
-            placeholder="Numer mieszkania"
-            />
-            <TextInput
-            style = {styles.input}
-            onChangeText={newText => setFlatNumber(newText)}
-            defaultValue={flatNumber}
-            placeholder="Miasto"
-            />
+            
             </View>
                 <View style={styles.buttonContainer}>
-                    <Pressable  style={styles.button}>
+                    <Pressable  style={styles.button} onPress={onSavePress}>
                         <Text style={styles.buttonText}>Zapisz</Text>
                     </Pressable>
                 </View>

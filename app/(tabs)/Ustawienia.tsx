@@ -1,5 +1,4 @@
-import { StyleSheet, View, Text, Pressable, FlatList, TextInput} from 'react-native';
-import { Link } from 'expo-router';
+import { StyleSheet, View, Text, Pressable, TextInput} from 'react-native';
 import Hedder from '../../components/normal/hedder';
 import { useEffect, useState } from 'react';
 import { getUser } from '../../lib/api/user';

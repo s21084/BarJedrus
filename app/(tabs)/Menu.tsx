@@ -5,12 +5,10 @@ import Hedder from '../../components/normal/hedder';
 import DishComponent from '../../components/dishes/dishComponent';
 import DayDishComponent from '../../components/dishes/dayDishComponent';
 import EditDayDishComponent from '../../components/popUps/editDayDishComponent';
-import dishes from '../../assets/data/dish';
 import { listDish } from '../../lib/api/dish';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Offer() {
-
   const {data, isLoading, error } = useQuery({
     queryKey:['dishes'],
     queryFn: listDish
@@ -43,7 +41,7 @@ if(error){
               </Link>
             )}
             horizontal={false}
-            numColumns={5}
+            numColumns={8}
           />
         </View>
       </View>

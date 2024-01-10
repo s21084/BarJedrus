@@ -1,29 +1,99 @@
 import { useSearchParams, Link } from "expo-router";
-import { Text, View, StyleSheet, ActivityIndicator, Pressable} from 'react-native';
-import { useQuery } from "@tanstack/react-query";
+import { Text, View, StyleSheet, TextInput, Pressable} from 'react-native';
+import { useEffect, useState } from 'react';
 import { getSubscription } from '../../lib/api/subscribtion';
+
+
+
+
 
 export default function SubscriberScreen (){
     const { id } = useSearchParams();
 
-    const {data, isLoading, error} = useQuery({
-        queryKey: ['subscription', id],
-        queryFn: () => getSubscription(id as string)
-    })
-    if(isLoading){
-        return <ActivityIndicator />
-    }
-    if(error){
-        return <Text>Wydarzenie nie znalezione</Text>
-    }
-    const event = data;
+    // const {data, isLoading, error} = useQuery({
+    //     queryKey: ['subscription', id],
+    //     queryFn: () => getSubscription(id as string)
+    // })
+    const [lastMonthPayed, setLastMonthPayed] = useState('');
+    const [dishType, setDishType] = useState('');
+    const [countOfDish, setCountOfDish] = useState('');
+    const [onPlace, setOnPlace] = useState('');
+    const [notes, setNotes] = useState('');
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+
+    useEffect(() => {
+        const fetchSub = async () => {
+            const res = await getSubscription( id as string );
+            
+            setLastMonthPayed(res.lastMonthPayed);
+            setDishType(res.dishType);
+            setCountOfDish(res.countOfDish);
+            setOnPlace(res.onPlace);
+            setNotes(res.notes);
+            setName(res.person.name);
+            setSurname(res.person.surname);
+            
+        }
+        fetchSub()
+    }, [])
+    
+    // if(isLoading){
+    //     return <ActivityIndicator />
+    // }
+    // if(error){
+    //     return <Text>Wydarzenie nie znalezione</Text>
+    // }
+
+
+
                 console.log(event);
     return (
         <View style={styles.container}>  
             <View style={styles.eventContainer}>
-                <Text style={styles.hedders}>Informacje o osobie z abonamentem</Text>
-                <Text style={styles.hedders}>{data.person.name} {data.person.surname}</Text>
-                <Text style={styles.hedders}>Ostatni zapłacony miesiąc: {data.lastMonthPayed}</Text>
+            <Text>Imię:</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setName(newText)}
+            defaultValue={name}
+            placeholder="Imie"
+            />
+            <Text>Nazwisko:</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setSurname(newText)}
+            defaultValue={surname}
+            placeholder="Nazwisko"
+            />
+            <Text>Wykupiony miesiąc:</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setLastMonthPayed(newText)}
+            defaultValue={lastMonthPayed}
+            placeholder="Ostatni miesiąc zapłacony"
+            />
+            <Text>Ilość wykupionych posiłków:</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setCountOfDish(newText)}
+            defaultValue={countOfDish}
+            placeholder="Ilość posiłków wykupionych"
+            />
+            <Text>Rodzaj obiad (pełny lub połówka):</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setDishType(newText)}
+            defaultValue={dishType}
+            placeholder="Rodzaj obiadu"
+            />
+            <Text>Notatki:</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setNotes(newText)}
+            defaultValue={notes}
+            placeholder="Notatki"
+            multiline
+            />
             </View>
                 <View style={styles.buttonContainer}>
                     <Pressable style={styles.button}>
@@ -44,6 +114,14 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center'
     },
+    input: {
+        padding: 5,
+        width: 500,
+        borderColor: '#262626',
+        margin: 5,
+        backgroundColor: '#ACBFA4',
+        borderRadius:5,
+      },
     eventContainer: {
         backgroundColor: '#E2E8CE',
         padding: 50,

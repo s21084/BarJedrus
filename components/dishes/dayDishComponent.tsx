@@ -11,7 +11,7 @@ export default function DayDishComponent(){
         queryKey: ['dayDish', id],
         queryFn: () => getDayDish(id as string)
     })
-    console.log("dday dish ", data)
+    //console.log("dday dish ", data)
 
     if(isLoading){
         return <ActivityIndicator />

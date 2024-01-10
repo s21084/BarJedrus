@@ -1,36 +1,102 @@
 import { useSearchParams, Link } from "expo-router";
-import { Text, View, StyleSheet, ActivityIndicator, Pressable} from 'react-native';
+import { Text, View, StyleSheet, TextInput, Pressable} from 'react-native';
 import { useQuery } from "@tanstack/react-query";
 import { getEvent } from "../../lib/api/events";
+import { useEffect, useState } from 'react';
 
 export default function EventScreen (){
     const { id } = useSearchParams();
 
-    const {data, isLoading, error} = useQuery({
-        queryKey: ['event', id],
-        queryFn: () => getEvent(id as string)
-    })
-    if(isLoading){
-        return <ActivityIndicator />
-    }
-    if(error){
-        return <Text>Wydarzenie nie znalezione</Text>
-    }
+    const [name, setName] = useState('');
+    const [date, setDate] = useState('');
+    const [decoration, setDecoration] = useState('');
+    const [vegeCount, setVegeCount] = useState('');
+    const [prePay, setPrePay] = useState('');
+    const [notes, setNotes] = useState('');
+    const [priceFull, setPriceFull] = useState('');
+    const [meatCount, setMeatCount] = useState('');
 
-    const event = data;
-    const dateEvent = (event.date as unknown as string).slice(0,10);
+
+    useEffect(() => {
+        const fetchSub = async () => {
+            const res = await getEvent( id as string );
+        
+            setName(res.name);
+            setDate(res.date);
+            setDecoration(res.decoration);
+            setVegeCount(res.vegeCount);
+            setPrePay(res.prePay);
+            setNotes(res.notes);
+            setPriceFull(res.priceFull);
+            setMeatCount(res.meatCount);
+            
+        }
+        fetchSub()
+    }, [])
+
+
+    const dateEvent = (date as unknown as string).slice(0,10);
                 console.log(event);
     return (
         <View style={styles.container}>  
             <View style={styles.eventContainer}>
-                <Text style={styles.hedders}>Wydarzenie: {event.name}</Text>
-                <Text style={styles.hedders}>Data:</Text> <Text>{dateEvent}</Text>
-                <Text style={styles.hedders}>Czy potrzebne dekoracje?: {event.decoration &&<Text>Kupić</Text>} {!event.decoration &&<Text>Brak</Text>}</Text>
-                {event.vegeCount && <Text style={styles.hedders}>Ilość osób wegetariańskich: {event.vegeCount}</Text>}
-                {event.meatCount && <Text style={styles.hedders}>llość osób niewegetariańskich: {event.meatCount}</Text>}
-                {event.prePay && <Text style={styles.hedders}>Przedwpłata: {event.prePay}zł</Text>}
-                {event.priceFull && <Text style={styles.hedders}>Całość do zapłaty: {event.priceFull}zł</Text>}
-                {event.notes && <Text style={styles.hedders}>Notatki: {event.notes}</Text>}
+                <Text>Nazwa</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setName(newText)}
+            defaultValue={name}
+            placeholder="Nazwa"
+            />
+            <Text>Data</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setDate(newText)}
+            defaultValue={date}
+            placeholder="Data"
+            />
+            <Text>Czy przygotować dekoracje?</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setDecoration(newText)}
+            defaultValue={decoration}
+            placeholder="Czy przygotować dekoracje?"
+            />
+            <Text>Ilość osób mięsnych</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setMeatCount(newText)}
+            defaultValue={meatCount}
+            placeholder="Ilość osób mięsnych"
+            /> 
+            <Text>Ilość osób veg</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setVegeCount(newText)}
+            defaultValue={vegeCount}
+            placeholder="Ilość osób vege"
+            /> 
+            <Text>Przedwpłata</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setPrePay(newText)}
+            defaultValue={prePay}
+            placeholder="Przedwpłata"
+            />
+            <Text>Pełna cena</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setPriceFull(newText)}
+            defaultValue={priceFull}
+            placeholder="Pełna cena"
+            />
+            <Text>Notatki</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setNotes(newText)}
+            defaultValue={notes}
+            placeholder="Notatki"
+            multiline
+            />
             </View>
                 <View style={styles.buttonContainer}>
                     <Pressable style={styles.button}>
@@ -40,7 +106,7 @@ export default function EventScreen (){
                         <Text style={styles.buttonText}>Usuń</Text>
                     </Link>
                 </View>
-                </View>
+    </View>
     );
     
 }
@@ -58,6 +124,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: 'center'
     },
+    input: {
+        padding: 5,
+        width: 500,
+        borderColor: '#262626',
+        margin: 5,
+        backgroundColor: '#ACBFA4',
+        borderRadius:5,
+      },
     hedders: {
         fontSize:15,
         fontWeight: "normal",

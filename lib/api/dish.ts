@@ -13,7 +13,7 @@ export const listDish= async () => {
                 throw new Error('Error with authorization');
         }
             if(res.status !== 200){
-                    throw new Error('Error on fetching dayDish');
+                    throw new Error('Error on fetching dish2');
             }
             
             return await res.json();
@@ -31,28 +31,72 @@ export const getDish=  async (id: string) => {
                 throw new Error('Error with authorization');
         }
         if(res.status !== 200){
-                throw new Error('Error on fetching dayDish');
+                throw new Error('Error on fetching dish3');
         }
         return await res.json();
        
 }
 
-export const createDish=  async (data: {content: any}) => {
-              console.log(data.content);
+export const createDish=  async (data: {name: string, priceForPiece: number, priceForWeight: number}) => {
+        data.priceForPiece.valueOf
+              console.log("Informacje", JSON.stringify(data));
         const res = await fetch(`${API_URL}/dish`,{
                 method: 'POST',
-                body: data.content,
+                body: JSON.stringify(data),
                 headers: {
                         Authorization: `Bearer ${authToken}`,
                         'Content-type':'application/json'
                       },
         });
+        console.log("res.status", res);
         if(res.status == 401){
                 throw new Error('Error with authorization');
         }
         if(res.status !== 200){
-                throw new Error('Error on fetching dayDish');
+                throw new Error('Error on fetching dish4');
         }
         return await res.json();
        
+}
+
+
+
+export const editDish=  async ({ id, data }: { id: string; data: {name: string, priceForPiece: number, priceForWeight: number}}) => {
+              console.log("Informacje", JSON.stringify(data));
+        const res = await fetch(`${API_URL}/dish/${id}`,{
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                        Authorization: `Bearer ${authToken}`,
+                        'Content-type':'application/json'
+                      },
+        });
+        console.log("res.status", res);
+        if(res.status == 401){
+                throw new Error('Error with authorization');
+        }
+        if(res.status !== 200){
+                throw new Error('Error on fetching dish4');
+        }
+        return await res.json();
+       
+}
+
+export const deleteDish=  async (id: string) => {
+  const res = await fetch(`${API_URL}/dish/${id}`,{
+          method: 'DELETE',
+          headers: {
+                  Authorization: `Bearer ${authToken}`,
+                  'Content-type':'application/json'
+                },
+  });
+  console.log("res.status", res);
+  if(res.status == 401){
+          throw new Error('Error with authorization');
+  }
+  if(res.status !== 200){
+          throw new Error('Error on fetching dish4');
+  }
+  return await res.json();
+ 
 }

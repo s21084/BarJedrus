@@ -8,32 +8,33 @@ import {
   TextInput,
   Pressable,
   SafeAreaView,
-  ActivityIndicator,
 } from 'react-native';
-
+import { useMutation } from '@tanstack/react-query';
+import { createDish } from '../lib/api/dish';
 
 export default function NewDish() {
-  
-  const router = useRouter();
-
 const [name, setName] = useState('');
 const [priceForPiece, setPriceForPiece] = useState('');
 const [priceForWeight, setPriceForWeight] = useState('');
+const router = useRouter();
+
+
+const { mutate, isError, error, status } = useMutation({
+
+  mutationFn: createDish
+
+});
 
 
 
 
-
-  
- 
-
-  const onEventPress = async () => {
-    
-      // setText('');
-      // router.back();
-  };
-  const handleChange = () => {
-    
+  const onDishPress = async () => {
+    const pricePieceNum = parseInt(priceForPiece);
+    const priceWeightNum = parseInt(priceForWeight);
+      mutate({ name: name, priceForPiece: pricePieceNum, priceForWeight: priceWeightNum})
+      console.log("Sprawdzam status: ", status)
+      console.log(error)
+      router.back();
   };
  
   return (
@@ -45,21 +46,24 @@ const [priceForWeight, setPriceForWeight] = useState('');
             style = {styles.input}
             value={name}
             placeholder="Nazwa nowego dania"
+            onChangeText={newText => setName(newText)}
           />
           <TextInput
           style = {styles.input}
             value={priceForPiece}
             placeholder="Cena za porcję"
+            onChangeText={newText => setPriceForPiece(newText)}
           />
           <TextInput
           style = {styles.input}
             value={priceForWeight}
             placeholder="Cena za wagę"
+            onChangeText={newText => setPriceForWeight(newText)}
           />
           
         </View>
         <View style={styles.buttonContainer}>
-        <Pressable onPress={onEventPress} style={styles.button}>
+        <Pressable onPress={onDishPress} style={styles.button}>
             <Text style={styles.buttonText}>Zapisz</Text>
           </Pressable>
           <Link href="../" style={styles.button}>

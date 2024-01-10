@@ -1,30 +1,52 @@
-import { Link, useSearchParams } from "expo-router";
+import { Link, useSearchParams, useRouter } from "expo-router";
 import { Text, View, StyleSheet, Pressable, TextInput} from 'react-native';
 import { useEffect, useState } from 'react';
 //import dishes from '../../assets/data/dish'
-import { getDish } from '../../lib/api/dish';
+import { getDish, editDish, deleteDish } from '../../lib/api/dish';
+import { useMutation } from '@tanstack/react-query';
 
 export default function DishScreen (){
     const [name, setName] = useState('');
     const [priceForPiece, setPriceForPiece] = useState('');
     const [priceForWeight, setPriceForWeight] = useState('');
     const { id } = useSearchParams();
+    const router = useRouter();
 
    // const dish = dishes.find((d) => d.id == id);
 
     useEffect(() => {
         const fetchDish = async () => {
             const res = await getDish( id as string );
-            
-            console.log("res", res)
             setName(res.name);
             setPriceForPiece(res.priceForPiece);
             setPriceForWeight(res.priceForWeight);
-            console.log(res)
         }
         fetchDish()
     }, [])
 
+
+    const { mutate, isError, error, status } = useMutation({
+
+        mutationFn: editDish
+      
+      });
+      
+        const onDishSave = async () => {
+          const pricePieceNum = parseInt(priceForPiece);
+          const priceWeightNum = parseInt(priceForWeight);
+          const newId = id as string;
+            mutate({ id: id as string, data: { name, priceForPiece: pricePieceNum, priceForWeight: priceWeightNum } });
+            console.log("Sprawdzam status: ", status)
+            console.log(error)
+            router.back();
+        };
+        const onDishDelete = async () => {
+            const DeleteDish = async () => {
+                await deleteDish( id as string );
+            }
+            DeleteDish()
+              router.back();
+          };
     
     return (
         <View style={styles.logInWindow}>   
@@ -54,11 +76,13 @@ export default function DishScreen (){
             <Text>Cena która nie dotyczy powinna zostać pusta</Text>
             </View>
             <View style={styles.buttonContainer}>
-                    <Pressable style={styles.button}>
-                        <Text style={styles.buttonText}>Edytuj</Text>
+                    <Pressable style={styles.button} onPress={onDishSave}>
+                        <Text style={styles.buttonText}>Zapisz zmiany</Text>
                     </Pressable>
-                    <Link href="../" style={styles.button}>
-                        <Text style={styles.buttonText}>Usuń</Text>
+                    <Link href="../">
+                        <Pressable style={styles.button} onPress={onDishDelete}>
+                            <Text style={styles.buttonText}>Usuń</Text>
+                        </Pressable>
                     </Link>
                 </View>
         </View>

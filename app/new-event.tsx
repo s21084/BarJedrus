@@ -46,6 +46,7 @@ const [priceFull, setPriceFull] = useState('');
  
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <Text>Z JAKIEGOŚ POWODU MI NIE CHCE WARTOŚCI NA BOOLEAN ZAMIENIC</Text>
       <View style={styles.container}>
 
         <View style={styles.inputContainer}>

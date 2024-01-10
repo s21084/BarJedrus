@@ -31,6 +31,12 @@ export type InfoType = {
 
 export type SubscriberType = {
     id?: string;
+    lastMonthPayed: string;
+    dishType: Boolean;
+    countOfDish?: string;
+    onPlace: Boolean;
+    notes?: string;
+    personId: number;
 };
 export type ScheduleType = {
     id?: string;

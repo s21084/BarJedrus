@@ -1,22 +1,44 @@
-import { StyleSheet, Text, View, TextInput, Pressable  } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, ActivityIndicator  } from 'react-native';
 
 import { SubscriberType } from '../types/index';
-import { Link } from 'expo-router';
+import { Link, useSearchParams } from 'expo-router';
+import { getSubscription } from '../lib/api/subscribtion';
+import { useQuery } from '@tanstack/react-query';
 
 type SubscriberProps = {
-    subscriber: SubscriberType;
+    sub: SubscriberType;
 }
-const Dish = ({ subscriber }: SubscriberProps) => {
+
+
+const Subscripe = ( { sub }: SubscriberProps ) => {
+    console.log("id tutaj", sub.id)
+
+    const {data, isLoading, error } = useQuery({
+        queryKey:['subscription', sub],
+        queryFn: () => getSubscription(sub.id as string)
+     });
+
+     console.log("data", data)
+
+     if(isLoading){
+        return <ActivityIndicator />
+    }
+    if(error){
+        return <Text>Subskrybeci nie znalezieni</Text>
+    }
     return(
-        <Link href={`/subscriber/${subscriber.id}`}>
+        <Link href={`/subscription/${sub.id}`}>
             <Pressable>
-                <View style={styles.logInWindow}>   
-                {subscriber.id && <Text>{subscriber.id}</Text>}
+                <View style={styles.logInWindow}> 
+                <Text>Nazwisko: {data.person.surname}</Text>  
+                <Text>Lokalizacja: {!data.onPlace && <Text>Wyjazdowo</Text>}{data.onPlace && <Text>Na miejscu</Text>}</Text>
                 </View>
             </Pressable>
         </Link>
         );
 }
+
+
 
 const styles = StyleSheet.create({
     logInWindow: {
@@ -34,4 +56,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Dish;
+export default Subscripe;

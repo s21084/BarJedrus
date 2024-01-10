@@ -19,9 +19,23 @@ export default function Wlasciciel () {
             </Link>
         </View>
         <View style={styles.buttonBack}>
-            <Link href={'/edit-schedule'}>
+            <Link href={'/new-dish'}>
                 <Pressable>
-                    <Text style={styles.buttonText}>Edytuj harmonogram</Text>
+                    <Text style={styles.buttonText}>Dodaj danie</Text>
+                </Pressable>
+            </Link>
+        </View>
+        <View style={styles.buttonBack}>
+            <Link href={'/users-list'}>
+                <Pressable>
+                    <Text style={styles.buttonText}>Lista pracowników</Text>
+                </Pressable>
+            </Link>
+        </View>
+        <View style={styles.buttonBack}>
+            <Link href={'/new-subscription'}>
+                <Pressable>
+                    <Text style={styles.buttonText}>Nowy abonamentowicz</Text>
                 </Pressable>
             </Link>
         </View>

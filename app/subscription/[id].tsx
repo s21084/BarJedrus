@@ -1,14 +1,14 @@
 import { useSearchParams, Link } from "expo-router";
 import { Text, View, StyleSheet, ActivityIndicator, Pressable} from 'react-native';
 import { useQuery } from "@tanstack/react-query";
-import { getEvent } from "../../lib/api/events";
+import { getSubscription } from '../../lib/api/subscribtion';
 
 export default function SubscriberScreen (){
     const { id } = useSearchParams();
 
     const {data, isLoading, error} = useQuery({
-        queryKey: ['event', id],
-        queryFn: () => getEvent(id as string)
+        queryKey: ['subscription', id],
+        queryFn: () => getSubscription(id as string)
     })
     if(isLoading){
         return <ActivityIndicator />
@@ -22,7 +22,8 @@ export default function SubscriberScreen (){
         <View style={styles.container}>  
             <View style={styles.eventContainer}>
                 <Text style={styles.hedders}>Informacje o osobie z abonamentem</Text>
-                <Text style={styles.hedders}>{id}</Text>
+                <Text style={styles.hedders}>{data.person.name} {data.person.surname}</Text>
+                <Text style={styles.hedders}>Ostatni zapłacony miesiąc: {data.lastMonthPayed}</Text>
             </View>
                 <View style={styles.buttonContainer}>
                     <Pressable style={styles.button}>

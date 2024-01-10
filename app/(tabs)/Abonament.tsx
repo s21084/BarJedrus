@@ -1,27 +1,40 @@
-import { StyleSheet, View, Text, Pressable, FlatList} from 'react-native';
+import { StyleSheet, View, Text, Pressable, FlatList, ActivityIndicator} from 'react-native';
 import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
-import SubscriberComponent from '../../components/subscribersComponent'
+import SubscrierComponent from '../../components/subscribersComponent'
+import { listSubscriptions } from '../../lib/api/subscribtion';
+import { useQuery } from '@tanstack/react-query';
 
 const userLogOn = true; /* TO PÓŹNIEJ BĘDZIE INACZEJ SPRAWDZANE */
 
 const dummyData = [
 {
-    id:'1'
-},
-{
-    id:'2'
-},
-{
-    id:'3'
-},
-{
-    id:'4'
+    id: "1",
+    lastMonthPayed: "Lipiec",
+    dishType: false,
+    countOfDish: "pełny",
+    onPlace: true,
+    notes: "string",
+    personId: 1,
 },
 ];
 
 
-const Settings = () => {
+const SubscriptionsScreen = () => {
+    
+    const {data, isLoading, error } = useQuery({
+        queryKey:['subscription'],
+        queryFn: listSubscriptions
+     });
+    // console.log("test id ", data[0].id)
+     if(isLoading){
+         return <ActivityIndicator />;
+     }
+ 
+     if(error) {
+         return <Text>{error.message}</Text>
+     }
+
     if(userLogOn){
         return(
             <View>
@@ -29,9 +42,9 @@ const Settings = () => {
             <View style={{ alignItems: 'center' }}>
             <Text style={{ padding: 10, fontSize: 30 }}>Subskrybenci</Text>
             <FlatList 
-                data={dummyData}
+                data={data}
                 renderItem={({ item }) => (
-                        <SubscriberComponent subscriber={item}/>
+                        <SubscrierComponent sub={item}/>
             )}
             horizontal={false}
             numColumns={4}
@@ -70,4 +83,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Settings;
+export default SubscriptionsScreen;

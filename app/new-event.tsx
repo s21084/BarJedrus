@@ -54,7 +54,6 @@ export default function NewTweet() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={styles.container}>
-       <Text>TUTAJ ZMIENIĆ NA HARMONOGRAM</Text>
 
         <View style={styles.inputContainer}>
         <TextInput

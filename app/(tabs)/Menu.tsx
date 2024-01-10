@@ -4,7 +4,6 @@ import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
 import DishComponent from '../../components/dishes/dishComponent';
 import DayDishComponent from '../../components/dishes/dayDishComponent';
-import EditDayDishComponent from '../../components/popUps/editDayDishComponent';
 import { listDish } from '../../lib/api/dish';
 import { useQuery } from '@tanstack/react-query';
 
@@ -28,7 +27,6 @@ if(error){
         <Pressable>
           <DayDishComponent />
         </Pressable>
-        <EditDayDishComponent />
         </View>
         <View style={{ flex: 1 }}>
           <FlatList

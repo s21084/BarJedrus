@@ -18,15 +18,11 @@ const [priceForPiece, setPriceForPiece] = useState('');
 const [priceForWeight, setPriceForWeight] = useState('');
 const router = useRouter();
 
-
 const { mutate, isError, error, status } = useMutation({
 
   mutationFn: createDish
 
 });
-
-
-
 
   const onDishPress = async () => {
     const pricePieceNum = parseInt(priceForPiece);

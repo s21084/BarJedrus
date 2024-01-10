@@ -37,23 +37,24 @@ export const getUser = async (id: string) => {
        
 }
 
-export const createUser = async (data: {content: any}) => {
-              console.log(data.content);
-        const res = await fetch(`${API_URL}/user`,{
-                method: 'POST',
-                body: data.content,
-                headers: {
-                        Authorization: `Bearer ${authToken}`,
-                        'Content-type':'application/json'
-                      },
-        });
-        if(res.status == 401){
-                throw new Error('Error with authorization');
-        }
-        if(res.status !== 200){
-                throw new Error('Error on fetching events');
-        }
-        return await res.json();
-       
+export const editUser =  async ({ id, data }: { id: string; data: {email: string, isAdmin: boolean, isVerified: boolean}}) => {
+        console.log("Tu wchodze", data);
+  const res = await fetch(`${API_URL}/user/${id}`,{
+          method: 'PUT',
+          body: JSON.stringify(data),
+          headers: {
+                  Authorization: `Bearer ${authToken}`,
+                  'Content-type':'application/json'
+                },
+  });
+  if(res.status == 401){
+          throw new Error('Error with authorization');
+  }
+  if(res.status !== 200){
+          throw new Error('Error on fetching events');
+  }
+  return await res.json();
+ 
 }
+
 

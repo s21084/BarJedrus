@@ -55,3 +55,24 @@ export const createDayDish=  async (data: {content: any}) => {
         return await res.json();
        
 }
+
+export const editDayDish=  async ({ id, data }: { id: string; data: {soup: string, secondDish: string}}) => {
+        console.log("Informacje", JSON.stringify(data));
+  const res = await fetch(`${API_URL}/dayDish/${id}`,{
+          method: 'PUT',
+          body: JSON.stringify(data),
+          headers: {
+                  Authorization: `Bearer ${authToken}`,
+                  'Content-type':'application/json'
+                },
+  });
+  console.log("res.status", res);
+  if(res.status == 401){
+          throw new Error('Error with authorization');
+  }
+  if(res.status !== 200){
+          throw new Error('Error on fetching dish4');
+  }
+  return await res.json();
+ 
+}

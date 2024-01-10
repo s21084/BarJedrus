@@ -1,7 +1,9 @@
 import { StyleSheet, View, Text, Pressable, TextInput} from 'react-native';
 import Hedder from '../../components/normal/hedder';
 import { useEffect, useState } from 'react';
-import { getUser } from '../../lib/api/user';
+import { getUser, editUser } from '../../lib/api/user';
+import { editPerson } from '../../lib/api/person';
+import { useMutation } from '@tanstack/react-query';
 
 const onSavePress = () => {
 //Tutaj muszę zapisać pewnie fetchem nowego użytkownika
@@ -9,23 +11,48 @@ console.log("Hello");
 };
 
 const Settings = () => {
+    const STATIC_ID = "1";
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [firstName, setFirstName] = useState('');
     const [surname, setSuname] = useState('');
+    const [personId, setPersonId] = useState('');
+    const [isAdmin, setIsAdmin] = useState('');
+    const [isVerified, setIsVerified] = useState('');
 
     useEffect(() => {
         const fetchUser = async () => {
-            const res = await getUser("1");;
+            const res = await getUser(STATIC_ID);;
             setEmail(res.email);
             setPhone(res.person.phone)
             setFirstName(res.person.name)
             setSuname(res.person.surname)
+            setPersonId(res.personId)
+            setIsAdmin(res.isAdmin)
+            setIsVerified(res.isVerified)
         }
         fetchUser()
     }, [])
     
 
+    const { mutate, isError, error, status } = useMutation({
+
+        mutationFn: editUser
+      
+      });
+
+      const onSave = async () => {
+        const isAdminBool = isAdmin as unknown as boolean;
+        const isVerifiedBool = isVerified as unknown as boolean;
+          mutate({ id: STATIC_ID, data: { email: email, isAdmin: isAdminBool, isVerified: isVerifiedBool } });
+          const EditPerson = async () => {
+            await editPerson({ id: personId, data: { name: firstName, surname: surname, phone: phone } });
+        }
+        EditPerson()
+          
+          console.log("Sprawdzam status: ", status)
+          console.log(error)
+      };
     
         return(
             <View>
@@ -59,10 +86,13 @@ const Settings = () => {
             
             </View>
                 <View style={styles.buttonContainer}>
-                    <Pressable  style={styles.button} onPress={onSavePress}>
+                    <Pressable  style={styles.button} onPress={onSave}>
                         <Text style={styles.buttonText}>Zapisz</Text>
                     </Pressable>
                 </View>
+                
+                {status=="success" && <Text>Dane zmieniono</Text>}
+                {status=="error" && <Text>Coś nie działa</Text>}
             </View>
         );
     

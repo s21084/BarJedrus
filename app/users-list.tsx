@@ -36,25 +36,11 @@ console.log(data);
       style={{flexDirection: 'column'}}
       renderItem={({ item }) => (
         <View style={styles.line}>
-        {item.personId &&<Text style={styles.textLine}>{item.person.name}</Text>}
-        {item.personId &&<Text style={styles.textLine}>{item.person.surname}</Text>}
-        <Text style={styles.textLine}>{item.email}</Text>
-        <View style={styles.buttonBack}>
-            <Link href={'/'}>
-                <Pressable>
-                    <Text style={styles.buttonText}>Harmonogram</Text>
-                </Pressable>
-            </Link>
-          </View>
-          <View style={styles.buttonBack}>
-            <Link href={'/'}>
-                <Pressable>
-                    <Text style={styles.buttonText}>Usuń</Text>
-                </Pressable>
-            </Link>
-          </View>
-          <Text>Uprawienia pracownika:</Text>
-          <Switch
+        {item.personId &&<Text style={styles.textLine}>{item.person.name} {item.person.surname}</Text>}
+        <Text style={{fontSize: 15}}>{item.email}</Text>
+        <View style={{backgroundColor: "#E2E8CE", borderRadius: 5,  padding: 5, margin: 5}}>
+        <Text>Uprawienia pracownika:</Text>
+        <Switch
             trackColor={{ false: '#767577', true: '#81b0ff' }}
             thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
             ios_backgroundColor="#3e3e3e"
@@ -69,6 +55,24 @@ console.log(data);
             onValueChange={toggleSwitch}
             value={isEnabled}
           />
+          </View>
+        <View style={styles.buttonBack}>
+            <Link href={'/'}>
+                <Pressable>
+                    <Text style={styles.buttonText}>Harmonogram</Text>
+                </Pressable>
+            </Link>
+          </View>
+          <View style={styles.buttonBack}>
+                <Pressable>
+                    <Text style={styles.buttonText}>Usuń</Text>
+                </Pressable>
+          </View>
+          <View style={styles.buttonBack}>
+                <Pressable>
+                    <Text style={styles.buttonText}>Zapisz</Text>
+                </Pressable>
+          </View>
         </View>
       )}
     />
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   buttonBack: {
-    padding: 2,
+    padding: 5,
     marginVertical: 2,
     marginHorizontal: 2,
     backgroundColor: '#47CE83',
@@ -111,7 +115,8 @@ buttonText: {
   fontSize: 15,
 },
   textLine: {
-    margin: 5
+    margin: 5,
+    fontWeight: "bold"
   },
   buttonContainer: {
     flexDirection: 'row',

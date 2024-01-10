@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,27 +8,41 @@ import {
   Pressable,
   StyleSheet,
 } from 'react-native';
+import { Link, useSearchParams, useRouter } from "expo-router";
+import { useMutation } from '@tanstack/react-query';
+import { getDayDish, editDayDish } from '../../lib/api/dayDish';
 
 
 const editDayDishComponent: React.FC<{}> = () => {
     // State to hold form data
     
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [newDishes, setNewDishes] = useState({
-      soup: '',
-      secondDish: '',
+    const id  = "1";
+    const [soup, setSoup] = useState('');
+    const [secondDish, setSecondDish] = useState('');
+    const router = useRouter();
+  
+    useEffect(() => {
+      const fetchDish = async () => {
+          const res = await getDayDish( id as string );
+          setSoup(res.soup);
+          setSecondDish(res.secondDish);
+      }
+      fetchDish()
+  }, [])
+    const { mutate, isError, error, status } = useMutation({
+
+      mutationFn: editDayDish
+    
     });
-  
-  
     // Handler to save changes and close the popup
     const handleSave = () => {
-    
+      mutate({ id: id as string, data: { soup, secondDish } });
+      console.log("Sprawdzam status: ", status)
+      console.log(error)
         // Close the modal
         setIsOpenModal(false);
     };
-    const handleChange = (field: keyof typeof newDishes, value: string) => {
-        setNewDishes((prev) => ({ ...prev, [field]: value }));
-      };
   
     return (
       
@@ -46,18 +60,18 @@ const editDayDishComponent: React.FC<{}> = () => {
             <TextInput
               style={styles.input}
               placeholder="Wprowadź zupy"
-              value={newDishes.soup}
+              value={soup}
               multiline
               numberOfLines={5}
-              onChangeText={(text) => handleChange('soup', text)}
+              onChangeText={newText => setSoup(newText)}
             />
             <TextInput
               style={styles.input}
               placeholder="Wprowadź drugie dania"
-              value={newDishes.secondDish}
+              value={secondDish}
               multiline
               numberOfLines={5}
-              onChangeText={(text) => handleChange('secondDish', text)}
+              onChangeText={newText => setSecondDish(newText)}
             />
   
             {/* Buttons */}
@@ -76,6 +90,7 @@ const editDayDishComponent: React.FC<{}> = () => {
   const styles = StyleSheet.create({
     container: {
         marginVertical: 5,
+        borderWidth: 2,
         marginHorizontal: 5,
         borderRadius: 5, 
         overflow: 'hidden',

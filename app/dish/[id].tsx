@@ -34,7 +34,6 @@ export default function DishScreen (){
         const onDishSave = async () => {
           const pricePieceNum = parseInt(priceForPiece);
           const priceWeightNum = parseInt(priceForWeight);
-          const newId = id as string;
             mutate({ id: id as string, data: { name, priceForPiece: pricePieceNum, priceForWeight: priceWeightNum } });
             console.log("Sprawdzam status: ", status)
             console.log(error)

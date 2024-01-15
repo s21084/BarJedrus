@@ -1,9 +1,9 @@
 import { API_URL, authToken } from "./config";
-export const listEvents = async () => {
+export const listAdresss = async () => {
         
          //const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjo1M30.AGejMBePzXTCxieFvKZ3dqPFkwBVz4Lmlt5ogRbZWWw';
         
-            const res = await fetch(`${API_URL}/event`,{
+            const res = await fetch(`${API_URL}/adress`,{
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                   },
@@ -13,16 +13,16 @@ export const listEvents = async () => {
                 throw new Error('Error with authorization');
         }
             if(res.status !== 200){
-                    throw new Error('Error on fetching events');
+                    throw new Error('Error on fetching adresss');
             }
             
             return await res.json();
             
 }
 
-export const getEvent = async (id: string) => {
+export const getAdress = async (id: string) => {
               
-        const res = await fetch(`${API_URL}/event/${id}`,{
+        const res = await fetch(`${API_URL}/adress/${id}`,{
                 headers: {
                         Authorization: `Bearer ${authToken}`,
                       },  
@@ -31,15 +31,15 @@ export const getEvent = async (id: string) => {
                 throw new Error('Error with authorization');
         }
         if(res.status !== 200){
-                throw new Error('Error on fetching events');
+                throw new Error('Error on fetching adresss');
         }
         return await res.json();
        
 }
 
-export const createEvent = async (data: {name: string, date: Date, decoration: boolean, vegeCount: number, meatCount: number, prePay: number, priceFull: number, notes: string, informationBar: 1}) => {
+export const createAdress = async (data: {Street: string, HomeNumber: string, FlatNumber: string, City: string}) => {
         console.log(data);
-        const res = await fetch(`${API_URL}/event`,{
+        const res = await fetch(`${API_URL}/adress`,{
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -52,16 +52,16 @@ export const createEvent = async (data: {name: string, date: Date, decoration: b
                 throw new Error('Error with authorization');
         }
         if(res.status !== 200){
-                throw new Error('Error on fetching events');
+                throw new Error('Error on fetching adresss');
         }
         return await res.json();
        
 }
 
 
-export const editEvent=  async ({ id, data }: { id: string; data: {name: string, date: Date, decoration: boolean, vegeCount: number, meatCount: number, prePay: boolean, priceFull: number, notes: string}}) => {
+export const editAdress=  async ({ id, data }: { id: string; data: {Street: string, HomeNumber: string, FlatNumber: string, City: string}}) => {
         console.log("Informacje", JSON.stringify(data));
-  const res = await fetch(`${API_URL}/event/${id}`,{
+  const res = await fetch(`${API_URL}/adress/${id}`,{
           method: 'PUT',
           body: JSON.stringify(data),
           headers: {
@@ -80,8 +80,8 @@ export const editEvent=  async ({ id, data }: { id: string; data: {name: string,
  
 }
 
-export const deleteEvent=  async (id: string) => {
-        const res = await fetch(`${API_URL}/event/${id}`,{
+export const deleteAdress=  async (id: string) => {
+        const res = await fetch(`${API_URL}/adress/${id}`,{
                 method: 'DELETE',
                 headers: {
                         Authorization: `Bearer ${authToken}`,

@@ -52,7 +52,6 @@ const editDayDishComponent: React.FC<{}> = () => {
             <Text>Edytuj danie dnia</Text>
             </View>
             </Pressable>
-            {/* Form */}
             <Modal visible={isOpenModal} transparent animationType="slide">
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>

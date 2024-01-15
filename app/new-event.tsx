@@ -10,7 +10,7 @@ import {
   SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
-import {useMutation, useQueryClient  } from '@tanstack/react-query'
+import {useMutation  } from '@tanstack/react-query'
 import { createEvent } from '../lib/api/events';
 
 
@@ -34,10 +34,10 @@ const [priceFull, setPriceFull] = useState('');
     const decoBool = decoration as unknown as boolean;
     const vegeCountNum = parseInt(vegeCount);
     const meatCountNum = parseInt(meatCount);
-    const prePayBool = prePay as unknown as boolean;
+    const prePayNum = parseInt(prePay);
     const priceFullNum = parseInt(priceFull);
     const dateType = new Date(date);
-    mutate({name: name, date: dateType, decoration: decoBool, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayBool, priceFull: priceFullNum, notes: notes});
+    mutate({name: name, date: dateType, decoration: decoBool, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes});
     console.log(isError);
     //router.back();
 

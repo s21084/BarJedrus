@@ -56,9 +56,11 @@ function RootLayoutNav() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)/authenticate" options={{ title: "Podaj hasło" }} />
+        <Stack.Screen name="(auth)/signIn" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         <Stack.Screen name="dish/[id]" options={{ title: "Danie" }} />
-        <Stack.Screen name="event/[id]" options={{ title: "Wydarzenie szczegóły" }} />
+        <Stack.Screen name="event/[id]" options={{ title: "Wydarzenie" }} />
       </Stack>
     </ThemeProvider>
 </QueryClientProvider>

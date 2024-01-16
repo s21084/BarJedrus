@@ -9,7 +9,7 @@ import {
   Pressable,
   SafeAreaView,
 } from 'react-native';
-import { useMutation } from '@tanstack/react-query';
+import {  useMutation, useQueryClient } from '@tanstack/react-query';
 import { createDish } from '../lib/api/dish';
 
 export default function NewDish() {
@@ -17,10 +17,15 @@ const [name, setName] = useState('');
 const [priceForPiece, setPriceForPiece] = useState('');
 const [priceForWeight, setPriceForWeight] = useState('');
 const router = useRouter();
+const queryClient = useQueryClient();
 
 const { mutate, isError, error, status } = useMutation({
 
-  mutationFn: createDish
+  mutationFn: createDish,
+  onSuccess: (data) => {
+    queryClient.setQueryData(['dishes'], (existingDishes: any)=>([data, ...existingDishes]))
+
+  }
 
 });
 

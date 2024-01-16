@@ -8,10 +8,12 @@ import { listDish } from '../../lib/api/dish';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Offer() {
-  const {data, isLoading, error } = useQuery({
+  const {data, isLoading, error} = useQuery({
     queryKey:['dishes'],
     queryFn: listDish
  });
+
+
 
  if(isLoading){
   return <ActivityIndicator />

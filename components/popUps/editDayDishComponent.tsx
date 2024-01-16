@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Link, useSearchParams, useRouter } from "expo-router";
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getDayDish, editDayDish } from '../../lib/api/dayDish';
 
 
@@ -21,6 +21,7 @@ const editDayDishComponent: React.FC<{}> = () => {
     const [soup, setSoup] = useState('');
     const [secondDish, setSecondDish] = useState('');
     const router = useRouter();
+    const queryClient = useQueryClient();
   
     useEffect(() => {
       const fetchDish = async () => {
@@ -32,7 +33,12 @@ const editDayDishComponent: React.FC<{}> = () => {
   }, [])
     const { mutate, isError, error, status } = useMutation({
 
-      mutationFn: editDayDish
+      mutationFn: editDayDish,
+      onSuccess: (data) => {
+        queryClient.invalidateQueries( {queryKey: ['dayDishes']});
+        queryClient.setQueryData(['dayDishes'], (existingDayDishes: any)=>([data, ...existingDayDishes]))
+    
+      }
     
     });
     // Handler to save changes and close the popup

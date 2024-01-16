@@ -1,13 +1,23 @@
-import {Text, View, TextInput, Pressable, StyleSheet} from 'react-native'
+import {Text, View, TextInput, Pressable, StyleSheet, Alert} from 'react-native'
 import React, { useState } from 'react'
 import { useSearchParams } from 'expo-router';
+import { authenticate } from '../../lib/api/auth';
 
 const Authenticate = () => {
     const [code, setCode] = useState('');
     const { email } = useSearchParams();
 
     const onAuth = async () => {
-        console.warn('Auth', email, code);
+        if(typeof email !== 'string'){
+            return;
+        }
+        try{
+            console.log(email, "and ", code )
+            const res = await authenticate({email: email, emailToken: code})
+        }catch(e){
+            Alert.alert("ERROR", e.message)
+        }
+
     }
 
     return (
@@ -21,7 +31,7 @@ const Authenticate = () => {
             />
 
             <Pressable style={styles.button} onPress={onAuth}>
-                <Text style={styles.buttonText}>Zaloguj</Text>
+                <Text style={styles.buttonText}>Potwierdź</Text>
             </Pressable>
         </View>
     );

@@ -4,16 +4,18 @@ import EventComponent from '../../components/events/eventComponent';
 import Hedder from '../../components/normal/hedder';
 //import events from '../../assets/data/event'
 import { useEffect, useState } from 'react';
-import { listEvents } from '../../lib/api/events';
+//import { listEvents } from '../../lib/api/events';
 import { useQuery } from '@tanstack/react-query';
+import { useEventApi } from '../../lib/api/events';
 
 export default function Event () {
+   const { listEvents } = useEventApi();
    
     const {data, isLoading, error } = useQuery({
        queryKey:['events'],
        queryFn: listEvents
     });
-  
+    
     if(isLoading){
         return <ActivityIndicator />;
     }
@@ -21,7 +23,7 @@ export default function Event () {
     if(error) {
         return <Text>{error.message}</Text>
     }
-    const sortedData = data.slice().sort((a: { date: number; }, b: { date: number; }) => a.date - b.date); //Spróować sortować
+    //const sortedData = data.slice().sort((a: { date: number; }, b: { date: number; }) => a.date - b.date); //Spróować sortować
     return(
         <View style={{
             flex: 1}}>
@@ -30,12 +32,10 @@ export default function Event () {
         alignItems: 'center', flex: 1}}>
             <Text style={{padding: 10, fontSize: 30}}>Wydarzenia</Text>
             <FlatList 
-                data={sortedData}
-                renderItem={({ item }) => (
-                        <EventComponent event={item}/>
-            )}
-            horizontal={false}
-            numColumns={3}
+                data={data}
+                renderItem={({ item }) => (<EventComponent event={item}/>)}
+                horizontal={false}
+                numColumns={3}
              />
         </View>
         </View>

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput, Pressable, ActivityIndicator  } from 'react-native';
-import { getDayDish, editDayDish } from '../../lib/api/dayDish';
+import { useDayDishApi } from '../../lib/api/dayDish';
 import { Link, useSearchParams, useRouter } from "expo-router";
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
@@ -13,6 +13,8 @@ export default function DayDishComponent(){
     const [secondDish, setSecondDish] = useState('');
     const router = useRouter();
 
+    const { getDayDish } = useDayDishApi();
+    const { editDayDish } = useDayDishApi();
 
     useEffect(() => {
         const fetchDish = async () => {

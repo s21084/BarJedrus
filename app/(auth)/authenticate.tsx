@@ -15,8 +15,9 @@ const Authenticate = () => {
             return;
         }
         try{
+          console.log("Authenticate sprawdzam", email, " ", code)
             const res = await authenticate({email: email, emailToken: code})
-            setAuthToken(res.authToken);
+            await setAuthToken(res.authToken);
         }catch(e){
             Alert.alert("ERROR", e.message)
         }

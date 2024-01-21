@@ -4,10 +4,13 @@ import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
 import DishComponent from '../../components/dishes/dishComponent';
 import DayDishComponent from '../../components/dishes/dayDishComponent';
-import { listDish } from '../../lib/api/dish';
+import { useDishApi } from '../../lib/api/dish';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Offer() {
+
+  const { listDish } = useDishApi();
+
   const {data, isLoading, error} = useQuery({
     queryKey:['dishes'],
     queryFn: listDish

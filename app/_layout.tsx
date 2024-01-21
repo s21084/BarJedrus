@@ -6,6 +6,10 @@ import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import  AuthContextProvider from '../context/AuthContext'
+import AdressApiContetProvider from '../lib/api/adress';
+import EventApiContetProvider from '../lib/api/events';
+import DishApiContetProvider from '../lib/api/dish';
+import DayDishApiContetProvider from '../lib/api/dayDish';
 
 
 const client = new QueryClient();
@@ -54,8 +58,11 @@ function RootLayoutNav() {
 
 <>
 <AuthContextProvider>
+  <AdressApiContetProvider>
+    <DayDishApiContetProvider>
+  <EventApiContetProvider>
+    <DishApiContetProvider>
   <QueryClientProvider client={client}>
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)/authenticate" options={{ title: "Podaj hasło" }} />
@@ -64,8 +71,11 @@ function RootLayoutNav() {
         <Stack.Screen name="dish/[id]" options={{ title: "Danie" }} />
         <Stack.Screen name="event/[id]" options={{ title: "Wydarzenie" }} />
       </Stack>
-    </ThemeProvider>
   </QueryClientProvider>
+  </DishApiContetProvider>
+  </EventApiContetProvider>
+  </DayDishApiContetProvider>
+  </AdressApiContetProvider>
 </AuthContextProvider>
 </>
   );

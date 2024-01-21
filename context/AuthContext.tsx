@@ -13,14 +13,19 @@ const AuthContextProvider = ({children}: PropsWithChildren) => {
 
     useEffect(() => {
         const isAuthGroup = segments[0] === '(auth)'
-
+        console.log("FLAG jest przed ifem")
         if(!authToken && !isAuthGroup){
             router.replace('/signIn');
         } 
+        
         if( authToken && isAuthGroup){
             router.replace('/');
         }
     }, [segments, authToken])
+    
+    
+
+   
 
     return(
         <AuthContext.Provider value={{ authToken, setAuthToken }}>

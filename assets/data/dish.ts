@@ -109,7 +109,26 @@ const dishes = [
     name:'Kartacze',
     price:20,
 },
-
+{
+    id:'35',
+    name:'Schabowy',
+    price:18,
+},
+{
+    id:'45',
+    name:'Schabowy',
+    price:18,
+},
+{
+    id:'25',
+    name:'Schabowy',
+    price:18,
+},
+{
+    id:'30',
+    name:'Gdzie jesteś',
+    price:18,
+},
 ];
 
 

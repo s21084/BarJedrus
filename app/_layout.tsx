@@ -4,6 +4,17 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import  AuthContextProvider from '../context/AuthContext'
+import AdressApiContetProvider from '../lib/api/adress';
+import EventApiContetProvider from '../lib/api/events';
+import DishApiContetProvider from '../lib/api/dish';
+import DayDishApiContetProvider from '../lib/api/dayDish';
+import UserApiContextProvider from '../lib/api/user';
+import PersonApiContentProvider from '../lib/api/person';
+
+
+const client = new QueryClient();
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,13 +57,35 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+
+<>
+<AuthContextProvider>
+<UserApiContextProvider>
+  <PersonApiContentProvider>
+  <AdressApiContetProvider>
+    <DayDishApiContetProvider>
+  <EventApiContetProvider>
+    <DishApiContetProvider>
+  <QueryClientProvider client={client}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="components" options={{ headerShown: false }} />
+        <Stack.Screen name="/" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)/authenticate" options={{ title: "Podaj hasło" }} />
+        <Stack.Screen name="(auth)/signIn" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         <Stack.Screen name="dish/[id]" options={{ title: "Danie" }} />
-        <Stack.Screen name="event/[id]" options={{ title: "Wydarzenie szczegóły" }} />
+        <Stack.Screen name="event/[id]" options={{ title: "Wydarzenie" }} />
       </Stack>
-    </ThemeProvider>
+  </QueryClientProvider>
+  </DishApiContetProvider>
+  </EventApiContetProvider>
+  </DayDishApiContetProvider>
+  </AdressApiContetProvider>
+  
+  </PersonApiContentProvider>
+  </UserApiContextProvider>  
+</AuthContextProvider>
+</>
   );
 }

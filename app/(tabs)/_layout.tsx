@@ -1,6 +1,6 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable, useColorScheme } from 'react-native';
+import { Link, Tabs} from 'expo-router';
+import { Pressable, useColorScheme , Text } from 'react-native';
 
 import Colors from '../../constants/Colors';
 
@@ -27,13 +27,6 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
       }}>
         <Tabs.Screen
-        name="Menu"
-        options={{
-          title: 'Oferta',
-          tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
-        }}
-      />
-      <Tabs.Screen
         name="index"
         options={{
           title: 'Bar Jedruś',
@@ -42,23 +35,44 @@ export default function TabLayout() {
             <Link href="/modal" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
+                  <Text>Wyloguj</Text>
                 )}
               </Pressable>
             </Link>
           ),
         }}
       />
+        <Tabs.Screen
+        name="Menu"
+        options={{
+          title: 'Oferta',
+          tabBarIcon: ({ color }) => <TabBarIcon name="cutlery" color={color} />,
+          headerRight: () => (
+            <Link href="/modal" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Text>Wyloguj</Text>
+                )}
+              </Pressable>
+            </Link>
+          ),
+        }}
+      />
+      
       <Tabs.Screen
         name="Wydarzenia"
         options={{
           title: 'Wydarzenia',
           tabBarIcon: ({ color }) => <TabBarIcon name="calendar" color={color} />,
+          headerRight: () => (
+            <Link href="/modal" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Text>Wyloguj</Text>
+                )}
+              </Pressable>
+            </Link>
+          ),
         }}
       />
       
@@ -67,6 +81,31 @@ export default function TabLayout() {
         options={{
           title: 'Ustawienia',
           tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
+          headerRight: () => (
+            <Link href="/modal" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Text>Wyloguj</Text>
+                )}
+              </Pressable>
+            </Link>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Abonament"
+        options={{
+          title: 'Abonamenty',
+          tabBarIcon: ({ color }) => <TabBarIcon name="group" color={color} />,
+          headerRight: () => (
+            <Link href="/modal" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Text>Wyloguj</Text>
+                )}
+              </Pressable>
+            </Link>
+          ),
         }}
       />
       <Tabs.Screen
@@ -74,8 +113,18 @@ export default function TabLayout() {
         options={{
           title: 'Właściciel',
           tabBarIcon: ({ color }) => <TabBarIcon name="lock" color={color} />,
+          headerRight: () => (
+            <Link href="/modal" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Text>Wyloguj</Text>
+                )}
+              </Pressable>
+            </Link>
+          ),
         }}
       />
+      
       
       
     </Tabs>

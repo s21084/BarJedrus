@@ -1,59 +1,85 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
   Modal,
   Button,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
 } from 'react-native';
+import { Link, useSearchParams, useRouter } from "expo-router";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useDayDishApi } from '../../lib/api/dayDish';
 
 
 const editDayDishComponent: React.FC<{}> = () => {
-    // State to hold form data
-    
+    //@ts-ignore
+    const { getDayDish } = useDayDishApi();
+    //@ts-ignore
+    const { editDayDish } = useDayDishApi();
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [newDishes, setNewDishes] = useState({
-      soup: '',
-      secondDish: '',
+    const id  = "1";
+    const [soup, setSoup] = useState('');
+    const [secondDish, setSecondDish] = useState('');
+    const router = useRouter();
+    const queryClient = useQueryClient();
+  
+    useEffect(() => {
+      const fetchDish = async () => {
+          const res = await getDayDish( id as string );
+          setSoup(res.soup);
+          setSecondDish(res.secondDish);
+      }
+      fetchDish()
+  }, [])
+    const { mutate, isError, error, status } = useMutation({
+
+      mutationFn: editDayDish,
+      onSuccess: (data) => {
+        queryClient.invalidateQueries( {queryKey: ['dayDishes']});
+        queryClient.setQueryData(['dayDishes'], (existingDayDishes: any)=>([data, ...existingDayDishes]))
+    
+      }
+    
     });
-  
-  
     // Handler to save changes and close the popup
     const handleSave = () => {
-    
+      //@ts-ignore
+      mutate({ id: id as string, data: { soup, secondDish } });
+      console.log("Sprawdzam status: ", status)
+      console.log(error)
         // Close the modal
         setIsOpenModal(false);
     };
-    const handleChange = (field: keyof typeof newDishes, value: string) => {
-        setNewDishes((prev) => ({ ...prev, [field]: value }));
-      };
   
     return (
       
         <View style={styles.container}>
-        <TouchableOpacity onPress={() => setIsOpenModal(true)}>
+        <Pressable onPress={() => setIsOpenModal(true)}>
           <View style={styles.buttonBack}>
             <Text>Edytuj danie dnia</Text>
             </View>
-            </TouchableOpacity>
-            {/* Form */}
+            </Pressable>
             <Modal visible={isOpenModal} transparent animationType="slide">
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
                 <Text>Edytuj informacje daniu dnia</Text>
             <TextInput
               style={styles.input}
-              placeholder="Nowa zupa"
-              value={newDishes.soup}
-              onChangeText={(text) => handleChange('soup', text)}
+              placeholder="Wprowadź zupy"
+              value={soup}
+              multiline
+              numberOfLines={5}
+              onChangeText={newText => setSoup(newText)}
             />
             <TextInput
               style={styles.input}
-              placeholder="Nowe drugie danie"
-              value={newDishes.secondDish}
-              onChangeText={(text) => handleChange('secondDish', text)}
+              placeholder="Wprowadź drugie dania"
+              value={secondDish}
+              multiline
+              numberOfLines={5}
+              onChangeText={newText => setSecondDish(newText)}
             />
   
             {/* Buttons */}
@@ -71,18 +97,21 @@ const editDayDishComponent: React.FC<{}> = () => {
   // Styles
   const styles = StyleSheet.create({
     container: {
-        padding: 25,
         marginVertical: 5,
+        borderWidth: 2,
         marginHorizontal: 5,
-        backgroundColor: '#47CE83',
         borderRadius: 5, 
         overflow: 'hidden',
+        width:100,
+        height: 50,
+        justifyContent: 'center',
+      alignItems: 'center',
     },
     buttonBack: {
-        padding: 25,
         marginVertical: 5,
         marginHorizontal: 5,
-        backgroundColor: '#47CE83',
+        padding: 5,
+        backgroundColor: '#ACBFA4',
         borderRadius: 5, 
         overflow: 'hidden',
     },
@@ -118,7 +147,7 @@ import {
   Text,
   Modal,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
 } from 'react-native';
 
@@ -171,12 +200,12 @@ const ChangeDishesPopup: React.FC<{
             onChangeText={(text) => handleChange('dinner', text)}
           />
 
-          <TouchableOpacity style={styles.button} onPress={handleSave}>
+          <Pressable style={styles.button} onPress={handleSave}>
             <Text style={styles.buttonText}>Save Changes</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={onClose}>
+          </Pressable>
+          <Pressable style={styles.button} onPress={onClose}>
             <Text style={styles.buttonText}>Cancel</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </Modal>

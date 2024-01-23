@@ -1,18 +1,20 @@
 export type EventType = {
     id?: string;
     name: string;
+    date: Date;
     decoration?: string;
-    vege?: number;
-    nonvege?: number;
+    vegeCount?: number;
+    meatCount?: number;
     prePay?: number;
-    payment?: number;
+    priceFull?: number;
     notes?: string;
 };
 
 export type DishType = {
     id?: string;
     name: string;
-    price: number;
+    priceForPiece: number;
+    priceForWeight: number;
 };
 
 export type UserType = {
@@ -25,4 +27,21 @@ export type InfoType = {
     openHour: string;
     closeHour: string;
     bonusInfo?: string;
+};
+
+export type SubscriberType = {
+    id?: string;
+    lastMonthPayed: string;
+    dishType: Boolean;
+    countOfDish?: string;
+    onPlace: Boolean;
+    notes?: string;
+    personId: number;
+};
+export type ScheduleType = {
+    id?: string;
+    startHour: Date;
+    endHour: Date;
+    userId: number;
+    weekDayNumber: number;
 };

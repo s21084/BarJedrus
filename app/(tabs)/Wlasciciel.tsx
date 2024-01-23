@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, Pressable, FlatList} from 'react-native';
 import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
 import EditOpenHoursComponent from '../../components/popUps/editOpenHoursComponent';
-import EditDayDishComponent from '../../components/popUps/editDayDishComponent';
+
 
 export default function Wlasciciel () {
     return(
@@ -11,24 +11,36 @@ export default function Wlasciciel () {
         <View style={{alignItems: 'center'}}>
         <View style={{flexDirection: 'row'}}>
         <EditOpenHoursComponent />
-        <EditDayDishComponent />
-        
         <View style={styles.buttonBack}>
-            <Link href={'/user/usersList'}>
+            <Link href={'/new-event'}>
                 <Pressable>
-                    <Text style={{padding: 10, fontSize: 30}}>Użytkownicy</Text>
+                    <Text style={styles.buttonText}>Nowe wydarzenie</Text>
+                </Pressable>
+            </Link>
+        </View>
+        <View style={styles.buttonBack}>
+            <Link href={'/new-dish'}>
+                <Pressable>
+                    <Text style={styles.buttonText}>Dodaj danie</Text>
+                </Pressable>
+            </Link>
+        </View>
+        <View style={styles.buttonBack}>
+            <Link href={'/users-list'}>
+                <Pressable>
+                    <Text style={styles.buttonText}>Lista pracowników</Text>
+                </Pressable>
+            </Link>
+        </View>
+        <View style={styles.buttonBack}>
+            <Link href={'/new-subscription'}>
+                <Pressable>
+                    <Text style={styles.buttonText}>Nowy abonamentowicz</Text>
                 </Pressable>
             </Link>
         </View>
         </View>
-        <View style={styles.buttonBack}>
-            <Link href={'/'}>
-                <Pressable>
-                    <Text style={{padding: 10, fontSize: 30}}>Harmonogram</Text>
-                </Pressable>
-            </Link>
-        </View>
-        
+      
         </View>
         </View>
     );
@@ -36,17 +48,23 @@ export default function Wlasciciel () {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: '#E2E8CE',
-    },
-    buttonBack: {
+        marginVertical: 5,
+        marginHorizontal: 5,
         backgroundColor: '#47CE83',
         borderRadius: 5, 
         overflow: 'hidden',
     },
+    buttonBack: {
+        padding: 25,
+        marginVertical: 5,
+        marginHorizontal: 5,
+        backgroundColor: '#47CE83',
+        borderRadius: 5, 
+        overflow: 'hidden',
+        justifyContent: 'center',
+      alignItems: 'center',
+    },
     buttonText: {
-        color: '#E2E8CE',
-        
+        padding: 10,
     },
 });

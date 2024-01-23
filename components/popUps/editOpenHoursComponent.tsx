@@ -5,7 +5,7 @@ import {
   Modal,
   Button,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
 } from 'react-native';
 
@@ -31,11 +31,11 @@ const editOpenHoursComponent: React.FC = () => {
 
     return (
         <View style={styles.container}>
-          <TouchableOpacity onPress={() => setIsOpenModal(true)}>
+          <Pressable onPress={() => setIsOpenModal(true)}>
             <View style={styles.buttonBack}>
             <Text>Edytuj informacje o godzinach pracy baru</Text>
             </View>
-          </TouchableOpacity>
+          </Pressable>
     
           <Modal visible={isOpenModal} transparent animationType="slide">
             <View style={styles.modalContainer}>

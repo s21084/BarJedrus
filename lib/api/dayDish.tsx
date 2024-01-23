@@ -6,7 +6,7 @@ import { PropsWithChildren, createContext, useContext } from "react";
 const DayDishsApiContext = createContext({});
 
 const DayDishApiContetProvider = ({ children }: PropsWithChildren ) => {
-
+// @ts-ignore
         const { authToken } = useAuth();
         
 

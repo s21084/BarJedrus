@@ -5,7 +5,7 @@ import { PropsWithChildren, createContext, useContext } from "react";
 const EventsApiContext = createContext({});
 
 const EventApiContetProvider = ({ children }: PropsWithChildren ) => {
-
+// @ts-ignore
         const { authToken } = useAuth();
         
         const listEvents = async () => {

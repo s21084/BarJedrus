@@ -14,6 +14,7 @@ const SignIn = () => {
             await login( {email} )
             router.push({pathname: '/authenticate', params: {email}})
         }catch (e) {
+          // @ts-ignore
             Alert.alert('Error', e.message);
         }
         

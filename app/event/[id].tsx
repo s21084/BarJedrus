@@ -1,12 +1,13 @@
 import { useSearchParams, Link } from "expo-router";
 import { Text, View, StyleSheet, TextInput, Pressable} from 'react-native';
 import { useQuery } from "@tanstack/react-query";
-import { getEvent } from "../../lib/api/events";
+import { useEventApi } from "../../lib/api/events";
 import { useEffect, useState } from 'react';
 
 export default function EventScreen (){
     const { id } = useSearchParams();
-
+    //@ts-ignore
+    const { getEvent } = useEventApi();
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [decoration, setDecoration] = useState('');

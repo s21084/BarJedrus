@@ -5,15 +5,14 @@ const AuthContext = createContext({});
 
 const AuthContextProvider = ({children}: PropsWithChildren) => {
     const[authToken, setAuthToken] = useState<string | null>(null);
+    const[email, setEmail] = useState<string | null>(null);
     const segments = useSegments();
     const router = useRouter();
-    console.log(segments);
 
-    console.log("authToken: ", authToken)
+
 
     useEffect(() => {
         const isAuthGroup = segments[0] === '(auth)'
-        console.log("FLAG jest przed ifem")
         if(!authToken && !isAuthGroup){
             router.replace('/signIn');
         } 
@@ -28,7 +27,7 @@ const AuthContextProvider = ({children}: PropsWithChildren) => {
    
 
     return(
-        <AuthContext.Provider value={{ authToken, setAuthToken }}>
+        <AuthContext.Provider value={{ authToken, setAuthToken, email, setEmail }}>
         {children}
         </AuthContext.Provider>
     );

@@ -10,12 +10,14 @@ import {
 } from 'react-native';
 import { Link, useSearchParams, useRouter } from "expo-router";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getDayDish, editDayDish } from '../../lib/api/dayDish';
+import { useDayDishApi } from '../../lib/api/dayDish';
 
 
 const editDayDishComponent: React.FC<{}> = () => {
-    // State to hold form data
-    
+    //@ts-ignore
+    const { getDayDish } = useDayDishApi();
+    //@ts-ignore
+    const { editDayDish } = useDayDishApi();
     const [isOpenModal, setIsOpenModal] = useState(false);
     const id  = "1";
     const [soup, setSoup] = useState('');
@@ -43,6 +45,7 @@ const editDayDishComponent: React.FC<{}> = () => {
     });
     // Handler to save changes and close the popup
     const handleSave = () => {
+      //@ts-ignore
       mutate({ id: id as string, data: { soup, secondDish } });
       console.log("Sprawdzam status: ", status)
       console.log(error)

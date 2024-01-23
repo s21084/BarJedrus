@@ -1,29 +1,44 @@
 import { StyleSheet, View, Text, Pressable, TextInput} from 'react-native';
 import Hedder from '../../components/normal/hedder';
 import { useEffect, useState } from 'react';
-import { getUser, editUser } from '../../lib/api/user';
-import { editPerson } from '../../lib/api/person';
+import { useUserApi } from '../../lib/api/user';
+import { usePersonApi } from '../../lib/api/person';
 import { useMutation } from '@tanstack/react-query';
+import { useAuth } from '../../context/AuthContext';
 
-const onSavePress = () => {
-//Tutaj muszę zapisać pewnie fetchem nowego użytkownika
-console.log("Hello");
-};
 
-const Settings = () => {
-    const STATIC_ID = "1";
-    const [email, setEmail] = useState('');
+//const { getUser } = useUserApi();
+// @ts-ignore
+
+
+
+
+
+
+//const res = await getUserByEmail(email as string);
+export default function Settings  () {
+    //@ts-ignore
+    const { getUserByEmail, editUser, getUser } = useUserApi();
+    //@ts-ignore
+    const { editPerson } = usePersonApi();
+    //@ts-ignore
+    const { email } = useAuth();
+    console.log("Tuż po wejściu do ustawień: ", email);
+    const [id, setId] = useState('');
+    const [emails, setEmails] = useState('');
     const [phone, setPhone] = useState('');
     const [firstName, setFirstName] = useState('');
     const [surname, setSuname] = useState('');
     const [personId, setPersonId] = useState('');
     const [isAdmin, setIsAdmin] = useState('');
     const [isVerified, setIsVerified] = useState('');
-
+    
     useEffect(() => {
         const fetchUser = async () => {
-            const res = await getUser(STATIC_ID);;
-            setEmail(res.email);
+            const res = await getUserByEmail(email as string);
+            console.log("res ", res)
+            setEmails(email)
+            setId(res.id)
             setPhone(res.person.phone)
             setFirstName(res.person.name)
             setSuname(res.person.surname)
@@ -44,7 +59,8 @@ const Settings = () => {
       const onSave = async () => {
         const isAdminBool = isAdmin as unknown as boolean;
         const isVerifiedBool = isVerified as unknown as boolean;
-          mutate({ id: STATIC_ID, data: { email: email, isAdmin: isAdminBool, isVerified: isVerifiedBool } });
+        // @ts-ignore
+          mutate({ id: id, data: { email: email, isAdmin: isAdminBool, isVerified: isVerifiedBool } });
           const EditPerson = async () => {
             await editPerson({ id: personId, data: { name: firstName, surname: surname, phone: phone } });
         }
@@ -59,6 +75,7 @@ const Settings = () => {
             <Hedder />
             <View style={{ alignItems: 'center' }}>
             <Text style={{ padding: 10, fontSize: 20 }}>Ustawienia konta:</Text>
+            <Text style={{ padding: 10, fontSize: 20 }}>Email: {email}</Text>
             <TextInput
             style = {styles.input}
             onChangeText={newText => setFirstName(newText)}
@@ -71,12 +88,12 @@ const Settings = () => {
             defaultValue={surname}
             placeholder="Nazwisko"
             />
-            <TextInput
+            {/* <TextInput
             style = {styles.input}
-            onChangeText={newText => setEmail(newText)}
-            defaultValue={email}
+            onChangeText={newText => setEmails(newText)}
+            defaultValue={emails}
             placeholder="Twój mail"
-            />
+            /> */}
             <TextInput
             style = {styles.input}
             onChangeText={newText => setPhone(newText)}
@@ -135,5 +152,3 @@ const styles = StyleSheet.create({
         borderRadius:5,
       },
 });
-
-export default Settings;

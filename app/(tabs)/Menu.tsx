@@ -8,7 +8,7 @@ import { useDishApi } from '../../lib/api/dish';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Offer() {
-
+// @ts-ignore
   const { listDish } = useDishApi();
 
   const {data, isLoading, error} = useQuery({
@@ -35,6 +35,7 @@ if(error){
         </View>
         <View style={{ flex: 1 }}>
           <FlatList
+          // @ts-ignore
             data={data}
             renderItem={({ item }) => (
               <Link href={`/dish/${item.id}`}>

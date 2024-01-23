@@ -3,12 +3,17 @@ import { Text, View } from '../../components/Themed';
 import Hedder from '../../components/normal/hedder';
 import InfoComponent from '../../components/normal/infoComponent';
 import infos from '../../assets/data/info'
-import ScheduleComponent from '../../components/scheduleComponent'
+import ScheduleComponent from '../../components/scheduleComponent';
+import { useAuth } from '../../context/AuthContext';
 
 
 
 
 export default function Main () {
+  //console.log("FLAG 3")
+  const { email } = useAuth();
+  //console.log("UserId in Main: ", email)
+
   const dummyData = [
     {
         id:'1',
@@ -80,6 +85,7 @@ export default function Main () {
           </View>
           <View style={styles.containerSchedule}>
         <Text style={{fontWeight: 'bold', fontSize: 20}}>Harmonogram</Text>
+        <Text style={{fontWeight: 'bold', fontSize: 20}}>Email: {email}</Text>
         <FlatList 
                 data={dummyData}
                 renderItem={({ item }) => (

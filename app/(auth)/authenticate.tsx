@@ -7,18 +7,24 @@ import { useAuth } from '../../context/AuthContext';
 const Authenticate = () => {
     const [code, setCode] = useState('');
     const { email } = useSearchParams();
-
+  // @ts-ignore
     const { setAuthToken } = useAuth();
+    // @ts-ignore
+    const { setEmail } = useAuth();
 
     const onAuth = async () => {
         if(typeof email !== 'string'){
             return;
         }
+        
         try{
-          console.log("Authenticate sprawdzam", email, " ", code)
+
             const res = await authenticate({email: email, emailToken: code})
+            console.log("Authenticate sprawdzam", email, " ", code)
+            await setEmail(email)
             await setAuthToken(res.authToken);
         }catch(e){
+          // @ts-ignore
             Alert.alert("ERROR", e.message)
         }
 

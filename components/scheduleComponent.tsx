@@ -16,12 +16,11 @@ const dayWeek: { [key: number]: string } = {
     6: 'Sobota',
     7: 'Niedziela',
 }
-console.log(dayWeek[6])
 const Schedule = ({ schedule }: ScheduleProps) => {
     const dateBefore = new Date(schedule.startHour)
     const formattedDateTime = format(dateBefore, 'MMMM dd, yyyy HH:mm:ss');
     //const date = formattedDateTime.toDateString();
-    console.log(dateBefore)
+    //console.log(dateBefore)
     return(
                 <View style={styles.container}>   
                 {schedule.weekDayNumber && <Text>{dayWeek[schedule.weekDayNumber]}</Text>}

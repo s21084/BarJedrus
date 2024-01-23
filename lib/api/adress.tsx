@@ -7,7 +7,7 @@ const AdressApiContet = createContext({});
 
 
 const AdressApiContetProvider = ({ children }: PropsWithChildren ) => {
-        
+        // @ts-ignore
         const { authToken } = useAuth();
 
          const listAdresss = async () => {

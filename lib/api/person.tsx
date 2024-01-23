@@ -1,5 +1,14 @@
-import { API_URL, authToken } from "./config";
-export const listPerson= async () => {
+import { API_URL } from "./config";
+import { useAuth } from "../../context/AuthContext";
+import { PropsWithChildren, createContext, useContext } from "react";
+
+const PersonsApiContext = createContext({});
+
+const PersonApiContetProvider = ({ children }: PropsWithChildren ) => {
+        // @ts-ignore
+                const { authToken } = useAuth();
+
+ const listPerson= async () => {
         
          //const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjo1M30.AGejMBePzXTCxieFvKZ3dqPFkwBVz4Lmlt5ogRbZWWw';
         
@@ -20,7 +29,7 @@ export const listPerson= async () => {
             
 }
 
-export const getPerson=  async (id: string) => {
+ const getPerson=  async (id: string) => {
                                
         const res = await fetch(`${API_URL}/person/${id}`,{
                 headers: {
@@ -37,7 +46,7 @@ export const getPerson=  async (id: string) => {
        
 }
 
-export const createPerson=  async (data: {name: string, surname: string, phone: string}) => {
+ const createPerson=  async (data: {name: string, surname: string, phone: string}) => {
               console.log("Informacje ", JSON.stringify(data));
         const res = await fetch(`${API_URL}/person`,{
                 method: 'POST',
@@ -60,7 +69,7 @@ export const createPerson=  async (data: {name: string, surname: string, phone: 
 
 
 
-export const editPerson=  async ({ id, data }: { id: string; data: {name: string, surname: string, phone: string}}) => {
+ const editPerson=  async ({ id, data }: { id: string; data: {name: string, surname: string, phone: string}}) => {
               console.log("Informacje", JSON.stringify(data));
         const res = await fetch(`${API_URL}/person/${id}`,{
                 method: 'PUT',
@@ -81,7 +90,7 @@ export const editPerson=  async ({ id, data }: { id: string; data: {name: string
        
 }
 
-export const deletePerson=  async (id: string) => {
+ const deletePerson=  async (id: string) => {
   const res = await fetch(`${API_URL}/person/${id}`,{
           method: 'DELETE',
           headers: {
@@ -99,3 +108,14 @@ export const deletePerson=  async (id: string) => {
   return await res.json();
  
 }
+
+
+return(<PersonsApiContext.Provider value={{
+        listPerson, getPerson, createPerson, editPerson, deletePerson
+}}>{children}</PersonsApiContext.Provider>)
+}
+
+
+export default PersonApiContetProvider;
+
+export const usePersonApi = () => useContext(PersonsApiContext);

@@ -2,10 +2,16 @@ import { Link, useSearchParams, useRouter } from "expo-router";
 import { Text, View, StyleSheet, Pressable, TextInput} from 'react-native';
 import { useEffect, useState } from 'react';
 //import dishes from '../../assets/data/dish'
-import { getDish, editDish, deleteDish } from '../../lib/api/dish';
+import { useDishApi } from '../../lib/api/dish';
 import { useMutation } from '@tanstack/react-query';
 
 export default function DishScreen (){
+    //@ts-ignore
+    const { getDish } = useDishApi();
+    //@ts-ignore
+    const { editDish } = useDishApi();
+    //@ts-ignore
+    const { deleteDish } = useDishApi();
     const [name, setName] = useState('');
     const [priceForPiece, setPriceForPiece] = useState('');
     const [priceForWeight, setPriceForWeight] = useState('');
@@ -34,6 +40,7 @@ export default function DishScreen (){
         const onDishSave = async () => {
           const pricePieceNum = parseInt(priceForPiece);
           const priceWeightNum = parseInt(priceForWeight);
+          //@ts-ignore
             mutate({ id: id as string, data: { name, priceForPiece: pricePieceNum, priceForWeight: priceWeightNum } });
             console.log("Sprawdzam status: ", status)
             console.log(error)

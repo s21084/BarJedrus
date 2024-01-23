@@ -12,8 +12,9 @@ export default function DayDishComponent(){
     const [soup, setSoup] = useState('');
     const [secondDish, setSecondDish] = useState('');
     const router = useRouter();
-
+    // @ts-ignore
     const { getDayDish } = useDayDishApi();
+    // @ts-ignore
     const { editDayDish } = useDayDishApi();
 
     useEffect(() => {
@@ -34,6 +35,7 @@ export default function DayDishComponent(){
 
       const onDishSave = async () => {
         const newId = id as string;
+        // @ts-ignore
           mutate({ id: id as string, data: { soup, secondDish } });
           console.log("Sprawdzam status: ", status)
           console.log(error)

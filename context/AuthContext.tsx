@@ -78,7 +78,8 @@ const AuthContext = createContext({
    
 
     return(
-        <AuthContext.Provider value={{ authToken, setAuthToken, email, setEmail }}>
+        //@ts-ignore
+        <AuthContext.Provider value={{ authToken, setAuthToken, email, setEmail, logout }}>
         {children}
         </AuthContext.Provider>
     );

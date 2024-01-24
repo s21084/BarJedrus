@@ -14,6 +14,10 @@ export default function Main () {
   const { email } = useAuth();
   //console.log("UserId in Main: ", email)
 
+  
+
+
+
   const dummyData = [
     {
         id:'1',

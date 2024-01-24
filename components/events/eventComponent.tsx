@@ -13,7 +13,6 @@ type EventProps = {
 }
 
 const Event = ({ event }: EventProps) =>{
-    console.log("czy tu wgl wchodzi")
     const { getUserByEmail} = useUserApi();
     const { email } = useAuth();
     const [isAdmin, setIsAdmin] = useState('');

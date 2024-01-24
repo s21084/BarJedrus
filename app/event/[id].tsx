@@ -20,10 +20,8 @@ export default function EventScreen (){
 
     useEffect(() => {
         const fetchSub = async () => {
-            console.log("Flaga kontrolna ");
             const res = await getEvent( id as string );
-            console.log("Flaga kontrolna ", res);
-
+        
             setName(res.name);
             setDate(res.date);
             setDecoration(res.decoration);

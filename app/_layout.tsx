@@ -62,9 +62,10 @@ function RootLayoutNav() {
 <AuthContextProvider>
 <UserApiContextProvider>
   <PersonApiContentProvider>
+  <EventApiContetProvider>
   <AdressApiContetProvider>
     <DayDishApiContetProvider>
-  <EventApiContetProvider>
+  
     <DishApiContetProvider>
   <QueryClientProvider client={client}>
       <Stack>
@@ -79,10 +80,9 @@ function RootLayoutNav() {
       </Stack>
   </QueryClientProvider>
   </DishApiContetProvider>
-  </EventApiContetProvider>
   </DayDishApiContetProvider>
   </AdressApiContetProvider>
-  
+  </EventApiContetProvider>
   </PersonApiContentProvider>
   </UserApiContextProvider>  
 </AuthContextProvider>

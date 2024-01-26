@@ -9,28 +9,22 @@ const EventApiContetProvider = ({ children }: PropsWithChildren ) => {
         const { authToken } = useAuth();
         
         const listEvents = async () => {
-                console.log("Czy tu jest auth token", authToken);
-        //const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjo1M30.AGejMBePzXTCxieFvKZ3dqPFkwBVz4Lmlt5ogRbZWWw';
-       
+                console.log("Czy auth", authToken)
            const res = await fetch(`${API_URL}/event`,{
                headers: {
                    Authorization: `Bearer ${authToken}`,
                  },
            });
-      
            if(res.status == 401){
-               throw new Error('Error with authorization');
-       }
+               throw new Error('Error with authorization');}
            if(res.status !== 200){
-                   throw new Error('Error on fetching events');
-           }
-           
+                   throw new Error('Error on fetching events');}
            return await res.json();
            
 }
 
          const getEvent = async (id: string) => {
-             
+             console.log("Dlaczego nie przekazuje auth", authToken)
        const res = await fetch(`${API_URL}/event/${id}`,{
                headers: {
                        Authorization: `Bearer ${authToken}`,

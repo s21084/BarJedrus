@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Pressable, FlatList, ActivityIndicator} from 'react-native';
+import { StyleSheet, View, Text, Pressable, Button, FlatList, ActivityIndicator} from 'react-native';
 import { Link } from 'expo-router';
 import EventComponent from '../../components/events/eventComponent';
 import Hedder from '../../components/normal/hedder';
@@ -11,14 +11,17 @@ import { useEventApi } from '../../lib/api/events';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Event () {
+    //@ts-ignore
     const { getUserByEmail} = useUserApi();
     const { email } = useAuth();
+    //@ts-ignore
    const { listEvents } = useEventApi();
    const [isAdmin, setIsAdmin] = useState('');
     const [isVerified, setIsVerified] = useState('');
   
     useEffect(() => {
         const fetchUser = async () => {
+            //@ts-ignore
             const res = await getUserByEmail(email as string);
             console.log("res ", res)
             setIsAdmin(res.isAdmin)
@@ -34,15 +37,42 @@ export default function Event () {
        queryKey:['events'],
        queryFn: listEvents
     });
+    const [sortedData, setSortedData] = useState(data); 
+    const [sortOption, setSortOption] = useState(null);
+
     
     if(isLoading){
         return <ActivityIndicator />;
     }
 
-    if(error) {
-        return <Text>{error.message}</Text>
-    }
-    //const sortedData = data.slice().sort((a: { date: number; }, b: { date: number; }) => a.date - b.date); //Spróować sortować
+    if (error || !data) {
+        return <Text>Brak wydarzeń</Text>
+      }
+
+  
+      const sortByDate = () => {
+        // @ts-ignore
+        const sorted = [...sortedData].sort((a, b) => new Date(a.date) - new Date(b.date));
+        setSortedData(sorted);
+        // @ts-ignore
+        setSortOption('date');
+      };
+      const sortByName = () => {
+        // @ts-ignore
+        const sorted = [...sortedData].sort((a, b) => a.name.localeCompare(b.name));
+        setSortedData(sorted);
+        // @ts-ignore
+        setSortOption('name');
+      };
+      const sortByNameDesc = () => {
+        // @ts-ignore 
+        const sorted = [...sortedData].sort((a, b) => b.name.localeCompare(a.name));
+        setSortedData(sorted);
+        // @ts-ignore
+        setSortOption('price');
+      };
+
+
     if(isVerified){
         return(
             <View style={{
@@ -50,10 +80,15 @@ export default function Event () {
             <Hedder />
             <View style={{
             alignItems: 'center', flex: 1}}>
-                <Text style={{padding: 10, fontSize: 30}}>Email: {email}</Text>
                 <Text style={{padding: 10, fontSize: 30}}>Wydarzenia</Text>
+                <View style={styles.sortButtons}>
+                    <Button title="Sortuj po dacie" color='#262626' onPress={sortByDate}  />
+                    <Button title="Sortuj po nazwie (A-Z)" color='#262626' onPress={sortByName}  />
+                    <Button title="Sortuj po nazwie (Z-A)" color='#262626' onPress={sortByNameDesc}  />
+                   </View>
                 <FlatList 
-                    data={data}
+                //@ts-ignore
+                    data={sortedData}
                     renderItem={({ item }) => (<EventComponent event={item}/>)}
                     horizontal={false}
                     numColumns={3}
@@ -87,4 +122,9 @@ const styles = StyleSheet.create({
         color: '#E2E8CE',
         
     },
+    sortButtons: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between',
+        margin: 10, 
+      },
 });

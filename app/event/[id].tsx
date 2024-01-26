@@ -1,13 +1,19 @@
-import { useSearchParams, Link } from "expo-router";
+import { useSearchParams, Link, useRouter } from "expo-router";
 import { Text, View, StyleSheet, TextInput, Pressable} from 'react-native';
 import { useQuery } from "@tanstack/react-query";
+import { useMutation } from '@tanstack/react-query';
 import { useEventApi } from "../../lib/api/events";
 import { useEffect, useState } from 'react';
 
 export default function EventScreen (){
     const { id } = useSearchParams();
+    
     //@ts-ignore
     const { getEvent } = useEventApi();
+    //@ts-ignore
+    const { editEvent } = useEventApi();
+    //@ts-ignore
+    const { deleteEvent } = useEventApi();
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [decoration, setDecoration] = useState('');
@@ -16,6 +22,7 @@ export default function EventScreen (){
     const [notes, setNotes] = useState('');
     const [priceFull, setPriceFull] = useState('');
     const [meatCount, setMeatCount] = useState('');
+    const router = useRouter();
 
 
     useEffect(() => {
@@ -36,8 +43,45 @@ export default function EventScreen (){
     }, [])
 
 
-    const dateEvent = (date as unknown as string).slice(0,10);
-                console.log(event);
+    const { mutate, isError, error, status } = useMutation({
+
+        mutationFn: editEvent
+      
+      });
+
+
+      const onEventSave = async () => {
+        let decorationBool = false;
+        if(decoration == 'true'){
+            decorationBool = true;
+        }
+        const prePayNum = Number(prePay)
+        const vegeCountNum = Number(vegeCount)
+        const dateFormat = new Date(date);
+        console.log(dateFormat)
+        const meatCountNum = Number(meatCount)
+        const priceFullNum = Number(priceFull)
+        //@ts-ignore
+          mutate({ id: id as string, data: { name: name, date: date, decoration: decorationBool, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes } });
+          console.log("Sprawdzam status: ", status)
+          console.log(error)
+          router.back();
+      };
+      const onEventDelete = async () => {
+          const DeleteDish = async () => {
+              await deleteEvent( id as string );
+          }
+          DeleteDish()
+            router.back();
+        };
+
+
+
+
+
+
+    //const dateEvent = (date as unknown as string).slice(0,10);
+                //console.log(event);
     return (
         <View style={styles.container}>  
             <View style={styles.eventContainer}>
@@ -100,12 +144,12 @@ export default function EventScreen (){
             />
             </View>
                 <View style={styles.buttonContainer}>
-                    <Pressable style={styles.button}>
+                    <Pressable style={styles.button} onPress={onEventSave}>
                         <Text style={styles.buttonText}>Edytuj</Text>
                     </Pressable>
-                    <Link href="../" style={styles.button}>
+                    <Pressable  onPress={onEventDelete}>
                         <Text style={styles.buttonText}>Usuń</Text>
-                    </Link>
+                    </Pressable>
                 </View>
     </View>
     );

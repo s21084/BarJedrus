@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable  } from 'react-native';
+import { StyleSheet, Text, View  } from 'react-native';
 
 import { Link } from 'expo-router';
 import { EventType } from '../../types/index';
@@ -13,6 +13,7 @@ type EventProps = {
 }
 
 const Event = ({ event }: EventProps) =>{
+    //@ts-ignore
     const { getUserByEmail} = useUserApi();
     const { email } = useAuth();
     const [isAdmin, setIsAdmin] = useState('');
@@ -20,6 +21,7 @@ const Event = ({ event }: EventProps) =>{
     
     useEffect(() => {
            const fetchUser = async () => {
+            //@ts-ignore
                const res = await getUserByEmail(email as string);
                console.log("res ", res)
                setIsAdmin(res.isAdmin)
@@ -29,18 +31,16 @@ const Event = ({ event }: EventProps) =>{
        }, [])
     const dateEvent = (event.date as unknown as string).slice(0,10);
     if(isAdmin){
+        console.log(JSON.stringify(event));
         return(
             <Link href={`/event/${event.id}`}>
-                <Pressable>
                     <View style={styles.container}>  
-                    
                     <Text style={{fontWeight: 'bold'}}>{dateEvent}</Text>
                     <Text>Wydarzenie: {event.name}</Text>
                     {event.decoration && <Text>Czy potrzebne dekoracje?: {event.decoration &&<Text>Kupić</Text>} {!event.decoration &&<Text>Brak</Text>}</Text>}
                     {event.vegeCount && <Text>Ilość osób wegetariańskich: {event.vegeCount}</Text>}
                     {event.meatCount && <Text>llość osób niewegetariańskich: {event.meatCount}</Text>}
                     </View>
-                </Pressable>
             </Link>
             );
     }else{
@@ -61,8 +61,8 @@ const Event = ({ event }: EventProps) =>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: 200,
-        height: 250,
+        width: 250,
+        height: 200,
         padding: 20,
         marginVertical: 5,
         marginHorizontal: 5,

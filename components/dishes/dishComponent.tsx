@@ -1,25 +1,22 @@
-import { StyleSheet, Text, View, TextInput, Pressable  } from 'react-native';
-
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { DishType } from '../../types/index';
-import { Link  } from 'expo-router';
+import { Link } from 'expo-router';
 
 
 type DishProps = {
     dish: DishType;
 }
 const Dish = ({ dish }: DishProps) => {
-
-
-
-    return(
-        <Link href={`/dish/${dish.id}`}>
-                <View style={styles.logInWindow}>   
+    return (
+        <View >
+            <Link href={`/dish/${dish.id}`} style={styles.logInWindow}>
                 {dish.name && <Text>{dish.name}</Text>}
                 {dish.priceForPiece && <Text>{dish.priceForPiece} zł</Text>}
                 {dish.priceForWeight && <Text>{dish.priceForWeight} zł /100g</Text>}
-                </View>
-        </Link>
-        );
+            </Link>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({

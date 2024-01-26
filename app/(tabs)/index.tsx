@@ -11,7 +11,6 @@ import { useAuth } from '../../context/AuthContext';
 
 export default function Main () {
   //console.log("FLAG 3")
-  const { email } = useAuth();
   //console.log("UserId in Main: ", email)
 
   
@@ -69,6 +68,11 @@ export default function Main () {
   weekDayNumber: 7
 },
     ];
+
+    
+  const { email } = useAuth();
+
+
   return (
     <View>
       <Hedder />

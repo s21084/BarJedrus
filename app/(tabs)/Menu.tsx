@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, View,Button, Pressable, FlatList, ActivityIndicator, Text } from 'react-native';
+import { StyleSheet, View, Pressable, FlatList, ActivityIndicator, Text } from 'react-native';
 import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
 import DishComponent from '../../components/dishes/dishComponent';
@@ -60,9 +60,15 @@ if (error || !data) {
           <DayDishComponent />
         </Pressable>
         <View style={styles.sortButtons}>
-          <Button title="Sortuj po nazwie (A-Z)" color='#262626' onPress={sortByName}  />
-          <Button title="Sortuj po nazwie (Z-A)" color='#262626' onPress={sortByNameDesc}  />
-          <Button title="Sortuj po kolejności utworzenia" color='#262626' onPress={sortByCreation} />
+          <Pressable onPress={sortByName} style={styles.sortButton}>
+            <Text>Sortuj po nazwie (A-Z)</Text>
+          </Pressable>
+          <Pressable onPress={sortByNameDesc} style={styles.sortButton}>
+            <Text>Sortuj po nazwie (Z-A)</Text>
+          </Pressable>
+          <Pressable onPress={sortByCreation} style={styles.sortButton}>
+            <Text>Sortuj po kolejności utworzenia</Text>
+          </Pressable>
         </View>
         <View style={{ flex: 1 }}>
           <FlatList
@@ -98,8 +104,16 @@ const styles = StyleSheet.create({
     color: '#E2E8CE',
   },
   sortButtons: {
+    padding: 5,
     flexDirection: 'row', 
-    justifyContent: 'space-between',
     margin: 10, 
+  },
+  sortButton: {
+    padding: 5,
+    backgroundColor: '#ACBFA4',
+    borderRadius:5,
+    borderColor: 'black',
+    borderWidth: 2,
+    margin: 5
   },
 });

@@ -76,11 +76,23 @@ export default function SubscriptionsScreen() {
             <View style={{ alignItems: 'center' }}>
             <Text style={{ padding: 10, fontSize: 30 }}>Abonamenty</Text>
             <View style={styles.sortButtons}>
-                <Button title="Sortuj po nazwisku (A-Z)" color='#262626' onPress={sortByName}  />
-                <Button title="Sortuj po nazwisku (Z-A)" color='#262626' onPress={sortByNameDesc}  /> 
-                <Button title="Sortuj po lokalizacji posiłku" color='#262626' onPress={sortByOnPlace}  />
-                <Button title="Sortuj po lokalizacji posiłku desc" color='#262626' onPress={sortByOnPlaceDesc}  />  
-                <Button title="Sortuj po kolejności utworzenia" color='#262626' onPress={sortByCreation}  />      
+                
+                <Pressable onPress={sortByName} style={styles.sortButton}>
+                        <Text>Sortuj po nazwisku (A-Z)</Text>
+                    </Pressable>
+                    <Pressable onPress={sortByNameDesc} style={styles.sortButton}>
+                        <Text>Sortuj po nazwisku (Z-A)</Text>
+                    </Pressable>
+                    <Pressable onPress={sortByOnPlace} style={styles.sortButton}>
+                        <Text>Sortuj po lokalizacji posiłku (Na miejscu)</Text>
+                    </Pressable>
+                    <Pressable onPress={sortByOnPlaceDesc} style={styles.sortButton}>
+                        <Text>Sortuj po lokalizacji posiłku (Na wynos/Wyjazdowo)</Text>
+                    </Pressable>
+                    <Pressable onPress={sortByCreation} style={styles.sortButton}>
+                        <Text>Sortuj po kolejności utworzenia</Text>
+                    </Pressable>
+
             </View>
             <FlatList 
             //@ts-ignore
@@ -127,5 +139,13 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#E2E8CE',
         
+    },
+    sortButton: {
+      padding: 5,
+      backgroundColor: '#ACBFA4',
+      borderRadius:5,
+      borderColor: 'black',
+      borderWidth: 2,
+      margin: 5
     },
 });

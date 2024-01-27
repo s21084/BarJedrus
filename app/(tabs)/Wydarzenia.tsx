@@ -89,11 +89,19 @@ export default function Event () {
             alignItems: 'center', flex: 1}}>
                 <Text style={{padding: 10, fontSize: 30}}>Wydarzenia</Text>
                 <View style={styles.sortButtons}>
-                    <Button title="Sortuj po dacie" color='#262626' onPress={sortByDate}  />
-                    <Button title="Sortuj po nazwie (A-Z)" color='#262626' onPress={sortByName}  />
-                    <Button title="Sortuj po nazwie (Z-A)" color='#262626' onPress={sortByNameDesc}  />
-                    <Button title="Sortuj po kolejności utworzenia" color='#262626' onPress={sortByCreation} />
-                   </View>
+                    <Pressable onPress={sortByDate} style={styles.sortButton}>
+                        <Text>Sortuj po dacie</Text>
+                    </Pressable>
+                    <Pressable onPress={sortByName} style={styles.sortButton}>
+                        <Text>Sortuj po nazwie (A-Z)</Text>
+                    </Pressable>
+                    <Pressable onPress={sortByNameDesc} style={styles.sortButton}>
+                        <Text>Sortuj po nazwie (Z-A)</Text>
+                    </Pressable>
+                    <Pressable onPress={sortByCreation} style={styles.sortButton}>
+                        <Text>Sortuj po kolejności utworzenia</Text>
+                    </Pressable>
+                </View>
                 <FlatList 
                 //@ts-ignore
                     data={sortedData}
@@ -134,5 +142,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row', 
         justifyContent: 'space-between',
         margin: 10, 
+      },
+      sortButton: {
+        padding: 5,
+        backgroundColor: '#ACBFA4',
+        borderRadius:5,
+        borderColor: 'black',
+        borderWidth: 2,
+        margin: 5
       },
 });

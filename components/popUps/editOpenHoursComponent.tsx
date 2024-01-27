@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,8 @@ import {
   Pressable,
   StyleSheet,
 } from 'react-native';
+import { useInfoBarApi } from "../../lib/api/infoBar";
+import { useMutation } from '@tanstack/react-query';
 
 const editOpenHoursComponent: React.FC = () => {
     // State variables
@@ -16,16 +18,45 @@ const editOpenHoursComponent: React.FC = () => {
       open: '',
       close: '',
     });
+     //@ts-ignore
+    const { getInfoBar } = useInfoBarApi();
+     //@ts-ignore
+    const { editInfoBar } = useInfoBarApi();
+    const [startHour, setStartHour] = useState('');
+    const [endHour, setEndHour] = useState('');
+    const [bonusNote, setBonusNote] = useState('');
   
+    useEffect(() => {
+      const fetchInfo = async () => {
+          const res = await getInfoBar("1");
+          console.log("Informacje o barze: ", res);
+
+          setStartHour(res.startHour);
+          setEndHour(res.endHour);
+          if(res.bonusNote == null){
+            setBonusNote('');
+          }else{
+            setBonusNote(res.bonusNote);
+          }
+          
+      }
+      fetchInfo()
+  }, [])
+
+  const { mutate, isError, error, status } = useMutation({
+
+    mutationFn: editInfoBar
+  
+  });
+
     // Function to handle the save button click
     const handleSave = () => {
-      // Handle save logic here
-      // Close the modal
+      const startHourForm = new Date(startHour);
+      const endHourForm = new Date(endHour);
+      //@ts-ignore
+        mutate({ startHour: startHourForm, endHour: endHourForm, bonusNote: bonusNote});
+        console.log("status ", status)
       setIsOpenModal(false);
-    };
-
-    const handleChange = (field: keyof typeof newHours, value: string) => {
-      setNewDishes((prev) => ({ ...prev, [field]: value }));
     };
 
 
@@ -46,21 +77,31 @@ const editOpenHoursComponent: React.FC = () => {
                 <TextInput
               style={styles.input}
               placeholder="Godzina otwarcia"
-              value={newHours.open}
-              onChangeText={(text) => handleChange('open', text)}
+              value={startHour}
+              onChangeText={newText => setStartHour(newText)}
             />
             <TextInput
               style={styles.input}
               placeholder="Godzina zamknięcia"
-              value={newHours.close}
-              onChangeText={(text) => handleChange('close', text)}
+              value={endHour}
+              onChangeText={newText => setEndHour(newText)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Dodatkowe informacje"
+              value={bonusNote}
+              onChangeText={newText => setBonusNote(newText)}
             />
     
                 {/* Save Button */}
-                <Button title="Zapisz" onPress={handleSave} />
+                <Pressable onPress={handleSave} style={styles.sortButton}>
+                  <Text>Zapisz</Text>
+                </Pressable>
     
                 {/* Cancel Button */}
-                <Button title="Anuluj" onPress={() => setIsOpenModal(false)} />
+                <Pressable onPress={() => setIsOpenModal(false)} style={styles.sortButton}>
+                  <Text>Anuluj</Text>
+                </Pressable>
               </View>
             </View>
           </Modal>
@@ -105,6 +146,14 @@ const editOpenHoursComponent: React.FC = () => {
           padding: 150,
           borderRadius: 5,
           elevation: 5,
+        },
+        sortButton: {
+          padding: 5,
+          backgroundColor: '#ACBFA4',
+          borderRadius:5,
+          borderColor: 'black',
+          borderWidth: 2,
+          margin: 5
         },
       });
       

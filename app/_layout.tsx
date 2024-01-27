@@ -12,6 +12,7 @@ import DishApiContextProvider from '../lib/api/dish';
 import DayDishApiContextProvider from '../lib/api/dayDish';
 import UserApiContextProvider from '../lib/api/user';
 import PersonApiContextProvider from '../lib/api/person';
+import InfoBarApiContextProvider from '../lib/api/infoBar';
 import SubApiContextProvider from '../lib/api/subscribtion';
 
 
@@ -61,6 +62,7 @@ function RootLayoutNav() {
 
 <>
 <AuthContextProvider>
+<InfoBarApiContextProvider>
 <UserApiContextProvider>
   <PersonApiContextProvider>
     <SubApiContextProvider>
@@ -88,6 +90,7 @@ function RootLayoutNav() {
   </SubApiContextProvider>
   </PersonApiContextProvider>
   </UserApiContextProvider>  
+  </InfoBarApiContextProvider>
 </AuthContextProvider>
 </>
   );

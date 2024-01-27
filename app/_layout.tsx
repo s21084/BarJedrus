@@ -6,12 +6,12 @@ import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import  AuthContextProvider from '../context/AuthContext'
-import AdressApiContetProvider from '../lib/api/adress';
-import EventApiContetProvider from '../lib/api/events';
-import DishApiContetProvider from '../lib/api/dish';
-import DayDishApiContetProvider from '../lib/api/dayDish';
+import AdressApiContextProvider from '../lib/api/adress';
+import EventApiContextProvider from '../lib/api/events';
+import DishApiContextProvider from '../lib/api/dish';
+import DayDishApiContextProvider from '../lib/api/dayDish';
 import UserApiContextProvider from '../lib/api/user';
-import PersonApiContentProvider from '../lib/api/person';
+import PersonApiContextProvider from '../lib/api/person';
 import SubApiContextProvider from '../lib/api/subscribtion';
 
 
@@ -62,13 +62,12 @@ function RootLayoutNav() {
 <>
 <AuthContextProvider>
 <UserApiContextProvider>
-  <PersonApiContentProvider>
+  <PersonApiContextProvider>
     <SubApiContextProvider>
-  <EventApiContetProvider>
-  <AdressApiContetProvider>
-    <DayDishApiContetProvider>
-  
-    <DishApiContetProvider>
+  <EventApiContextProvider>
+  <AdressApiContextProvider>
+    <DayDishApiContextProvider>
+    <DishApiContextProvider>
   <QueryClientProvider client={client}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -82,12 +81,12 @@ function RootLayoutNav() {
         <Stack.Screen name="event/[id]" options={{ title: "Wydarzenie" }} />
       </Stack>
   </QueryClientProvider>
-  </DishApiContetProvider>
-  </DayDishApiContetProvider>
-  </AdressApiContetProvider>
-  </EventApiContetProvider>
+  </DishApiContextProvider>
+  </DayDishApiContextProvider>
+  </AdressApiContextProvider>
+  </EventApiContextProvider>
   </SubApiContextProvider>
-  </PersonApiContentProvider>
+  </PersonApiContextProvider>
   </UserApiContextProvider>  
 </AuthContextProvider>
 </>

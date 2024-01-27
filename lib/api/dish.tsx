@@ -4,7 +4,7 @@ import { PropsWithChildren, createContext, useContext } from "react";
 
 const DishsApiContext = createContext({});
 
-const DishApiContetProvider = ({ children }: PropsWithChildren ) => {
+const DishApiContextProvider = ({ children }: PropsWithChildren ) => {
 // @ts-ignore
         const { authToken } = useAuth();
         
@@ -119,7 +119,7 @@ const DishApiContetProvider = ({ children }: PropsWithChildren ) => {
 }
 
 
-export default DishApiContetProvider;
+export default DishApiContextProvider;
 
 export const useDishApi = () => useContext(DishsApiContext);
 

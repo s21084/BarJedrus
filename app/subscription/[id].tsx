@@ -1,16 +1,18 @@
-import { useSearchParams, Link } from "expo-router";
+import { useSearchParams, Link, useRouter } from "expo-router";
 import { Text, View, StyleSheet, TextInput, Pressable} from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSubApi } from '../../lib/api/subscribtion';
 
+import { useAuth } from "../../context/AuthContext";
 
 
 
 
 export default function SubscriberScreen (){
     const { id } = useSearchParams();
+    //@ts-ignore
     const { getSubscription } = useSubApi();
-
+    const { deleteSub } = useSubApi();
     const [lastMonthPayed, setLastMonthPayed] = useState('');
     const [dishType, setDishType] = useState('');
     const [countOfDish, setCountOfDish] = useState('');
@@ -18,6 +20,16 @@ export default function SubscriberScreen (){
     const [notes, setNotes] = useState('');
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
+    const router = useRouter();
+    const { authToken } = useAuth();
+
+    const onSubDelete = async () => {
+        const DeleteSub = async () => {
+            await deleteSub( id as string );
+        }
+        DeleteSub()
+          router.back();
+      };
 
     useEffect(() => {
         const fetchSub = async () => {
@@ -87,9 +99,9 @@ export default function SubscriberScreen (){
                     <Pressable style={styles.button}>
                         <Text style={styles.buttonText}>Edytuj</Text>
                     </Pressable>
-                    <Link href="../" style={styles.button}>
+                    <Pressable style={styles.button} onPress={onSubDelete}>
                         <Text style={styles.buttonText}>Usuń</Text>
-                    </Link>
+                    </Pressable>
                 </View>
                 </View>
     );

@@ -5,7 +5,7 @@ import { PropsWithChildren, createContext, useContext } from "react";
 
 const DayDishsApiContext = createContext({});
 
-const DayDishApiContetProvider = ({ children }: PropsWithChildren ) => {
+const DayDishApiContextProvider = ({ children }: PropsWithChildren ) => {
 // @ts-ignore
         const { authToken } = useAuth();
         
@@ -96,7 +96,7 @@ const DayDishApiContetProvider = ({ children }: PropsWithChildren ) => {
 }
 
 
-export default DayDishApiContetProvider;
+export default DayDishApiContextProvider;
 
 export const useDayDishApi = () => useContext(DayDishsApiContext);
 

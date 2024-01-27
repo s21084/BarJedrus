@@ -10,7 +10,7 @@ type SubscriberProps = {
 }
 
 
-const Subscripe = ( { sub }: SubscriberProps ) => {
+const Subscribe = ( { sub }: SubscriberProps ) => {
     console.log("id tutaj", sub.id)
 //@ts-ignore
     const { getSubscription } = useSubApi();
@@ -29,12 +29,10 @@ const Subscripe = ( { sub }: SubscriberProps ) => {
     }
     return(
         <Link href={`/subscription/${sub.id}`}>
-            <Pressable>
                 <View style={styles.logInWindow}> 
                 <Text>Nazwisko: {data.person.surname}</Text>  
                 <Text>Lokalizacja: {!data.onPlace && <Text>Wyjazdowo</Text>}{data.onPlace && <Text>Na miejscu</Text>}</Text>
                 </View>
-            </Pressable>
         </Link>
         );
 }
@@ -57,4 +55,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Subscripe;
+export default Subscribe;

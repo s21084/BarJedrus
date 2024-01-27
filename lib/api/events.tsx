@@ -4,7 +4,7 @@ import { PropsWithChildren, createContext, useContext } from "react";
 
 const EventsApiContext = createContext({});
 
-const EventApiContetProvider = ({ children }: PropsWithChildren ) => {
+const EventApiContextProvider = ({ children }: PropsWithChildren ) => {
 // @ts-ignore
         const { authToken } = useAuth();
         
@@ -108,6 +108,6 @@ const EventApiContetProvider = ({ children }: PropsWithChildren ) => {
 }
 
 
-export default EventApiContetProvider;
+export default EventApiContextProvider;
 
 export const useEventApi = () => useContext(EventsApiContext);

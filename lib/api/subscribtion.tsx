@@ -16,7 +16,6 @@ const SubApiContextProvider = ({ children }: PropsWithChildren ) => {
                     Authorization: `Bearer ${authToken}`,
                   },
             });
-            console.log(res);
        
             if(res.status == 401){
                 throw new Error('Error with authorization');
@@ -66,8 +65,27 @@ const SubApiContextProvider = ({ children }: PropsWithChildren ) => {
        
 }
 
+const deleteSub=  async (id: string) => {
+        const res = await fetch(`${API_URL}/subscription/${id}`,{
+                method: 'DELETE',
+                headers: {
+                        Authorization: `Bearer ${authToken}`,
+                        'Content-type':'application/json'
+                      },
+        });
+        if(res.status == 401){
+                throw new Error('Error with authorization');
+        }
+        if(res.status !== 200){
+                throw new Error('Error on fetching person4');
+        }
+        return await res.json();
+       
+      }
+
+
 return(<SubApiContext.Provider value={{
-        listSubscriptions, getSubscription, createSubscription
+        listSubscriptions, getSubscription, createSubscription, deleteSub
 }}>{children}</SubApiContext.Provider>)
 }
 

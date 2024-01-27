@@ -6,7 +6,7 @@ const AdressApiContet = createContext({});
 
 
 
-const AdressApiContetProvider = ({ children }: PropsWithChildren ) => {
+const AdressApiContextProvider = ({ children }: PropsWithChildren ) => {
         // @ts-ignore
         const { authToken } = useAuth();
 
@@ -115,6 +115,6 @@ const AdressApiContetProvider = ({ children }: PropsWithChildren ) => {
         }}>{children}</AdressApiContet.Provider>)
 }
 
-export default AdressApiContetProvider;
+export default AdressApiContextProvider;
 
 export const useAdressApi = () => useContext(AdressApiContet);

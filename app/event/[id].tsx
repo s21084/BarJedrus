@@ -1,6 +1,5 @@
-import { useSearchParams, Link, useRouter } from "expo-router";
+import { useSearchParams, useRouter } from "expo-router";
 import { Text, View, StyleSheet, TextInput, Pressable} from 'react-native';
-import { useQuery } from "@tanstack/react-query";
 import { useMutation } from '@tanstack/react-query';
 import { useEventApi } from "../../lib/api/events";
 import { useEffect, useState } from 'react';
@@ -24,9 +23,8 @@ export default function EventScreen (){
     const [meatCount, setMeatCount] = useState('');
     const router = useRouter();
 
-
     useEffect(() => {
-        const fetchSub = async () => {
+        const fetchEv = async () => {
             const res = await getEvent( id as string );
         
             setName(res.name);
@@ -39,7 +37,7 @@ export default function EventScreen (){
             setMeatCount(res.meatCount);
             
         }
-        fetchSub()
+        fetchEv()
     }, [])
 
 
@@ -58,13 +56,10 @@ export default function EventScreen (){
         const prePayNum = Number(prePay)
         const vegeCountNum = Number(vegeCount)
         const dateFormat = new Date(date);
-        console.log(dateFormat)
         const meatCountNum = Number(meatCount)
         const priceFullNum = Number(priceFull)
         //@ts-ignore
           mutate({ id: id as string, data: { name: name, date: date, decoration: decorationBool, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes } });
-          console.log("Sprawdzam status: ", status)
-          console.log(error)
           router.back();
       };
       const onEventDelete = async () => {
@@ -76,12 +71,6 @@ export default function EventScreen (){
         };
 
 
-
-
-
-
-    //const dateEvent = (date as unknown as string).slice(0,10);
-                //console.log(event);
     return (
         <View style={styles.container}>  
             <View style={styles.eventContainer}>

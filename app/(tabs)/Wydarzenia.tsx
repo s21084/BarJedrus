@@ -45,8 +45,8 @@ export default function Event () {
         return <ActivityIndicator />;
     }
 
-    if (error || !data) {
-        return <Text>Brak wydarzeń</Text>
+    if (error) {
+        return <Text>{error.message}</Text>
       }
 
   
@@ -72,7 +72,11 @@ export default function Event () {
         setSortOption('price');
       };
 
-
+      const sortByCreation = () => {
+        setSortedData(data);
+        // @ts-ignore
+        setSortOption(null);
+      };
     if(isVerified){
         return(
             <View style={{
@@ -85,6 +89,7 @@ export default function Event () {
                     <Button title="Sortuj po dacie" color='#262626' onPress={sortByDate}  />
                     <Button title="Sortuj po nazwie (A-Z)" color='#262626' onPress={sortByName}  />
                     <Button title="Sortuj po nazwie (Z-A)" color='#262626' onPress={sortByNameDesc}  />
+                    <Button title="Sortuj po kolejności utworzenia" color='#262626' onPress={sortByCreation} />
                    </View>
                 <FlatList 
                 //@ts-ignore

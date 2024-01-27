@@ -12,6 +12,7 @@ import DishApiContetProvider from '../lib/api/dish';
 import DayDishApiContetProvider from '../lib/api/dayDish';
 import UserApiContextProvider from '../lib/api/user';
 import PersonApiContentProvider from '../lib/api/person';
+import SubApiContextProvider from '../lib/api/subscribtion';
 
 
 const client = new QueryClient();
@@ -62,6 +63,7 @@ function RootLayoutNav() {
 <AuthContextProvider>
 <UserApiContextProvider>
   <PersonApiContentProvider>
+    <SubApiContextProvider>
   <EventApiContetProvider>
   <AdressApiContetProvider>
     <DayDishApiContetProvider>
@@ -76,6 +78,7 @@ function RootLayoutNav() {
         <Stack.Screen name="(auth)/signIn" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         <Stack.Screen name="dish/[id]" options={{ title: "Danie" }} />
+        <Stack.Screen name="subscription/[id]" options={{ title: "Abonement" }} />
         <Stack.Screen name="event/[id]" options={{ title: "Wydarzenie" }} />
       </Stack>
   </QueryClientProvider>
@@ -83,6 +86,7 @@ function RootLayoutNav() {
   </DayDishApiContetProvider>
   </AdressApiContetProvider>
   </EventApiContetProvider>
+  </SubApiContextProvider>
   </PersonApiContentProvider>
   </UserApiContextProvider>  
 </AuthContextProvider>

@@ -1,27 +1,21 @@
 import { StyleSheet, View, Text, Pressable, FlatList, ActivityIndicator} from 'react-native';
 import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
-import SubscrierComponent from '../../components/subscribersComponent'
-import { listSubscriptions } from '../../lib/api/subscribtion';
+import SubComponent from '../../components/subscribersComponent'
+import { useSubApi } from '../../lib/api/subscribtion';
 import { useQuery } from '@tanstack/react-query';
+import { useAuth } from '../../context/AuthContext';
 
 const userLogOn = true; /* TO PÓŹNIEJ BĘDZIE INACZEJ SPRAWDZANE */
 
-const dummyData = [
-{
-    id: "1",
-    lastMonthPayed: "Lipiec",
-    dishType: false,
-    countOfDish: "pełny",
-    onPlace: true,
-    notes: "string",
-    personId: 1,
-},
-];
 
 
-const SubscriptionsScreen = () => {
-    
+
+export default function SubscriptionsScreen() {
+    //@ts-ignore
+    const { listSubscriptions } = useSubApi();
+    const { email } = useAuth();
+
     const {data, isLoading, error } = useQuery({
         queryKey:['subscription'],
         queryFn: listSubscriptions
@@ -42,9 +36,10 @@ const SubscriptionsScreen = () => {
             <View style={{ alignItems: 'center' }}>
             <Text style={{ padding: 10, fontSize: 30 }}>Subskrybenci</Text>
             <FlatList 
+            //@ts-ignore
                 data={data}
                 renderItem={({ item }) => (
-                        <SubscrierComponent sub={item}/>
+                        <SubComponent sub={item}/>
             )}
             horizontal={false}
             numColumns={4}
@@ -82,5 +77,3 @@ const styles = StyleSheet.create({
         
     },
 });
-
-export default SubscriptionsScreen;

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput, Pressable, ActivityIndicator  } from
 
 import { SubscriberType } from '../types/index';
 import { Link, useSearchParams } from 'expo-router';
-import { getSubscription } from '../lib/api/subscribtion';
+import { useSubApi } from '../lib/api/subscribtion';
 import { useQuery } from '@tanstack/react-query';
 
 type SubscriberProps = {
@@ -12,7 +12,8 @@ type SubscriberProps = {
 
 const Subscripe = ( { sub }: SubscriberProps ) => {
     console.log("id tutaj", sub.id)
-
+//@ts-ignore
+    const { getSubscription } = useSubApi();
     const {data, isLoading, error } = useQuery({
         queryKey:['subscription', sub],
         queryFn: () => getSubscription(sub.id as string)

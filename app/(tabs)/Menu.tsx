@@ -16,6 +16,8 @@ export default function Offer() {
     queryFn: listDish
  });
  
+ const [sortedData, setSortedData] = useState(data); 
+ const [sortOption, setSortOption] = useState(null);
   
 
   const sortByName = () => {
@@ -44,8 +46,7 @@ export default function Offer() {
     // @ts-ignore
     setSortOption(null);
   };
-  const [sortedData, setSortedData] = useState(data); 
-  const [sortOption, setSortOption] = useState(null);
+  
  if(isLoading){
   return <ActivityIndicator />
 }

@@ -1,7 +1,7 @@
 import { useSearchParams, Link } from "expo-router";
 import { Text, View, StyleSheet, TextInput, Pressable} from 'react-native';
 import { useEffect, useState } from 'react';
-import { getSubscription } from '../../lib/api/subscribtion';
+import { useSubApi } from '../../lib/api/subscribtion';
 
 
 
@@ -9,11 +9,8 @@ import { getSubscription } from '../../lib/api/subscribtion';
 
 export default function SubscriberScreen (){
     const { id } = useSearchParams();
+    const { getSubscription } = useSubApi();
 
-    // const {data, isLoading, error} = useQuery({
-    //     queryKey: ['subscription', id],
-    //     queryFn: () => getSubscription(id as string)
-    // })
     const [lastMonthPayed, setLastMonthPayed] = useState('');
     const [dishType, setDishType] = useState('');
     const [countOfDish, setCountOfDish] = useState('');
@@ -38,16 +35,7 @@ export default function SubscriberScreen (){
         fetchSub()
     }, [])
     
-    // if(isLoading){
-    //     return <ActivityIndicator />
-    // }
-    // if(error){
-    //     return <Text>Wydarzenie nie znalezione</Text>
-    // }
 
-
-
-                console.log(event);
     return (
         <View style={styles.container}>  
             <View style={styles.eventContainer}>

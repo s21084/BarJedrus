@@ -1,8 +1,15 @@
-import { API_URL, authToken } from "./config";
-export const listSubscriptions = async () => {
+import { API_URL } from "./config";
+import { useAuth } from "../../context/AuthContext";
+import { PropsWithChildren, createContext, useContext } from "react";
+
+const SubApiContext = createContext({});
+
+const SubApiContextProvider = ({ children }: PropsWithChildren ) => {
+        // @ts-ignore
+                const { authToken } = useAuth();
+
+ const listSubscriptions = async () => {
         
-         //const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjo1M30.AGejMBePzXTCxieFvKZ3dqPFkwBVz4Lmlt5ogRbZWWw';
-         console.log("lol");
        
             const res = await fetch(`${API_URL}/subscription`,{
                 headers: {
@@ -22,7 +29,7 @@ export const listSubscriptions = async () => {
             
 }
 
-export const getSubscription = async (id: string) => {
+ const getSubscription = async (id: string) => {
         
         const res = await fetch(`${API_URL}/subscription/${id}`,{
                 headers: {
@@ -39,7 +46,7 @@ export const getSubscription = async (id: string) => {
        
 }
 
-export const createSubscription = async (data: {content: any}) => {
+ const createSubscription = async (data: {content: any}) => {
               console.log(data.content);
         const res = await fetch(`${API_URL}/subscription`,{
                 method: 'POST',
@@ -58,3 +65,13 @@ export const createSubscription = async (data: {content: any}) => {
         return await res.json();
        
 }
+
+return(<SubApiContext.Provider value={{
+        listSubscriptions, getSubscription, createSubscription
+}}>{children}</SubApiContext.Provider>)
+}
+
+
+export default SubApiContextProvider;
+
+export const useSubApi = () => useContext(SubApiContext);

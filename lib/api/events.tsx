@@ -40,7 +40,7 @@ const EventApiContextProvider = ({ children }: PropsWithChildren ) => {
       
 }
 
- const createEvent = async (data: {name: string, date: Date, decoration: boolean, vegeCount: number, meatCount: number, prePay: number, priceFull: number, notes: string, informationBar: 1}) => {
+ const createEvent = async (data: {name: string, date: Date, decoration: boolean, vegeCount: number, meatCount: number, prePay: number, priceFull: number, notes: string, informationBarId: number}) => {
        console.log(data);
        const res = await fetch(`${API_URL}/event`,{
                method: 'POST',
@@ -50,7 +50,7 @@ const EventApiContextProvider = ({ children }: PropsWithChildren ) => {
                        'Content-type':'application/json'
                      },
        });
-       
+       console.log("res", res)
        if(res.status == 401){
                throw new Error('Error with authorization');
        }

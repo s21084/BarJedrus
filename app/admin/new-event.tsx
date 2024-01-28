@@ -4,50 +4,61 @@ import {
   View,
   StyleSheet,
   Text,
-  Image,
   TextInput,
   Pressable,
   SafeAreaView,
-  ActivityIndicator,
+   
 } from 'react-native';
 import {useMutation  } from '@tanstack/react-query'
 import { useEventApi } from '../../lib/api/events';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 
-export default function NewTweet() {
+
+export default function NewEvent() {
+  //@ts-ignore
   const { createEvent } = useEventApi();
   const [text, setText] = useState('');
   const router = useRouter();
 const [name, setName] = useState('');
 const [decoration, setDecoration] = useState('');
-const [date, setDate] = useState('');
+const [date, setDate] = useState(new Date());
 const [vegeCount, setVegeCount] = useState('');
 const [meatCount, setMeatCount] = useState('');
 const [prePay, setPrePay] = useState('');
 const [notes, setNotes] = useState('');
 const [priceFull, setPriceFull] = useState('');
 
+
   const { mutate, isError, error} = useMutation({
     mutationFn: createEvent,
   });
 
   const onEventPress = async () => {
-    const decoBool = decoration as unknown as boolean;
+    let decorationBool = false;
+        if(decoration == 'true'){
+            decorationBool = true;
+        }
     const vegeCountNum = Number(vegeCount);
     const meatCountNum = Number(meatCount);
     const prePayNum = Number(prePay);
-    const priceFullNum = Number(priceFull);
-    const dateType = new Date(date);
-    mutate({name: name, date: dateType, decoration: decoBool, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes});
-    console.log(isError);
+    const priceFullNum = Number(priceFull); //2070-01-01T00:00:00.000Z
+    //console.log("Time before", date)
+    const isoDateNotDate = date.toISOString()
+    const isoDate = new Date(isoDateNotDate)
+    const informationBarnum = 1;
+    //console.log("Time ", date, " Time before ISO " , isoDateNotDate, " ", isoDate)
+    mutate({name: name, date: isoDate, decoration: decorationBool, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes, informationBarId: informationBarnum});
+    console.log(error);
     //router.back();
 
   };
   
+
  
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-      <Text>Z JAKIEGOŚ POWODU MI NIE CHCE WARTOŚCI NA BOOLEAN ZAMIENIC</Text>
       <View style={styles.container}>
 
         <View style={styles.inputContainer}>
@@ -63,13 +74,26 @@ const [priceFull, setPriceFull] = useState('');
             onChangeText={newText => setDecoration(newText)}
             placeholder="Dekoracje"
           />
-          <TextInput
-          style = {styles.input}
-            value={date}
-            onChangeText={newText => setDate(newText)}
-            placeholder="dd-mm-rrrr"
-            numberOfLines={5}
+          {/* <Text>Data:</Text>
+           <DatePicker
+            selected={date}
+            onChange={date => setDate(date)}
+            dateFormat="dd/MM/yyyy"
+            style={styles.customDatePicker} 
+            wrapperStyle={styles.customDatePickerWrapper}
+            calendarStyle={styles.customCalendar}
+            
+          /> */}
+         
+          <DatePicker
+            selected={date}
+            onChange={date => setDate(date)}
+            showTimeSelect
+            timeIntervals={15}
+            timeFormat="HH:mm"
+            dateFormat="MMMM d, yyyy h:mm aa"
           />
+       
           <TextInput
           style = {styles.input}
             value={vegeCount}
@@ -149,4 +173,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#E2E8CE',
     borderRadius:5,
   },
+  customDatePicker: {
+    /* Styles for the date picker input */
+    fontSize: 16,
+    padding: 8,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    color: '#333',
+  },
+  customDatePickerWrapper: {
+    /* Styles for the date picker wrapper */
+    display: 'flex',
+  },
+  customCalendar: {
+    /* Styles for the calendar popover */
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    color: '#333',
+    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.15)',
+  },
+  
 });

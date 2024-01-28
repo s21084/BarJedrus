@@ -30,6 +30,7 @@
     "expo-system-ui": "~2.4.0",
     "expo-web-browser": "~12.3.2",
     "react": "18.2.0",
+    "react-datepicker": "^5.0.0",
     "react-dom": "18.2.0",
     "react-native": "0.72.6",
     "react-native-datepicker": "^1.7.2",
@@ -44,6 +45,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.14",
+    "@types/react-datepicker": "^4.19.5",
     "@types/react-native": "^0.73.0",
     "@types/react-native-datepicker": "^1.7.6",
     "@types/react-native-table-component": "^1.2.8",

@@ -14,7 +14,7 @@ import {useMutation, useQueryClient  } from '@tanstack/react-query'
 import { createEvent } from '../../lib/api/events';
 
 
-export default function NewTweet() {
+export default function newSchedule() {
   const [text, setText] = useState('');
   const router = useRouter();
   const [newEvents, setNewEvents] = useState({

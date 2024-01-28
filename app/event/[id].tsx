@@ -26,7 +26,7 @@ export default function EventScreen (){
     useEffect(() => {
         const fetchEv = async () => {
             const res = await getEvent( id as string );
-        
+            console.log(res)
             setName(res.name);
             setDate(res.date);
             setDecoration(res.decoration);

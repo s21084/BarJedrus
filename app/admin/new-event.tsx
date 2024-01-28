@@ -7,7 +7,8 @@ import {
   TextInput,
   Pressable,
   SafeAreaView,
-   
+  Switch,
+  NumericInput
 } from 'react-native';
 import {useMutation  } from '@tanstack/react-query'
 import { useEventApi } from '../../lib/api/events';
@@ -16,10 +17,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 
 
+
+
 export default function NewEvent() {
   //@ts-ignore
   const { createEvent } = useEventApi();
-  const [text, setText] = useState('');
+  //const [text, setText] = useState('');
   const router = useRouter();
 const [name, setName] = useState('');
 const [decoration, setDecoration] = useState('');
@@ -31,60 +34,62 @@ const [notes, setNotes] = useState('');
 const [priceFull, setPriceFull] = useState('');
 
 
+
   const { mutate, isError, error} = useMutation({
     mutationFn: createEvent,
   });
 
   const onEventPress = async () => {
-    let decorationBool = false;
-        if(decoration == 'true'){
-            decorationBool = true;
-        }
+    console.log(decoration)
+    // let decorationBool = false;
+    //     if(decoration == true){
+    //         decorationBool = true;
+    //     }
     const vegeCountNum = Number(vegeCount);
     const meatCountNum = Number(meatCount);
     const prePayNum = Number(prePay);
-    const priceFullNum = Number(priceFull); //2070-01-01T00:00:00.000Z
-    //console.log("Time before", date)
+    const priceFullNum = Number(priceFull); 
     const isoDateNotDate = date.toISOString()
     const isoDate = new Date(isoDateNotDate)
-    const informationBarnum = 1;
-    //console.log("Time ", date, " Time before ISO " , isoDateNotDate, " ", isoDate)
-    mutate({name: name, date: isoDate, decoration: decorationBool, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes, informationBarId: informationBarnum});
+    const informationBar = 1;
+    mutate({name: name, date: isoDate, decoration: decoration, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes, informationBarId: informationBar});
     console.log(error);
-    //router.back();
+    router.back();
 
   };
   
 
  
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white',  }}>
       <View style={styles.container}>
 
         <View style={styles.inputContainer}>
+        <Text>Nazwa wydarzenia: </Text>
         <TextInput
             style = {styles.input}
             value={name}
             onChangeText={newText => setName(newText)}
             placeholder="Nazwa wydarzenia"
           />
-          <TextInput
-          style = {styles.input}
+          <Text>Czy bar ma przygotować dekoracje: </Text>
+          <View style={{flexDirection: 'row', margin: 5}}>
+          <Switch
+            trackColor={{ true: '#81b0ff', false: '#767577'}}
+            thumbColor={decoration ? '#f5dd4b' : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={newText => setDecoration(newText)}
             value={decoration}
-            onChangeText={newText => setDecoration(newText)}
-            placeholder="Dekoracje"
+            style={{margin: 5}}
           />
-          {/* <Text>Data:</Text>
-           <DatePicker
-            selected={date}
-            onChange={date => setDate(date)}
-            dateFormat="dd/MM/yyyy"
-            style={styles.customDatePicker} 
-            wrapperStyle={styles.customDatePickerWrapper}
-            calendarStyle={styles.customCalendar}
-            
-          /> */}
-         
+          <TextInput
+            value={decoration ? 'tak': 'nie'}
+            editable="false"
+            placeholder="Dekoracje"
+            style={{margin: 5}}
+          />
+          </View>
+          <Text>Data i godzina: </Text>
           <DatePicker
             selected={date}
             onChange={date => setDate(date)}
@@ -97,26 +102,26 @@ const [priceFull, setPriceFull] = useState('');
           <TextInput
           style = {styles.input}
             value={vegeCount}
-            onChangeText={newText => setVegeCount(newText)}
+            onChangeText={newText => setVegeCount(newText.replace(/[^0-9]/g, ''))}
             placeholder="Osoby wegetariańskie (podaj liczbę)"
-            numberOfLines={5}
+            keyboardType="numeric"
           />
           <TextInput
           style = {styles.input}
             value={meatCount}
-            onChangeText={newText => setMeatCount(newText)}
+            onChangeText={newText => setMeatCount(newText.replace(/[^0-9]/g, ''))}
             placeholder="Łączna ilość osób (podaj liczbę)"
           />
           <TextInput
           style = {styles.input}
             value={prePay}
-            onChangeText={newText => setPrePay(newText)}
+            onChangeText={newText => setPrePay(newText.replace(/[^0-9]/g, ''))}
             placeholder="Przedwpłata (true false)"
           />
           <TextInput
           style = {styles.input}
             value={priceFull}
-            onChangeText={newText => setPriceFull(newText)}
+            onChangeText={newText => setPriceFull(newText.replace(/[^0-9]/g, ''))}
             placeholder="Pełna cena (podaj tylko liczbę)"
           />
           <TextInput
@@ -146,6 +151,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flex: 1,
     alignItems: 'center',
+    margin: 5
   },
   buttonContainer: {
     flexDirection: 'row',

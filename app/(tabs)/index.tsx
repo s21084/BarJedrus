@@ -1,21 +1,35 @@
 import { Pressable, StyleSheet, FlatList } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import Hedder from '../../components/normal/hedder';
-import InfoComponent from '../../components/normal/infoComponent';
-import infos from '../../assets/data/info'
 import ScheduleComponent from '../../components/scheduleComponent';
 import { useAuth } from '../../context/AuthContext';
+import { useInfoBarApi } from "../../lib/api/infoBar";
+import React, { useState, useEffect } from 'react';
 
 
 
 
 export default function Main () {
-  //console.log("FLAG 3")
-  //console.log("UserId in Main: ", email)
-
-  
-
-
+  const [startHour, setStartHour] = useState(new Date());
+    const [endHour, setEndHour] = useState(new Date());
+    const [bonusNote, setBonusNote] = useState('');
+  //@ts-ignore
+  const { getInfoBar } = useInfoBarApi();
+  useEffect(() => {
+    const fetchInfo = async () => {
+        const res = await getInfoBar("1");
+        console.log("Informacje o barze: ", res);
+        setStartHour(new Date(res.startHour));
+        setEndHour(new Date(res.endHour));
+        if(res.bonusNote == null){
+          setBonusNote('');
+        }else{
+          setBonusNote(res.bonusNote);
+        }
+        
+    }
+    fetchInfo()
+}, [])
 
   const dummyData = [
     {
@@ -69,16 +83,21 @@ export default function Main () {
 },
     ];
 
-    
   const { email } = useAuth();
-
-
+ //@ts-ignore
+  function formatTime(time) {
+    return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
   return (
     <View>
       <Hedder />
       <View style={styles.container}>
       <View style={{flexDirection: 'row',backgroundColor: '#47CE83', borderColor: 'black', borderWidth: 5}}>
-      <InfoComponent info= {infos[0]}/>
+      <View style={styles.informationBar}>
+        <Text>Informacja o barze</Text>
+        <Text>Bar otwarty w godzinach {formatTime(startHour)} - {formatTime(endHour)}</Text>
+        <Text>{bonusNote}</Text>
+        </View>
           <View style={styles.contenerWelcome}>
           <Text>Witaj w panelu pracownika. </Text>  
           <Text>Znajduje siętu 5 paneli które mogą cię zainteresować (i jeden dodatkowy dla właściciela).</Text>  
@@ -93,7 +112,6 @@ export default function Main () {
           </View>
           <View style={styles.containerSchedule}>
         <Text style={{fontWeight: 'bold', fontSize: 20}}>Harmonogram</Text>
-        <Text style={{fontWeight: 'bold', fontSize: 20}}>Email: {email}</Text>
         <FlatList 
                 data={dummyData}
                 renderItem={({ item }) => (
@@ -124,6 +142,18 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius:5,
     backgroundColor: '#47CE83',
+},
+informationBar: {
+  flex: 1,
+  paddingHorizontal: 15,
+  maxWidth: 300,
+  paddingVertical: 15,
+  marginVertical: 5,
+  marginHorizontal: 5,
+  alignItems: 'center',
+  backgroundColor: '#47CE83',
+  borderRadius: 5, 
+  overflow: 'hidden',
 },
   
 

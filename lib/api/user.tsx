@@ -62,7 +62,7 @@ const UserApiContextProvider = ({ children }: PropsWithChildren ) => {
                       
                }
                
-                const editUser =  async ({ id, data }: { id: string; data: {email: string, isAdmin: boolean, isVerified: boolean}}) => {
+                const editUser =  async ({ id, data }: { id: string; data: {email: string, isAdmin: boolean, isVerified: boolean, personId: number }}) => {
                        console.log("Tu wchodze", data);
                  const res = await fetch(`${API_URL}/user/${id}`,{
                          method: 'PUT',

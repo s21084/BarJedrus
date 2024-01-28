@@ -49,6 +49,7 @@ export default function NewSub() {
        const personId = res.id
        console.log("personId", personId)
        console.log("Adress ", Street)
+       // @ts-ignore
            mutate({lastMonthPayed: lastMonthPayed, dishType: dishType, countOfDish: countOfDishNum, onPlace: onPlace, notes: notes, personId: personId });
         
         
@@ -58,7 +59,7 @@ export default function NewSub() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={styles.container}>  
-            <View style={styles.eventContainer}>
+            <View>
             <Text>Imię:</Text>
             <TextInput
             style = {styles.input}

@@ -22,6 +22,8 @@ export default function Settings  () {
     //@ts-ignore
     const { editPerson } = usePersonApi();
     //@ts-ignore
+    const { createPerson } = usePersonApi();
+    //@ts-ignore
     const { email } = useAuth();
     console.log("Tuż po wejściu do ustawień: ", email);
     const [id, setId] = useState('');
@@ -39,10 +41,14 @@ export default function Settings  () {
             console.log("res ", res)
             setEmails(email)
             setId(res.id)
-            setPhone(res.person.phone)
-            setFirstName(res.person.name)
-            setSuname(res.person.surname)
-            setPersonId(res.personId)
+            
+            if(res.personId != null){
+                setPersonId(res.personId)
+                setPhone(res.person.phone)
+                setFirstName(res.person.name)
+                setSuname(res.person.surname)
+            }
+            
             setIsAdmin(res.isAdmin)
             setIsVerified(res.isVerified)
         }
@@ -57,15 +63,25 @@ export default function Settings  () {
       });
 
       const onSave = async () => {
+
         const isAdminBool = isAdmin as unknown as boolean;
         const isVerifiedBool = isVerified as unknown as boolean;
         // @ts-ignore
-          mutate({ id: id, data: { email: email, isAdmin: isAdminBool, isVerified: isVerifiedBool } });
-          const EditPerson = async () => {
-            await editPerson({ id: personId, data: { name: firstName, surname: surname, phone: phone } });
-        }
-        EditPerson()
+         
           
+          
+          if(personId == ''){
+            const res = await createPerson({name: firstName, surname: surname, phone: phone });
+            console.log("Res nid ",res.id)
+            setPersonId(res.id as string)
+            console.log("Personid ",personId)
+          }else{
+            const EditPerson = async () => {
+                await editPerson({ id: personId, data: { name: firstName, surname: surname, phone: phone } });
+            }
+            EditPerson()
+          }
+          mutate({ id: id, data: { email: email, isAdmin: isAdminBool, isVerified: isVerifiedBool, personId: personId } });
           console.log("Sprawdzam status: ", status)
           console.log(error)
       };

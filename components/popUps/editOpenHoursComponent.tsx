@@ -102,7 +102,6 @@ const editOpenHoursComponent: React.FC = () => {
             timeIntervals={15}
             timeFormat="HH:mm"
             dateFormat="HH:mm"
-            style={styles.input}
           />
             {/* <TextInput
               style={styles.input}

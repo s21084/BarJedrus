@@ -12,11 +12,12 @@ import {
   FlatList,
   Switch
 } from 'react-native';
-import { listUsers } from '../lib/api/user';
+import { useUserApi } from '../../lib/api/user';
 import { useQuery } from '@tanstack/react-query';
 
 
 export default function UsersList() {
+  const { listUsers } = useUserApi();
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);

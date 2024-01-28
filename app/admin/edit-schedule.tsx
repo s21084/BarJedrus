@@ -10,94 +10,101 @@ import {
   SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
-import {useMutation  } from '@tanstack/react-query'
-import { createEvent } from '../lib/api/events';
+import {useMutation, useQueryClient  } from '@tanstack/react-query'
+import { createEvent } from '../../lib/api/events';
 
 
 export default function NewTweet() {
   const [text, setText] = useState('');
   const router = useRouter();
-const [name, setName] = useState('');
-const [decoration, setDecoration] = useState('');
-const [date, setDate] = useState('');
-const [vegeCount, setVegeCount] = useState('');
-const [meatCount, setMeatCount] = useState('');
-const [prePay, setPrePay] = useState('');
-const [notes, setNotes] = useState('');
-const [priceFull, setPriceFull] = useState('');
+  const [newEvents, setNewEvents] = useState({
+    name: '',
+    decoration: '',
+    date: '',
+    vegeCount: '',
+    meatCount: '',
+    prePay: '',
+    priceFull: '',
+    notes: '',
+});
+
+
 
   const { mutate, isError, error} = useMutation({
     mutationFn: createEvent,
   });
 
-  const onEventPress = async () => {
-    const decoBool = decoration as unknown as boolean;
-    const vegeCountNum = parseInt(vegeCount);
-    const meatCountNum = parseInt(meatCount);
-    const prePayNum = parseInt(prePay);
-    const priceFullNum = parseInt(priceFull);
-    const dateType = new Date(date);
-    mutate({name: name, date: dateType, decoration: decoBool, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes});
-    console.log(isError);
-    //router.back();
 
-  };
+
+
   
+ 
+
+  const onEventPress = async () => {
+    console.log(newEvents);
+    mutate({content: newEvents})
+      // setText('');
+      // router.back();
+  };
+  const handleChange = (field: keyof typeof newEvents, value: string) => {
+    
+    setNewEvents((prev) => ({ ...prev, [field]: value }));
+  };
  
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-      <Text>Z JAKIEGOŚ POWODU MI NIE CHCE WARTOŚCI NA BOOLEAN ZAMIENIC</Text>
       <View style={styles.container}>
+       <Text>DODAĆ HARMONOGRAM</Text>
 
         <View style={styles.inputContainer}>
         <TextInput
             style = {styles.input}
-            value={name}
-            onChangeText={newText => setName(newText)}
+            value={newEvents.name}
+            onChangeText={(text) => handleChange('name', text)}
             placeholder="Nazwa wydarzenia"
           />
           <TextInput
           style = {styles.input}
-            value={decoration}
-            onChangeText={newText => setDecoration(newText)}
+            value={newEvents.decoration}
+            onChangeText={(text) => handleChange('decoration', text)}
             placeholder="Dekoracje"
           />
           <TextInput
           style = {styles.input}
-            value={date}
-            onChangeText={newText => setDate(newText)}
+            value={newEvents.date}
+            onChangeText={(text) => handleChange('date', text)}
             placeholder="dd-mm-rrrr"
             numberOfLines={5}
           />
           <TextInput
           style = {styles.input}
-            value={vegeCount}
-            onChangeText={newText => setVegeCount(newText)}
+            value={newEvents.vegeCount}
+            onChangeText={(text) => handleChange('vegeCount', text)}
             placeholder="Osoby wegetariańskie (podaj liczbę)"
             numberOfLines={5}
           />
           <TextInput
           style = {styles.input}
-            value={meatCount}
-            onChangeText={newText => setMeatCount(newText)}
+            value={newEvents.meatCount}
+            onChangeText={(text) => handleChange('meatCount', text)}
             placeholder="Łączna ilość osób (podaj liczbę)"
           />
           <TextInput
           style = {styles.input}
-            value={prePay}
-            onChangeText={newText => setPrePay(newText)}
-            placeholder="Przedwpłata (true false)"
+            value={newEvents.prePay}
+            onChangeText={(text) => handleChange('prePay', text)}
+            placeholder="Przedwpłata (podaj tylko liczbę)"
           />
           <TextInput
           style = {styles.input}
-            value={priceFull}
-            onChangeText={newText => setPriceFull(newText)}
+            value={newEvents.priceFull}
+            onChangeText={(text) => handleChange('priceFull', text)}
             placeholder="Pełna cena (podaj tylko liczbę)"
           />
           <TextInput
           style = {styles.input}
-            value={notes}
-            onChangeText={newText => setNotes(newText)}
+            value={newEvents.notes}
+            onChangeText={(text) => handleChange('notes', text)}
             placeholder="Notatki"
             multiline
             numberOfLines={5}

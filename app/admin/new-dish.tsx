@@ -10,7 +10,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {  useMutation, useQueryClient } from '@tanstack/react-query';
-import { createDish } from '../lib/api/dish';
+import { useDishApi } from '../../lib/api/dish';
 
 export default function NewDish() {
 const [name, setName] = useState('');
@@ -18,26 +18,26 @@ const [priceForPiece, setPriceForPiece] = useState('');
 const [priceForWeight, setPriceForWeight] = useState('');
 const router = useRouter();
 const queryClient = useQueryClient();
+ //@ts-ignore
+const { createDish } = useDishApi();
 
 const { mutate, isError, error, status } = useMutation({
-
-  mutationFn: createDish,
-  onSuccess: (data) => {
-    queryClient.setQueryData(['dishes'], (existingDishes: any)=>([data, ...existingDishes]))
-
-  }
+  
+  mutationFn: createDish
+  
 
 });
 
+
   const onDishPress = async () => {
-    const pricePieceNum = parseInt(priceForPiece);
-    const priceWeightNum = parseInt(priceForWeight);
+    const pricePieceNum = Number(priceForPiece);
+    const priceWeightNum = Number(priceForWeight);
       mutate({ name: name, priceForPiece: pricePieceNum, priceForWeight: priceWeightNum})
       console.log("Sprawdzam status: ", status)
       console.log(error)
-      router.back();
+      router.back()
   };
- 
+  
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={styles.container}>

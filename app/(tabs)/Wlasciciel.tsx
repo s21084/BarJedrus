@@ -12,31 +12,23 @@ export default function Wlasciciel () {
         <View style={{flexDirection: 'row'}}>
         <EditOpenHoursComponent />
         <View style={styles.buttonBack}>
-            <Link href={'/new-event'}>
-                <Pressable>
+            <Link href={'/admin/new-event'}>
                     <Text style={styles.buttonText}>Nowe wydarzenie</Text>
-                </Pressable>
             </Link>
         </View>
         <View style={styles.buttonBack}>
-            <Link href={'/new-dish'}>
-                <Pressable>
+            <Link href={'/admin/new-dish'}>
                     <Text style={styles.buttonText}>Dodaj danie</Text>
-                </Pressable>
             </Link>
         </View>
         <View style={styles.buttonBack}>
-            <Link href={'/users-list'}>
-                <Pressable>
+            <Link href={'/admin/users-list'}>
                     <Text style={styles.buttonText}>Lista pracowników</Text>
-                </Pressable>
             </Link>
         </View>
         <View style={styles.buttonBack}>
-            <Link href={'/new-subscription'}>
-                <Pressable>
+            <Link href={'/admin/new-subscription'}>
                     <Text style={styles.buttonText}>Nowy abonamentowicz</Text>
-                </Pressable>
             </Link>
         </View>
         </View>

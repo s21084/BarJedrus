@@ -73,6 +73,7 @@ function RootLayoutNav() {
   <QueryClientProvider client={client}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="admin/new-dish" options={{ title: 'Nowe danie' }} />
         <Stack.Screen name="components" options={{ headerShown: false }} />
         <Stack.Screen name="/" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)/authenticate" options={{ title: "Podaj hasło" }} />

@@ -15,9 +15,9 @@ export default function NewSub() {
     //@ts-ignore
     const { createPerson } = usePersonApi();
     const [lastMonthPayed, setLastMonthPayed] = useState('');
-    const [dishType, setDishType] = useState();
+    const [dishType, setDishType] = useState(false);
     const [countOfDish, setCountOfDish] = useState('');
-    const [onPlace, setOnPlace] = useState();
+    const [onPlace, setOnPlace] = useState(false);
     const [notes, setNotes] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -42,6 +42,8 @@ export default function NewSub() {
     const countOfDishNum = Number(countOfDish)
     if(onPlace !== true){setOnPlace(false)}
     if(dishType !== true){setDishType(false)}
+    console.log("onPlace ", onPlace)
+    console.log("dishType ", dishType)
           const res = await createPerson({name: name, surname: surname, phone: phone, Street: Street, HomeNumber:HomeNumber, FlatNumber: FlatNumber, City:City });
           
        const personId = res.id

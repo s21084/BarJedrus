@@ -24,7 +24,7 @@ export default function NewEvent() {
   //const [text, setText] = useState('');
   const router = useRouter();
 const [name, setName] = useState('');
-const [decoration, setDecoration] = useState();
+const [decoration, setDecoration] = useState(false);
 const [date, setDate] = useState(new Date());
 const [vegeCount, setVegeCount] = useState('');
 const [meatCount, setMeatCount] = useState('');

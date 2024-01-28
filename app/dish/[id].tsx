@@ -68,15 +68,15 @@ export default function DishScreen (){
             <Text>Cena za porcje</Text>
             <TextInput
             style = {styles.input}
-            onChangeText={newText => setPriceForPiece(newText)}
-            defaultValue={priceForPiece}
+            onChangeText={newText => setPriceForPiece(newText.replace(/[^0-9]/g, ''))}
+            value={priceForPiece}
             placeholder="Cena za porcje"
             />
             <Text>Cena za wage</Text>
             <TextInput
             style = {styles.input}
-            onChangeText={newText => setPriceForWeight(newText)}
-            defaultValue={priceForWeight}
+            onChangeText={newText => setPriceForWeight(newText.replace(/[^0-9]/g, ''))}
+            value={priceForWeight}
             placeholder="Cena za 100g"
             />
             <Text>Cena która nie dotyczy powinna zostać pusta</Text>

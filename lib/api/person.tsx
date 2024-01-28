@@ -46,7 +46,15 @@ const PersonApiContetProvider = ({ children }: PropsWithChildren ) => {
        
 }
 
- const createPerson=  async (data: {name: string, surname: string, phone: string}) => {
+ const createPerson=  async (data: {
+        name: string, 
+        surname: string, 
+        phone: string, 
+        Street: string,
+        HomeNumber: string,
+        FlatNumber: string,
+        City: string 
+}) => {
               console.log("Informacje ", JSON.stringify(data));
         const res = await fetch(`${API_URL}/person`,{
                 method: 'POST',
@@ -69,7 +77,15 @@ const PersonApiContetProvider = ({ children }: PropsWithChildren ) => {
 
 
 
- const editPerson=  async ({ id, data }: { id: string; data: {name: string, surname: string, phone: string}}) => {
+ const editPerson=  async ({ id, data }: { id: string; data: {
+        name: string, 
+        surname: string, 
+        phone: string, 
+        Street: string,
+        HomeNumber: string,
+        FlatNumber: string,
+        City: string 
+}}) => {
               console.log("Informacje", JSON.stringify(data));
         const res = await fetch(`${API_URL}/person/${id}`,{
                 method: 'PUT',

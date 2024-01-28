@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, Pressable, Button, FlatList, ActivityIndicator} from 'react-native';
 import { Link } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Hedder from '../../components/normal/hedder';
 import SubComponent from '../../components/subscribersComponent'
 import { useSubApi } from '../../lib/api/subscribtion';
@@ -16,23 +16,31 @@ export default function SubscriptionsScreen() {
     //@ts-ignore
     const { listSubscriptions } = useSubApi();
     const { email } = useAuth();
-    
+    const [sortedData, setSortedData] = useState([]); 
+    console.log("sortedData ", sortedData)
+    const [sortOption, setSortOption] = useState(null);
     const {data, isLoading, error } = useQuery({
         queryKey:['subscription'],
         queryFn: listSubscriptions
      });
-     const [sortedData, setSortedData] = useState(data); 
-     console.log("sortedData ", sortedData)
-     const [sortOption, setSortOption] = useState(null);
-     if(isLoading){
-         return <ActivityIndicator />;
-     }
+
+     useEffect(() => {
+        const fetchEvents = async () => {
+            const subData = await listSubscriptions();
+           // const filteredEvents = subData.filter(event => new Date(event.date) >= new Date());
+            setSortedData(subData);
+        };
+        fetchEvents();
+    }, []);
+  
+    //  if(isLoading){
+    //      return <ActivityIndicator />;
+    //  }
  
-     if(error) {
-         return <Text>{error.message}</Text>
-     }
+    //  if(error) {
+    //      return <Text>{error.message}</Text>
+    //  }
      const sortByName = () => {
-        setSortedData(data);
         // @ts-ignore
         const sorted = [...sortedData].sort((a, b) => a.person.surname.localeCompare(b.person.surname));
         setSortedData(sorted);
@@ -47,7 +55,6 @@ export default function SubscriptionsScreen() {
         setSortOption('surnameDesc');
       };
       const sortByOnPlace = () => {
-        setSortedData(data);
         // @ts-ignore 
         const sorted = [...sortedData].sort((a, b) => a.onPlace === b.onPlace ? 0 : a.onPlace ? -1 : 1);
         setSortedData(sorted);
@@ -55,18 +62,12 @@ export default function SubscriptionsScreen() {
         setSortOption('onplacesort');
     };
     const sortByOnPlaceDesc = () => {
-        setSortedData(data);
         // @ts-ignore 
         const sorted = [...sortedData].sort((a, b) => b.onPlace === a.onPlace ? 0 : b.onPlace ? -1 : 1);
         setSortedData(sorted);
         // @ts-ignore
         setSortOption('onplacesort');
     };
-    const sortByCreation = () => {
-        setSortedData(data);
-        // @ts-ignore
-        setSortOption(null);
-      };
 
 
     if(userLogOn){
@@ -75,6 +76,8 @@ export default function SubscriptionsScreen() {
             <Hedder />
             <View style={{ alignItems: 'center' }}>
             <Text style={{ padding: 10, fontSize: 30 }}>Abonamenty</Text>
+            <View style={{
+            alignItems: 'center', flex: 1}}>
             <View style={styles.sortButtons}>
                 
                 <Pressable onPress={sortByName} style={styles.sortButton}>
@@ -89,11 +92,9 @@ export default function SubscriptionsScreen() {
                     <Pressable onPress={sortByOnPlaceDesc} style={styles.sortButton}>
                         <Text>Sortuj po lokalizacji posiłku (Na wynos/Wyjazdowo)</Text>
                     </Pressable>
-                    <Pressable onPress={sortByCreation} style={styles.sortButton}>
-                        <Text>Sortuj po kolejności utworzenia</Text>
-                    </Pressable>
 
             </View>
+            
             <FlatList 
             //@ts-ignore
                 data={sortedData}
@@ -101,8 +102,9 @@ export default function SubscriptionsScreen() {
                         <SubComponent sub={item}/>
             )}
             horizontal={false}
-            numColumns={4}
+            numColumns={5}
              />
+             </View>
             </View>
             </View>
         );

@@ -31,7 +31,7 @@ const Subscribe = ( { sub }: SubscriberProps ) => {
         <Link href={`/subscription/${sub.id}`}>
                 <View style={styles.logInWindow}> 
                 <Text>Nazwisko: {data.person.surname}</Text>  
-                <Text>Lokalizacja: {!data.onPlace && <Text>Wyjazdowo</Text>}{data.onPlace && <Text>Na miejscu</Text>}</Text>
+                <Text>Lokalizacja: {data.onPlace && <Text>Wyjazdowo</Text>}{!data.onPlace && <Text>Na miejscu</Text>}</Text>
                 </View>
         </Link>
         );
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     logInWindow: {
         flex: 1,
         width: 200,
-        height: 250,
+        height: 100,
         paddingVertical: 10,
         marginVertical: 5,
         marginHorizontal: 5,

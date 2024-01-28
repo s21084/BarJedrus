@@ -1,9 +1,10 @@
 import { useSearchParams, Link, useRouter } from "expo-router";
-import { Text, View, StyleSheet, TextInput, Pressable} from 'react-native';
+import { Text, View, Switch, StyleSheet, TextInput, Pressable} from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSubApi } from '../../lib/api/subscribtion';
-
+import { useMutation } from '@tanstack/react-query';
 import { useAuth } from "../../context/AuthContext";
+import { usePersonApi } from '../../lib/api/person';
 
 
 
@@ -13,13 +14,20 @@ export default function SubscriberScreen (){
     //@ts-ignore
     const { getSubscription } = useSubApi();
     const { deleteSub } = useSubApi();
+    //@ts-ignore
+    const { editPerson } = usePersonApi();
+    const { editSubscription } = useSubApi();
     const [lastMonthPayed, setLastMonthPayed] = useState('');
     const [dishType, setDishType] = useState('');
     const [countOfDish, setCountOfDish] = useState('');
     const [onPlace, setOnPlace] = useState('');
     const [notes, setNotes] = useState('');
     const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
     const [surname, setSurname] = useState('');
+    const [personId, setPersonId] = useState('');
+    const [adressId, setAdressId] = useState('')
+
     const router = useRouter();
     const { authToken } = useAuth();
 
@@ -31,17 +39,41 @@ export default function SubscriberScreen (){
           router.back();
       };
 
+      const { mutate, isError, error, status } = useMutation({
+
+        mutationFn: editSubscription
+      
+      });
+
+      const onSave = async () => {
+        // @ts-ignore
+        const countOfDishNum = Number(countOfDish)
+          mutate({ id: id, data: {lastMonthPayed: lastMonthPayed, dishType: dishType, countOfDish: countOfDishNum, onPlace: onPlace, notes: notes } });
+          const EditPerson = async () => {
+            await editPerson({ id: personId, data: { name: name, surname: surname, phone: phone } });
+        }
+        EditPerson()
+        router.back();
+      };
+
+
+
+
+
+
     useEffect(() => {
         const fetchSub = async () => {
             const res = await getSubscription( id as string );
-            
+            setPersonId(res.personId)
             setLastMonthPayed(res.lastMonthPayed);
             setDishType(res.dishType);
             setCountOfDish(res.countOfDish);
             setOnPlace(res.onPlace);
+            setPhone(res.person.phone)
             setNotes(res.notes);
             setName(res.person.name);
             setSurname(res.person.surname);
+            setAdressId(res.person.adressId)
             
         }
         fetchSub()
@@ -65,6 +97,13 @@ export default function SubscriberScreen (){
             defaultValue={surname}
             placeholder="Nazwisko"
             />
+            <Text>Telefon:</Text>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setPhone(newText)}
+            defaultValue={phone}
+            placeholder="Telefon"
+            />
             <Text>Wykupiony miesiąc:</Text>
             <TextInput
             style = {styles.input}
@@ -80,12 +119,46 @@ export default function SubscriberScreen (){
             placeholder="Ilość posiłków wykupionych"
             />
             <Text>Rodzaj obiad (pełny lub połówka):</Text>
-            <TextInput
-            style = {styles.input}
-            onChangeText={newText => setDishType(newText)}
-            defaultValue={dishType}
-            placeholder="Rodzaj obiadu"
-            />
+            <View style={{flexDirection: 'row', margin: 5}}>
+            <Switch
+            trackColor={{ true: '#81b0ff', false: '#767577'}}
+            thumbColor={dishType ? '#f5dd4b' : '#f5dd4b'}
+            ios_backgroundColor="#3e3e3e"
+            // @ts-ignore
+            onValueChange={newText => setDishType(newText)}
+            // @ts-ignore
+            value={dishType}
+            style={{margin: 5}}
+          />
+          <TextInput
+            value={dishType ? 'Połówka': 'Cały'}
+            // @ts-ignore
+            editable="false"
+            placeholder="Dekoracje"
+            style={{margin: 5}}
+          />
+          </View>
+          <Text>Lokalizacja:</Text>
+          <View style={{flexDirection: 'row', margin: 5}}>
+            <Switch
+            trackColor={{ true: '#81b0ff', false: '#767577'}}
+            thumbColor={onPlace ? '#f5dd4b' : '#f5dd4b'}
+            ios_backgroundColor="#3e3e3e"
+            // @ts-ignore
+            onValueChange={newText => setOnPlace(newText)}
+            // @ts-ignore
+            value={onPlace}
+            style={{margin: 5}}
+          />
+          <TextInput
+            value={onPlace ? 'Wyjazd': 'Na miejscu'}
+            // @ts-ignore
+            editable="false"
+            placeholder="Dekoracje"
+            style={{margin: 5}}
+          />
+          </View>
+          {onPlace && <Text>Adress: {adressId}</Text>}
             <Text>Notatki:</Text>
             <TextInput
             style = {styles.input}
@@ -96,8 +169,8 @@ export default function SubscriberScreen (){
             />
             </View>
                 <View style={styles.buttonContainer}>
-                    <Pressable style={styles.button}>
-                        <Text style={styles.buttonText}>Edytuj</Text>
+                    <Pressable style={styles.button} onPress={onSave}>
+                        <Text style={styles.buttonText}>Zapisz</Text>
                     </Pressable>
                     <Pressable style={styles.button} onPress={onSubDelete}>
                         <Text style={styles.buttonText}>Usuń</Text>

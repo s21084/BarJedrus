@@ -7,8 +7,7 @@ import {
   TextInput,
   Pressable,
   SafeAreaView,
-  Switch,
-  NumericInput
+  Switch
 } from 'react-native';
 import {useMutation  } from '@tanstack/react-query'
 import { useEventApi } from '../../lib/api/events';
@@ -25,7 +24,7 @@ export default function NewEvent() {
   //const [text, setText] = useState('');
   const router = useRouter();
 const [name, setName] = useState('');
-const [decoration, setDecoration] = useState('');
+const [decoration, setDecoration] = useState();
 const [date, setDate] = useState(new Date());
 const [vegeCount, setVegeCount] = useState('');
 const [meatCount, setMeatCount] = useState('');
@@ -40,11 +39,9 @@ const [priceFull, setPriceFull] = useState('');
   });
 
   const onEventPress = async () => {
-    console.log(decoration)
-    // let decorationBool = false;
-    //     if(decoration == true){
-    //         decorationBool = true;
-    //     }
+    console.log("decoration before ", decoration)
+    if(decoration !== true){setDecoration(false)}
+    console.log("decoration ", decoration)
     const vegeCountNum = Number(vegeCount);
     const meatCountNum = Number(meatCount);
     const prePayNum = Number(prePay);
@@ -52,9 +49,10 @@ const [priceFull, setPriceFull] = useState('');
     const isoDateNotDate = date.toISOString()
     const isoDate = new Date(isoDateNotDate)
     const informationBar = 1;
+     //@ts-ignore
     mutate({name: name, date: isoDate, decoration: decoration, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes, informationBarId: informationBar});
     console.log(error);
-    router.back();
+    //router.back();
 
   };
   
@@ -78,12 +76,15 @@ const [priceFull, setPriceFull] = useState('');
             trackColor={{ true: '#81b0ff', false: '#767577'}}
             thumbColor={decoration ? '#f5dd4b' : '#f4f3f4'}
             ios_backgroundColor="#3e3e3e"
+             //@ts-ignore
             onValueChange={newText => setDecoration(newText)}
+             //@ts-ignore
             value={decoration}
             style={{margin: 5}}
           />
           <TextInput
             value={decoration ? 'tak': 'nie'}
+             //@ts-ignore
             editable="false"
             placeholder="Dekoracje"
             style={{margin: 5}}
@@ -92,6 +93,7 @@ const [priceFull, setPriceFull] = useState('');
           <Text>Data i godzina: </Text>
           <DatePicker
             selected={date}
+             //@ts-ignore
             onChange={date => setDate(date)}
             showTimeSelect
             timeIntervals={15}

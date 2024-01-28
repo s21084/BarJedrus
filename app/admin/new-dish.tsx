@@ -53,13 +53,13 @@ const { mutate, isError, error, status } = useMutation({
           style = {styles.input}
             value={priceForPiece}
             placeholder="Cena za porcję"
-            onChangeText={newText => setPriceForPiece(newText)}
+            onChangeText={newText => setPriceForPiece(newText.replace(/[^0-9]/g, ''))}
           />
           <TextInput
           style = {styles.input}
             value={priceForWeight}
             placeholder="Cena za wagę"
-            onChangeText={newText => setPriceForWeight(newText)}
+            onChangeText={newText => setPriceForWeight(newText.replace(/[^0-9]/g, ''))}
           />
           
         </View>

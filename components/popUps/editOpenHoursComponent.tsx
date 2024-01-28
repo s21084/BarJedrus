@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import { useInfoBarApi } from "../../lib/api/infoBar";
 import { useMutation } from '@tanstack/react-query';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const editOpenHoursComponent: React.FC = () => {
     // State variables
@@ -31,8 +33,8 @@ const editOpenHoursComponent: React.FC = () => {
           const res = await getInfoBar("1");
           console.log("Informacje o barze: ", res);
 
-          setStartHour(res.startHour);
-          setEndHour(res.endHour);
+          setStartHour(new Date(res.startHour));
+          setEndHour(new Date(res.endHour));
           if(res.bonusNote == null){
             setBonusNote('');
           }else{
@@ -59,6 +61,7 @@ const editOpenHoursComponent: React.FC = () => {
       setIsOpenModal(false);
     };
 
+    
 
     return (
         <View style={styles.container}>
@@ -74,18 +77,39 @@ const editOpenHoursComponent: React.FC = () => {
                 <Text>Edytuj informacje o godzinach pracy bary</Text>
     
                 {/* Open Hour Input */}
-                <TextInput
+                {/* <TextInput
               style={styles.input}
               placeholder="Godzina otwarcia"
               value={startHour}
               onChangeText={newText => setStartHour(newText)}
-            />
-            <TextInput
+            /> */}
+            <Text>Godzina otwarcia:</Text>
+             <DatePicker
+            selected={startHour}
+            onChange={date => setStartHour(date)}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={15}
+            timeFormat="HH:mm"
+            dateFormat="HH:mm"
+          />
+          <Text>Godzina zamknięcia:</Text>
+          <DatePicker
+            selected={endHour}
+            onChange={date => setEndHour(date)}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={15}
+            timeFormat="HH:mm"
+            dateFormat="HH:mm"
+            style={styles.input}
+          />
+            {/* <TextInput
               style={styles.input}
               placeholder="Godzina zamknięcia"
               value={endHour}
               onChangeText={newText => setEndHour(newText)}
-            />
+            /> */}
             <TextInput
               style={styles.input}
               placeholder="Dodatkowe informacje"

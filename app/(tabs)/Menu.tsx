@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Pressable, FlatList, ActivityIndicator, Text } from 'react-native';
 import { Link } from 'expo-router';
 import Hedder from '../../components/normal/hedder';
@@ -11,13 +11,22 @@ export default function Offer() {
 // @ts-ignore
   const { listDish } = useDishApi();
  
+  const [sortedData, setSortedData] = useState([]); 
+  const [sortOption, setSortOption] = useState(null);
   const {data, isLoading, error} = useQuery({
     queryKey:['dishes'],
     queryFn: listDish
  });
+
+ useEffect(() => {
+  const fetchEvents = async () => {
+      const dishData = await listDish();
+      //const filteredEvents = eventsData.filter(event => new Date(event.date) >= new Date());
+      setSortedData(dishData);
+  };
+  fetchEvents();
+}, []);
  
- const [sortedData, setSortedData] = useState(data); 
- const [sortOption, setSortOption] = useState(null);
   
 
   const sortByName = () => {
@@ -41,11 +50,6 @@ export default function Offer() {
     // @ts-ignore
     setSortOption('price');
   };
-  const sortByCreation = () => {
-    setSortedData(data);
-    // @ts-ignore
-    setSortOption(null);
-  };
   
  if(isLoading){
   return <ActivityIndicator />
@@ -66,9 +70,7 @@ if (error || !data) {
           <Pressable onPress={sortByNameDesc} style={styles.sortButton}>
             <Text>Sortuj po nazwie (Z-A)</Text>
           </Pressable>
-          <Pressable onPress={sortByCreation} style={styles.sortButton}>
-            <Text>Sortuj po kolejności utworzenia</Text>
-          </Pressable>
+         
         </View>
         <View style={{ flex: 1 }}>
           <FlatList

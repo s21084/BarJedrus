@@ -45,11 +45,11 @@ const SubApiContextProvider = ({ children }: PropsWithChildren ) => {
        
 }
 
- const createSubscription = async (data: {content: any}) => {
-              console.log(data.content);
+ const createSubscription = async (data: {lastMonthPayed: string, dishType: boolean, countOfDish: number, onPlace: boolean, notes: string, userId: number}) => {
+              console.log(data);
         const res = await fetch(`${API_URL}/subscription`,{
                 method: 'POST',
-                body: data.content,
+                body: JSON.stringify(data),
                 headers: {
                         Authorization: `Bearer ${authToken}`,
                         'Content-type':'application/json'
@@ -63,6 +63,26 @@ const SubApiContextProvider = ({ children }: PropsWithChildren ) => {
         }
         return await res.json();
        
+}
+
+const editSubscription = async ({ id, data }: { id: string; data: {lastMonthPayed: string, dishType: boolean, countOfDish: number, onPlace: boolean, notes: string}}) => {
+        //console.log(data.content);
+  const res = await fetch(`${API_URL}/subscription/${id}`,{
+          method: 'PUT',
+          body: JSON.stringify(data),
+          headers: {
+                  Authorization: `Bearer ${authToken}`,
+                  'Content-type':'application/json'
+                },
+  });
+  if(res.status == 401){
+          throw new Error('Error with authorization');
+  }
+  if(res.status !== 200){
+          throw new Error('Error on fetching events');
+  }
+  return await res.json();
+ 
 }
 
 const deleteSub=  async (id: string) => {
@@ -85,7 +105,7 @@ const deleteSub=  async (id: string) => {
 
 
 return(<SubApiContext.Provider value={{
-        listSubscriptions, getSubscription, createSubscription, deleteSub
+        listSubscriptions, getSubscription, createSubscription, deleteSub, editSubscription
 }}>{children}</SubApiContext.Provider>)
 }
 

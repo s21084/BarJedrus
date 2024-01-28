@@ -1,8 +1,10 @@
 import { useSearchParams, useRouter } from "expo-router";
-import { Text, View, StyleSheet, TextInput, Pressable} from 'react-native';
+import { Text, View, StyleSheet, TextInput, Switch, Pressable} from 'react-native';
 import { useMutation } from '@tanstack/react-query';
 import { useEventApi } from "../../lib/api/events";
 import { useEffect, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function EventScreen (){
     const { id } = useSearchParams();
@@ -28,7 +30,7 @@ export default function EventScreen (){
             const res = await getEvent( id as string );
             console.log(res)
             setName(res.name);
-            setDate(res.date);
+            setDate(new Date(res.date));
             setDecoration(res.decoration);
             setVegeCount(res.vegeCount);
             setPrePay(res.prePay);
@@ -55,11 +57,13 @@ export default function EventScreen (){
         }
         const prePayNum = Number(prePay)
         const vegeCountNum = Number(vegeCount)
-        const dateFormat = new Date(date);
+        const isoDateNotDate = date.toISOString()
+        const isoDate = new Date(isoDateNotDate)
+        const informationBar = 1;
         const meatCountNum = Number(meatCount)
         const priceFullNum = Number(priceFull)
         //@ts-ignore
-          mutate({ id: id as string, data: { name: name, date: date, decoration: decorationBool, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes } });
+          mutate({ id: id as string, data: {name: name, date: isoDate, decoration: decoration, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes, informationBarId: informationBar} });
           router.back();
       };
       const onEventDelete = async () => {
@@ -82,45 +86,61 @@ export default function EventScreen (){
             placeholder="Nazwa"
             />
             <Text>Data</Text>
-            <TextInput
-            style = {styles.input}
-            onChangeText={newText => setDate(newText)}
-            defaultValue={date}
-            placeholder="Data"
-            />
+            <Text>Data i godzina: </Text>
+          <DatePicker
+            selected={date}
+            onChange={date => setDate(date)}
+            showTimeSelect
+            timeIntervals={15}
+            timeFormat="HH:mm"
+            dateFormat="MMMM d, yyyy h:mm aa"
+          />
             <Text>Czy przygotować dekoracje?</Text>
-            <TextInput
-            style = {styles.input}
-            onChangeText={newText => setDecoration(newText)}
-            defaultValue={decoration}
-            placeholder="Czy przygotować dekoracje?"
-            />
+            <View style={{flexDirection: 'row', margin: 5}}>
+          <Switch
+            trackColor={{ true: '#81b0ff', false: '#767577'}}
+            thumbColor={decoration ? '#f5dd4b' : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            // @ts-ignore
+            onValueChange={newText => setDecoration(newText)}
+            // @ts-ignore
+            value={decoration}
+            style={{margin: 5}}
+          />
+          <TextInput
+            value={decoration ? 'tak': 'nie'}
+            // @ts-ignore
+            editable="false"
+            placeholder="Dekoracje"
+            style={{margin: 5}}
+          />
+          </View>
             <Text>Ilość osób mięsnych</Text>
             <TextInput
             style = {styles.input}
-            onChangeText={newText => setMeatCount(newText)}
-            defaultValue={meatCount}
+            onChangeText={newText => setMeatCount(newText.replace(/[^0-9]/g, ''))}
+            value={meatCount}
             placeholder="Ilość osób mięsnych"
             /> 
             <Text>Ilość osób veg</Text>
             <TextInput
             style = {styles.input}
-            onChangeText={newText => setVegeCount(newText)}
-            defaultValue={vegeCount}
+            onChangeText={newText => setVegeCount(newText.replace(/[^0-9]/g, ''))}
+            value={vegeCount}
             placeholder="Ilość osób vege"
             /> 
             <Text>Przedwpłata</Text>
             <TextInput
             style = {styles.input}
-            onChangeText={newText => setPrePay(newText)}
-            defaultValue={prePay}
+            onChangeText={newText => setPrePay(newText.replace(/[^0-9]/g, ''))}
+            value={prePay}
             placeholder="Przedwpłata"
             />
             <Text>Pełna cena</Text>
             <TextInput
             style = {styles.input}
-            onChangeText={newText => setPriceFull(newText)}
-            defaultValue={priceFull}
+            onChangeText={newText => setPriceFull(newText.replace(/[^0-9]/g, ''))}
+            value={priceFull}
             placeholder="Pełna cena"
             />
             <Text>Notatki</Text>

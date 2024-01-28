@@ -19,6 +19,9 @@ export default function Event () {
    const [isAdmin, setIsAdmin] = useState('');
     const [isVerified, setIsVerified] = useState('');
   
+    const [sortedData, setSortedData] = useState([]); 
+    const [sortOption, setSortOption] = useState(null);
+
     useEffect(() => {
         const fetchUser = async () => {
             //@ts-ignore
@@ -33,25 +36,27 @@ export default function Event () {
     console.log("Użytkownik: ", email, " czy jest zweryfikowany ", isVerified, " i czy jest adminem ", isAdmin)
 
    
-    const {data, isLoading, error } = useQuery({
-       queryKey:['events'],
-       queryFn: listEvents
-    });
-    const [sortedData, setSortedData] = useState(data); 
-    const [sortOption, setSortOption] = useState(null);
+    useEffect(() => {
+        const fetchEvents = async () => {
+            const eventsData = await listEvents();
+            //@ts-ignore
+            const filteredEvents = eventsData.filter(event => new Date(event.date) >= new Date());
+            setSortedData(filteredEvents);
+        };
+        fetchEvents();
+    }, []);
 
     
-    if(isLoading){
-        return <ActivityIndicator />;
-    }
+    // if(isLoading){
+    //     return <ActivityIndicator />;
+    // }
 
-    if (error) {
-        return <Text>{error.message}</Text>
-      }
+    // if (error) {
+    //     return <Text>{error.message}</Text>
+    //   }
 
   
       const sortByDate = () => {
-        setSortedData(data);
         // @ts-ignore
         const sorted = [...sortedData].sort((a, b) => new Date(a.date) - new Date(b.date));
         setSortedData(sorted);
@@ -59,7 +64,6 @@ export default function Event () {
         setSortOption('date');
       };
       const sortByName = () => {
-        setSortedData(data);
         // @ts-ignore
         const sorted = [...sortedData].sort((a, b) => a.name.localeCompare(b.name));
         setSortedData(sorted);
@@ -67,7 +71,6 @@ export default function Event () {
         setSortOption('name');
       };
       const sortByNameDesc = () => {
-        setSortedData(data);
         // @ts-ignore 
         const sorted = [...sortedData].sort((a, b) => b.name.localeCompare(a.name));
         setSortedData(sorted);
@@ -75,11 +78,7 @@ export default function Event () {
         setSortOption('price');
       };
 
-      const sortByCreation = () => {
-        setSortedData(data);
-        // @ts-ignore
-        setSortOption(null);
-      };
+      
     if(isVerified){
         return(
             <View style={{
@@ -97,9 +96,6 @@ export default function Event () {
                     </Pressable>
                     <Pressable onPress={sortByNameDesc} style={styles.sortButton}>
                         <Text>Sortuj po nazwie (Z-A)</Text>
-                    </Pressable>
-                    <Pressable onPress={sortByCreation} style={styles.sortButton}>
-                        <Text>Sortuj po kolejności utworzenia</Text>
                     </Pressable>
                 </View>
                 <FlatList 

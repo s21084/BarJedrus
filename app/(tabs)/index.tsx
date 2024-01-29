@@ -6,17 +6,22 @@ import { useAuth } from '../../context/AuthContext';
 import { useInfoBarApi } from "../../lib/api/infoBar";
 import React, { useState, useEffect } from 'react';
 
-
-
+import { useScheduleApi } from '../../lib/api/schedule';
+import { useUserApi } from '../../lib/api/user';
 
 export default function Main () {
+  const { email } = useAuth();
   const [startHour, setStartHour] = useState(new Date());
-    const [endHour, setEndHour] = useState(new Date());
+  const [endHour, setEndHour] = useState(new Date());
+  const [userId, setUserId] = useState('');
+  const [data, setData] = useState([]);
     const [bonusNote, setBonusNote] = useState('');
-  //@ts-ignore
-  const { getInfoBar } = useInfoBarApi();
+    const { getInfoBar } = useInfoBarApi();
+    const { getUserByEmail } = useUserApi();
+  const { getScheduleByUser } = useScheduleApi()
   useEffect(() => {
     const fetchInfo = async () => {
+      
         const res = await getInfoBar("1");
         console.log("Informacje o barze: ", res);
         setStartHour(new Date(res.startHour));
@@ -30,6 +35,22 @@ export default function Main () {
     }
     fetchInfo()
 }, [])
+useEffect(() => {
+  const fetchUser = async () => {
+    const resUser = await getUserByEmail(email as string);
+    setUserId(resUser.id)
+  }
+  fetchUser()
+}, [])
+useEffect(() => {
+  const fetchData = async () => {
+    const resUser = await getScheduleByUser(userId as string);
+    console.log("resUser ", resUser)
+    setData(resUser)
+  }
+  fetchData()
+}, [])
+
 
   const dummyData = [
     {
@@ -83,11 +104,12 @@ export default function Main () {
 },
     ];
 
-  const { email } = useAuth();
+    
+
  //@ts-ignore
-  function formatTime(time) {
-    return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  }
+ function formatTime(time) {
+  return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
   return (
     <View>
       <Hedder />
@@ -113,7 +135,7 @@ export default function Main () {
           <View style={styles.containerSchedule}>
         <Text style={{fontWeight: 'bold', fontSize: 20}}>Harmonogram</Text>
         <FlatList 
-                data={dummyData}
+                data={data}
                 renderItem={({ item }) => (
                         <ScheduleComponent schedule={item}/>
             )}

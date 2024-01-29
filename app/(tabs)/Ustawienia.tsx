@@ -37,8 +37,10 @@ export default function Settings  () {
     
     useEffect(() => {
         const fetchUser = async () => {
+              // @ts-ignore
             const res = await getUserByEmail(email as string);
             console.log("res ", res)
+              // @ts-ignore
             setEmails(email)
             setId(res.id)
             
@@ -66,10 +68,6 @@ export default function Settings  () {
 
         const isAdminBool = isAdmin as unknown as boolean;
         const isVerifiedBool = isVerified as unknown as boolean;
-        // @ts-ignore
-         
-          
-          
           if(personId == ''){
             const res = await createPerson({name: firstName, surname: surname, phone: phone });
             console.log("Res nid ",res.id)
@@ -81,6 +79,7 @@ export default function Settings  () {
             }
             EditPerson()
           }
+            // @ts-ignore
           mutate({ id: id, data: { email: email, isAdmin: isAdminBool, isVerified: isVerifiedBool, personId: personId } });
           console.log("Sprawdzam status: ", status)
           console.log(error)

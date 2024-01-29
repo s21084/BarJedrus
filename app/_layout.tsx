@@ -14,6 +14,7 @@ import UserApiContextProvider from '../lib/api/user';
 import PersonApiContextProvider from '../lib/api/person';
 import InfoBarApiContextProvider from '../lib/api/infoBar';
 import SubApiContextProvider from '../lib/api/subscribtion';
+import ScheduleApiContextProvider from '../lib/api/schedule';
 
 
 const client = new QueryClient();
@@ -65,6 +66,7 @@ function RootLayoutNav() {
 <InfoBarApiContextProvider>
 <UserApiContextProvider>
   <PersonApiContextProvider>
+    <ScheduleApiContextProvider>
     <SubApiContextProvider>
   <EventApiContextProvider>
   <AdressApiContextProvider>
@@ -89,6 +91,7 @@ function RootLayoutNav() {
   </AdressApiContextProvider>
   </EventApiContextProvider>
   </SubApiContextProvider>
+  </ScheduleApiContextProvider>
   </PersonApiContextProvider>
   </UserApiContextProvider>  
   </InfoBarApiContextProvider>

@@ -22,6 +22,7 @@ const editDayDishComponent: React.FC<{}> = () => {
     const id  = "1";
     const [soup, setSoup] = useState('');
     const [secondDish, setSecondDish] = useState('');
+    const [price, setPrice] = useState('');
     const router = useRouter();
     const queryClient = useQueryClient();
   
@@ -30,6 +31,7 @@ const editDayDishComponent: React.FC<{}> = () => {
           const res = await getDayDish( id as string );
           setSoup(res.soup);
           setSecondDish(res.secondDish);
+          setPrice(res.price);
       }
       fetchDish()
   }, [])
@@ -46,7 +48,7 @@ const editDayDishComponent: React.FC<{}> = () => {
     // Handler to save changes and close the popup
     const handleSave = () => {
       //@ts-ignore
-      mutate({ id: id as string, data: { soup, secondDish } });
+      mutate({ id: id, data: { soup: soup, secondDish: secondDish, price:price } });
       console.log("Sprawdzam status: ", status)
       console.log(error)
         // Close the modal
@@ -70,7 +72,7 @@ const editDayDishComponent: React.FC<{}> = () => {
               placeholder="Wprowadź zupy"
               value={soup}
               multiline
-              numberOfLines={5}
+              numberOfLines={2}
               onChangeText={newText => setSoup(newText)}
             />
             <TextInput
@@ -78,15 +80,25 @@ const editDayDishComponent: React.FC<{}> = () => {
               placeholder="Wprowadź drugie dania"
               value={secondDish}
               multiline
-              numberOfLines={5}
+              numberOfLines={2}
               onChangeText={newText => setSecondDish(newText)}
+            />
+              <TextInput
+              style={styles.input}
+              placeholder="Cena dania dnia"
+              value={price}
+              keyboardType="numeric"
+              onChangeText={newNumber => setPrice(Number(newNumber.replace(/[^0-9]/g, '')))}
             />
   
             {/* Buttons */}
             
-            <Button title="Zapisz" onPress={handleSave} />
-            
-            <Button title="Anuluj" onPress={() => setIsOpenModal(false)} />
+            <Pressable onPress={handleSave} style={styles.sortButton}>
+              <Text>Zapisz</Text>
+            </Pressable>
+            <Pressable onPress={() => setIsOpenModal(false)} style={styles.sortButton}>
+              <Text>Anuluj</Text>
+            </Pressable>
             </View>
             </View>
             </Modal>
@@ -106,6 +118,12 @@ const editDayDishComponent: React.FC<{}> = () => {
         height: 50,
         justifyContent: 'center',
       alignItems: 'center',
+    },
+    sortButton: {
+      padding: 5,
+      backgroundColor: '#ACBFA4',
+      borderRadius:5,
+      margin: 5
     },
     buttonBack: {
         marginVertical: 5,

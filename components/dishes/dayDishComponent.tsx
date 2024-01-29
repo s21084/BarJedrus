@@ -14,9 +14,6 @@ export default function DayDishComponent(){
     const router = useRouter();
     // @ts-ignore
     const { getDayDish } = useDayDishApi();
-    // @ts-ignore
-    const { editDayDish } = useDayDishApi();
-
     useEffect(() => {
         const fetchDish = async () => {
             const res = await getDayDish(id);
@@ -26,21 +23,7 @@ export default function DayDishComponent(){
         fetchDish()
     }, [])
 
-    const { mutate, isError, error, status } = useMutation({
 
-        mutationFn: editDayDish
-      
-      });
-
-
-      const onDishSave = async () => {
-        const newId = id as string;
-        // @ts-ignore
-          mutate({ id: id as string, data: { soup, secondDish } });
-          console.log("Sprawdzam status: ", status)
-          console.log(error)
-          router.back();
-      };
     
     return(
             <View style={{alignItems: 'center'}}>

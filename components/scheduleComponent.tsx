@@ -17,14 +17,14 @@ const dayWeek: { [key: number]: string } = {
     7: 'Niedziela',
 }
 const Schedule = ({ schedule }: ScheduleProps) => {
-    const dateBefore = new Date(schedule.startHour)
-    const formattedDateTime = format(dateBefore, 'MMMM dd, yyyy HH:mm:ss');
+    const formattedStartTime = format(new Date(schedule.startHour), 'HH:mm:ss');
+    const formattedEndTime = format(new Date(schedule.endHour), 'HH:mm:ss');
     //const date = formattedDateTime.toDateString();
     //console.log(dateBefore)
     return(
                 <View style={styles.container}>   
                 {schedule.weekDayNumber && <Text>{dayWeek[schedule.weekDayNumber]}</Text>}
-                <Text>{ formattedDateTime }</Text>
+                <Text>{ formattedStartTime } - { formattedEndTime }</Text>
                 </View>
         );
 }

@@ -12,8 +12,8 @@ const Dish = ({ dish }: DishProps) => {
         <View >
             <Link href={`/dish/${dish.id}`} style={styles.logInWindow}>
                 {dish.name && <Text>{dish.name}</Text>}
-                {dish.priceForPiece && <Text>{dish.priceForPiece} zł</Text>}
-                {dish.priceForWeight && <Text>{dish.priceForWeight} zł /100g</Text>}
+                {(dish.priceForPiece && dish.priceForPiece != 0) && <Text>{dish.priceForPiece} zł</Text>}
+                {(dish.priceForWeight && dish.priceForWeight != 0) && <Text>{dish.priceForWeight} zł /100g</Text>}
             </Link>
         </View>
     );

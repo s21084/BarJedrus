@@ -14,14 +14,12 @@ import {
 } from 'react-native';
 import { useUserApi } from '../../lib/api/user';
 import { useQuery } from '@tanstack/react-query';
+import UserComponent from '../../components/users/userComponent';
 
 
 export default function UsersList() {
   const { listUsers } = useUserApi();
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => {
-    setIsEnabled((previousState) => !previousState);
-  };
+ 
 
 
   const {data, isLoading, error } = useQuery({
@@ -32,50 +30,15 @@ export default function UsersList() {
 console.log(data);
   return (
     <View style={styles.container}>
+      <Text>DODAĆ SORTOWANIE</Text>
     <FlatList 
+    //@ts-ignore
       data={data}
-      style={{flexDirection: 'column'}}
       renderItem={({ item }) => (
-        <View style={styles.line}>
-        {item.personId &&<Text style={styles.textLine}>{item.person.name} {item.person.surname}</Text>}
-        <Text style={{fontSize: 15}}>{item.email}</Text>
-        <View style={{backgroundColor: "#E2E8CE", borderRadius: 5,  padding: 5, margin: 5}}>
-        <Text>Uprawienia pracownika:</Text>
-        <Switch
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
-            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-          <Text>Uprawienia administratora:</Text>
-          <Switch
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
-            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-          </View>
-        <View style={styles.buttonBack}>
-            <Link href={'/'}>
-                <Pressable>
-                    <Text style={styles.buttonText}>Harmonogram</Text>
-                </Pressable>
-            </Link>
-          </View>
-          <View style={styles.buttonBack}>
-                <Pressable>
-                    <Text style={styles.buttonText}>Usuń</Text>
-                </Pressable>
-          </View>
-          <View style={styles.buttonBack}>
-                <Pressable>
-                    <Text style={styles.buttonText}>Zapisz</Text>
-                </Pressable>
-          </View>
-        </View>
+        <UserComponent user={item}/>
       )}
+      horizontal={false}
+      numColumns={3}
     />
     
 

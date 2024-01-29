@@ -18,9 +18,13 @@ export type DishType = {
 };
 
 export type UserType = {
-    id?: string;
-    code: string;
+    id: string;
+    email: string;
+    isAdmin: boolean;
+    isVerified: boolean;
+    personId: number;
 };
+
 
 export type InfoType = {
     id?: string;

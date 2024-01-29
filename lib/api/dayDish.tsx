@@ -47,12 +47,12 @@ const DayDishApiContextProvider = ({ children }: PropsWithChildren ) => {
        return await res.json();
       
 }
-
- const createDayDish=  async (data: {content: any}) => {
-             console.log(data.content);
+//probably never use
+ const createDayDish=  async (data: {soup: string, secondDish: string, price:number}) => {
+             //console.log(data.content);
        const res = await fetch(`${API_URL}/dayDish`,{
                method: 'POST',
-               body: data.content,
+               body: JSON.stringify(data),
                headers: {
                        Authorization: `Bearer ${authToken}`,
                        'Content-type':'application/json'
@@ -68,8 +68,7 @@ const DayDishApiContextProvider = ({ children }: PropsWithChildren ) => {
       
 }
 
- const editDayDish=  async ({ id, data }: { id: string; data: {soup: string, secondDish: string}}) => {
-       console.log("Informacje", JSON.stringify(data));
+ const editDayDish=  async ({ id, data }: { id: string; data: {soup: string, secondDish: string, price:number}}) => {
  const res = await fetch(`${API_URL}/dayDish/${id}`,{
          method: 'PUT',
          body: JSON.stringify(data),
@@ -78,7 +77,6 @@ const DayDishApiContextProvider = ({ children }: PropsWithChildren ) => {
                  'Content-type':'application/json'
                },
  });
- console.log("res.status", res);
  if(res.status == 401){
          throw new Error('Error with authorization');
  }

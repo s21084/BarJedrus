@@ -32,8 +32,9 @@ const editOpenHoursComponent: React.FC = () => {
       const fetchInfo = async () => {
           const res = await getInfoBar("1");
           console.log("Informacje o barze: ", res);
-
+  // @ts-ignore
           setStartHour(new Date(res.startHour));
+ // @ts-ignore
           setEndHour(new Date(res.endHour));
           if(res.bonusNote == null){
             setBonusNote('');
@@ -76,16 +77,11 @@ const editOpenHoursComponent: React.FC = () => {
               <View style={styles.modalContent}>
                 <Text>Edytuj informacje o godzinach pracy bary</Text>
     
-                {/* Open Hour Input */}
-                {/* <TextInput
-              style={styles.input}
-              placeholder="Godzina otwarcia"
-              value={startHour}
-              onChangeText={newText => setStartHour(newText)}
-            /> */}
             <Text>Godzina otwarcia:</Text>
              <DatePicker
+               // @ts-ignore
             selected={startHour}
+              // @ts-ignore
             onChange={date => setStartHour(date)}
             showTimeSelect
             showTimeSelectOnly
@@ -95,7 +91,9 @@ const editOpenHoursComponent: React.FC = () => {
           />
           <Text>Godzina zamknięcia:</Text>
           <DatePicker
+            // @ts-ignore
             selected={endHour}
+              // @ts-ignore
             onChange={date => setEndHour(date)}
             showTimeSelect
             showTimeSelectOnly
@@ -103,25 +101,15 @@ const editOpenHoursComponent: React.FC = () => {
             timeFormat="HH:mm"
             dateFormat="HH:mm"
           />
-            {/* <TextInput
-              style={styles.input}
-              placeholder="Godzina zamknięcia"
-              value={endHour}
-              onChangeText={newText => setEndHour(newText)}
-            /> */}
             <TextInput
               style={styles.input}
               placeholder="Dodatkowe informacje"
               value={bonusNote}
               onChangeText={newText => setBonusNote(newText)}
             />
-    
-                {/* Save Button */}
                 <Pressable onPress={handleSave} style={styles.sortButton}>
                   <Text>Zapisz</Text>
                 </Pressable>
-    
-                {/* Cancel Button */}
                 <Pressable onPress={() => setIsOpenModal(false)} style={styles.sortButton}>
                   <Text>Anuluj</Text>
                 </Pressable>

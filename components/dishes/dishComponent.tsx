@@ -9,25 +9,33 @@ type DishProps = {
 }
 const Dish = ({ dish }: DishProps) => {
     return (
-        <View >
-            <Link href={`/dish/${dish.id}`} style={styles.logInWindow}>
+        <View style={styles.content}>
+            <Link href={`/dish/${dish.id}`} style={styles.button}>
+                <View style={{flexDirection: 'column',}}>
                 {dish.name && <Text>{dish.name}</Text>}
-                {(dish.priceForPiece && dish.priceForPiece != 0) && <Text>{dish.priceForPiece} zł</Text>}
-                {(dish.priceForWeight && dish.priceForWeight != 0) && <Text>{dish.priceForWeight} zł /100g</Text>}
+                {(dish.priceForPiece != 0) && <Text>{dish.priceForPiece} zł</Text>}
+                {(dish.priceForWeight != 0) && <Text>{dish.priceForWeight} zł /100g</Text>}
+                </View>
             </Link>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    logInWindow: {
-        flex: 1,
+    content: {
+        margin: 2,
+        backgroundColor: '#47CE83',
+        borderRadius: 5, 
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+    },
+    button: {
         width: 120,
         height: 80,
         paddingVertical: 10,
         marginVertical: 5,
         marginHorizontal: 5,
-        alignItems: 'center',
         backgroundColor: '#47CE83',
         borderRadius: 5, 
         overflow: 'hidden',

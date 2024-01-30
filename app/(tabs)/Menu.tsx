@@ -41,14 +41,7 @@ export default function Offer() {
     const sorted = [...sortedData].sort((a, b) => b.name.localeCompare(a.name));
     setSortedData(sorted);
     // @ts-ignore
-    setSortOption('price');
-  };
-  const sortByPrice = () => {
-    // @ts-ignore 
-    const sorted = [...sortedData].sort((a, b) => b.name.localeCompare(a.name));
-    setSortedData(sorted);
-    // @ts-ignore
-    setSortOption('price');
+    setSortOption('nameDesc');
   };
   
  if(isLoading){
@@ -80,7 +73,7 @@ if (error || !data) {
                   <DishComponent dish={item} />
             )}
             horizontal={false}
-            numColumns={8}
+            numColumns={6}
           />
         </View>
       </View>

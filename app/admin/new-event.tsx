@@ -52,7 +52,7 @@ const [priceFull, setPriceFull] = useState('');
      //@ts-ignore
     mutate({name: name, date: isoDate, decoration: decoration, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes, informationBarId: informationBar});
     console.log(error);
-    //router.back();
+    router.back();
 
   };
   

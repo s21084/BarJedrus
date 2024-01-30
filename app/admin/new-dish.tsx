@@ -35,7 +35,7 @@ const { mutate, isError, error, status } = useMutation({
       mutate({ name: name, priceForPiece: pricePieceNum, priceForWeight: priceWeightNum})
       console.log("Sprawdzam status: ", status)
       console.log(error)
-      router.back()
+      //router.back()
   };
   
   return (

@@ -34,7 +34,7 @@ export default function TabLayout() {
         <Tabs.Screen
         name="index"
         options={{
-          title: 'Bar Jedruś',
+          title: 'Strona główna',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
               <Pressable onPress={handleLogout}>
@@ -69,11 +69,12 @@ export default function TabLayout() {
         }}
       />
       
+      
       <Tabs.Screen
-        name="Ustawienia"
+        name="Abonament"
         options={{
-          title: 'Ustawienia',
-          tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
+          title: 'Abonamenty',
+          tabBarIcon: ({ color }) => <TabBarIcon name="group" color={color} />,
           headerRight: () => (
             <Pressable onPress={handleLogout}>
                   <Text>Wyloguj</Text>
@@ -82,10 +83,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="Abonament"
+        name="Ustawienia"
         options={{
-          title: 'Abonamenty',
-          tabBarIcon: ({ color }) => <TabBarIcon name="group" color={color} />,
+          title: 'Ustawienia',
+          tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
           headerRight: () => (
             <Pressable onPress={handleLogout}>
                   <Text>Wyloguj</Text>

@@ -25,7 +25,7 @@ const SignIn = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.label}>Zaloguj się lub utwórz konto</Text>
+            <Text style={styles.label}>Zaloguj się lub utwórz konto :)</Text>
             <TextInput
             placeholder = "Email"
             value={email}

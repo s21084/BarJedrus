@@ -19,9 +19,9 @@ const DishApiContextProvider = ({ children }: PropsWithChildren ) => {
                          },
                    });
               
-                   if(res.status == 401){
-                       throw new Error('Error with authorization');
-               }
+                  if(res.status == 401){
+                        console.log("Error with auth")
+                }
                    if(res.status !== 200){
                            throw new Error('Error on fetching dish2');
                    }
@@ -37,9 +37,9 @@ const DishApiContextProvider = ({ children }: PropsWithChildren ) => {
                                Authorization: `Bearer ${authToken}`,
                              },  
                });
-               if(res.status == 401){
-                       throw new Error('Error with authorization');
-               }
+              if(res.status == 401){
+                        console.log("Error with auth")
+                }
                if(res.status !== 200){
                        throw new Error('Error on fetching dish3');
                }
@@ -59,9 +59,9 @@ const DishApiContextProvider = ({ children }: PropsWithChildren ) => {
                              },
                });
                console.log("res.status", res);
-               if(res.status == 401){
-                       throw new Error('Error with authorization');
-               }
+              if(res.status == 401){
+                        console.log("Error with auth")
+                }
                if(res.status !== 200){
                        throw new Error('Error on fetching dish4');
                }
@@ -82,9 +82,9 @@ const DishApiContextProvider = ({ children }: PropsWithChildren ) => {
                              },
                });
                console.log("res.status", res);
-               if(res.status == 401){
-                       throw new Error('Error with authorization');
-               }
+              if(res.status == 401){
+                        console.log("Error with auth")
+                }
                if(res.status !== 200){
                        throw new Error('Error on fetching dish4');
                }
@@ -102,7 +102,7 @@ const DishApiContextProvider = ({ children }: PropsWithChildren ) => {
          });
          console.log("res.status", res);
          if(res.status == 401){
-                 throw new Error('Error with authorization');
+                  console.log("Error with auth")
          }
          if(res.status !== 200){
                  throw new Error('Error on fetching dish4');

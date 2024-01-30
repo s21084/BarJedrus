@@ -17,6 +17,7 @@ const AuthContext = createContext({
     const[authToken, setAuthToken] = useState<string | null>(null);
     const[email, setEmail] = useState<string | null>(null);
     const segments = useSegments();
+    console.log(segments)
     const router = useRouter();
 
     useEffect(() => {
@@ -65,8 +66,13 @@ const AuthContext = createContext({
 
     useEffect(() => {
         const isAuthGroup = segments[0] === '(auth)'
+        const menu = segments[0] === 'notLog'
         if(!authToken && !isAuthGroup){
+          if(menu){
+            router.replace('/notLog/MenuNiezalogowany');
+          }else{
             router.replace('/signIn');
+          }
         } 
         
         if( authToken && isAuthGroup){

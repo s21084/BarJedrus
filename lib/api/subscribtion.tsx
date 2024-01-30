@@ -18,10 +18,10 @@ const SubApiContextProvider = ({ children }: PropsWithChildren ) => {
             });
        
             if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
             if(res.status !== 200){
-                    throw new Error('Error on fetching events');
+                    console.log("Error with auth");
             }
             
             return await res.json();
@@ -36,10 +36,10 @@ const SubApiContextProvider = ({ children }: PropsWithChildren ) => {
                       },  
         });
         if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
         if(res.status !== 200){
-                throw new Error('Error on fetching events');
+                console.log("Error with auth");
         }
         return await res.json();
        
@@ -56,10 +56,10 @@ const SubApiContextProvider = ({ children }: PropsWithChildren ) => {
                       },
         });
         if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
         if(res.status !== 200){
-                throw new Error('Error on fetching events');
+                console.log("Error with auth");
         }
         return await res.json();
        
@@ -76,10 +76,10 @@ const editSubscription = async ({ id, data }: { id: string; data: {lastMonthPaye
                 },
   });
   if(res.status == 401){
-          throw new Error('Error with authorization');
+           console.log("Error with auth")
   }
   if(res.status !== 200){
-          throw new Error('Error on fetching events');
+          console.log("Error with auth");
   }
   return await res.json();
  
@@ -94,7 +94,7 @@ const deleteSub=  async (id: string) => {
                       },
         });
         if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
         if(res.status !== 200){
                 throw new Error('Error on fetching person4');

@@ -16,11 +16,11 @@ const InfoBarApiContextProvider = ({ children }: PropsWithChildren ) => {
                                Authorization: `Bearer ${authToken}`,
                              },  
                });
-               if(res.status == 401){
-                       throw new Error('Error with authorization');
-               }
+              if(res.status == 401){
+                        console.log("Error with auth")
+                }
                if(res.status !== 200){
-                       throw new Error('Error on fetching infoBar3');
+                       console.log('Error on fetching infoBar3');
                }
                return await res.json();
               
@@ -40,11 +40,11 @@ const InfoBarApiContextProvider = ({ children }: PropsWithChildren ) => {
                              },
                });
                console.log("res.status", res);
-               if(res.status == 401){
-                       throw new Error('Error with authorization');
-               }
+              if(res.status == 401){
+                        console.log("Error with auth")
+                }
                if(res.status !== 200){
-                       throw new Error('Error on fetching infoBar4');
+                       console.log('Error on fetching infoBar4');
                }
                return await res.json();
               

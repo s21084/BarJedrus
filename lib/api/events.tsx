@@ -16,9 +16,9 @@ const EventApiContextProvider = ({ children }: PropsWithChildren ) => {
                  },
            });
            if(res.status == 401){
-               throw new Error('Error with authorization');}
+                console.log("Error with auth")}
            if(res.status !== 200){
-                   throw new Error('Error on fetching events');}
+                   console.log("Error with auth");}
            return await res.json();
            
 }
@@ -31,10 +31,10 @@ const EventApiContextProvider = ({ children }: PropsWithChildren ) => {
                      },  
        });
        if(res.status == 401){
-               throw new Error('Error with authorization');
+                console.log("Error with auth")
        }
        if(res.status !== 200){
-               throw new Error('Error on fetching events');
+               console.log("Error with auth");
        }
        return await res.json();
       
@@ -52,10 +52,10 @@ const EventApiContextProvider = ({ children }: PropsWithChildren ) => {
        });
        console.log("res", res)
        if(res.status == 401){
-               throw new Error('Error with authorization');
+                console.log("Error with auth")
        }
        if(res.status !== 200){
-               throw new Error('Error on fetching events');
+               console.log("Error with auth");
        }
        return await res.json();
       
@@ -74,7 +74,7 @@ const EventApiContextProvider = ({ children }: PropsWithChildren ) => {
  });
  console.log("res.status", res);
  if(res.status == 401){
-         throw new Error('Error with authorization');
+          console.log("Error with auth")
  }
  if(res.status !== 200){
          throw new Error('Error on fetching');
@@ -93,7 +93,7 @@ const EventApiContextProvider = ({ children }: PropsWithChildren ) => {
        });
        console.log("res.status", res);
        if(res.status == 401){
-               throw new Error('Error with authorization');
+                console.log("Error with auth")
        }
        if(res.status !== 200){
                throw new Error('Error on fetching');

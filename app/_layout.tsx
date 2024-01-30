@@ -15,6 +15,7 @@ import PersonApiContextProvider from '../lib/api/person';
 import InfoBarApiContextProvider from '../lib/api/infoBar';
 import SubApiContextProvider from '../lib/api/subscribtion';
 import ScheduleApiContextProvider from '../lib/api/schedule';
+import ControlApiContextProvider from '../lib/api/control';
 
 
 const client = new QueryClient();
@@ -58,11 +59,12 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-
   return (
 
 <>
+
 <AuthContextProvider>
+  <ControlApiContextProvider>
 <InfoBarApiContextProvider>
 <UserApiContextProvider>
   <PersonApiContextProvider>
@@ -80,6 +82,7 @@ function RootLayoutNav() {
         <Stack.Screen name="/" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)/authenticate" options={{ title: "Podaj hasło" }} />
         <Stack.Screen name="(auth)/signIn" options={{ headerShown: false }} />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         <Stack.Screen name="dish/[id]" options={{ title: "Danie" }} />
         <Stack.Screen name="subscription/[id]" options={{ title: "Abonement" }} />
@@ -95,7 +98,9 @@ function RootLayoutNav() {
   </PersonApiContextProvider>
   </UserApiContextProvider>  
   </InfoBarApiContextProvider>
+  </ControlApiContextProvider>
 </AuthContextProvider>
+
 </>
   );
 }

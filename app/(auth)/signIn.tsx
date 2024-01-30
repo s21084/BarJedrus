@@ -1,4 +1,5 @@
-import {Text, View, TextInput, Pressable, StyleSheet, Alert} from 'react-native'
+import {Text, View, TextInput, Pressable, StyleSheet, Alert,} from 'react-native'
+import { Link } from 'expo-router';
 import React, { useState } from 'react'
 import { useRouter } from 'expo-router';
 import { login } from '../../lib/api/auth';
@@ -35,9 +36,9 @@ const SignIn = () => {
             <Pressable style={styles.button} onPress={onSignIn}>
                 <Text style={styles.buttonText}>Zaloguj</Text>
             </Pressable>
-            <Pressable style={styles.button}>
-                <Text style={styles.buttonText}>Menu</Text>
-            </Pressable>
+            <Link href="/notLog/MenuNiezalogowany" style={styles.button}>
+            <Text style={styles.buttonText}>Menu</Text>
+            </Link>
         </View>
     );
 };

@@ -20,10 +20,10 @@ const ScheduleApiContextProvider = ({ children }: PropsWithChildren ) => {
             });
        
             if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
             if(res.status !== 200){
-                    throw new Error('Error on fetching events');
+                    console.log("Error with auth");
             }
             
             return await res.json();
@@ -38,10 +38,10 @@ const ScheduleApiContextProvider = ({ children }: PropsWithChildren ) => {
                       },  
         });
         if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
         if(res.status !== 200){
-                throw new Error('Error on fetching events');
+                console.log("Error with auth");
         }
         return await res.json();
        
@@ -55,10 +55,10 @@ const ScheduleApiContextProvider = ({ children }: PropsWithChildren ) => {
                       },  
         });
         if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
         if(res.status !== 200){
-                throw new Error('Error on fetching events');
+                console.log("Error with auth");
         }
         return await res.json();
        
@@ -81,10 +81,10 @@ const ScheduleApiContextProvider = ({ children }: PropsWithChildren ) => {
                       },
         });
         if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
         if(res.status !== 200){
-                throw new Error('Error on fetching events');
+                console.log("Error with auth");
         }
         return await res.json();
        
@@ -109,7 +109,7 @@ const editSchedule=  async ({ id, data }: { id: string; data: {
   });
   console.log("res.status", res);
   if(res.status == 401){
-          throw new Error('Error with authorization');
+           console.log("Error with auth")
   }
   if(res.status !== 200){
           throw new Error('Error on fetching');

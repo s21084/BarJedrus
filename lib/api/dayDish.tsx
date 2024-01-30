@@ -22,7 +22,7 @@ const DayDishApiContextProvider = ({ children }: PropsWithChildren ) => {
            });
       
            if(res.status == 401){
-               throw new Error('Error with authorization');
+                console.log("Error with auth")
        }
            if(res.status !== 200){
                    throw new Error('Error on fetching dayDish');
@@ -39,7 +39,7 @@ const DayDishApiContextProvider = ({ children }: PropsWithChildren ) => {
                      },  
        });
        if(res.status == 401){
-               throw new Error('Error with authorization');
+                console.log("Error with auth")
        }
        if(res.status !== 200){
                throw new Error('Error on fetching dayDish');
@@ -59,7 +59,7 @@ const DayDishApiContextProvider = ({ children }: PropsWithChildren ) => {
                      },
        });
        if(res.status == 401){
-               throw new Error('Error with authorization');
+                console.log("Error with auth")
        }
        if(res.status !== 200){
                throw new Error('Error on fetching dayDish');
@@ -78,7 +78,7 @@ const DayDishApiContextProvider = ({ children }: PropsWithChildren ) => {
                },
  });
  if(res.status == 401){
-         throw new Error('Error with authorization');
+          console.log("Error with auth")
  }
  if(res.status !== 200){
          throw new Error('Error on fetching dish4');

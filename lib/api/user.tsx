@@ -19,10 +19,10 @@ const UserApiContextProvider = ({ children }: PropsWithChildren ) => {
                            });
                       
                            if(res.status == 401){
-                               throw new Error('Error with authorization');
+                                console.log("Error with auth")
                        }
                            if(res.status !== 200){
-                                   throw new Error('Error on fetching events');
+                                   console.log("Error with auth");
                            }
                            
                            return await res.json();
@@ -37,10 +37,10 @@ const UserApiContextProvider = ({ children }: PropsWithChildren ) => {
                                      },  
                        });
                        if(res.status == 401){
-                               throw new Error('Error with authorization');
+                                console.log("Error with auth")
                        }
                        if(res.status !== 200){
-                               throw new Error('Error on fetching events');
+                               console.log("Error with auth");
                        }
                        return await res.json();
                       
@@ -53,10 +53,10 @@ const UserApiContextProvider = ({ children }: PropsWithChildren ) => {
                                      },  
                        });
                        if(res.status == 401){
-                               throw new Error('Error with authorization');
+                                console.log("Error with auth")
                        }
                        if(res.status !== 200){
-                               throw new Error('Error on fetching events');
+                               console.log("Error with auth");
                        }
                        return await res.json();
                       
@@ -73,10 +73,10 @@ const UserApiContextProvider = ({ children }: PropsWithChildren ) => {
                                },
                  });
                  if(res.status == 401){
-                         throw new Error('Error with authorization');
+                          console.log("Error with auth")
                  }
                  if(res.status !== 200){
-                         throw new Error('Error on fetching events');
+                         console.log("Error with auth");
                  }
                  return await res.json();
                 

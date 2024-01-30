@@ -67,10 +67,10 @@ export default function EventScreen (){
           router.back();
       };
       const onEventDelete = async () => {
-          const DeleteDish = async () => {
+          const DeleteEvent = async () => {
               await deleteEvent( id as string );
           }
-          DeleteDish()
+          DeleteEvent()
             router.back();
         };
 

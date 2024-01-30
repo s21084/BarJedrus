@@ -19,7 +19,7 @@ const PersonApiContetProvider = ({ children }: PropsWithChildren ) => {
             });
        
             if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
             if(res.status !== 200){
                     throw new Error('Error on fetching person2');
@@ -37,7 +37,7 @@ const PersonApiContetProvider = ({ children }: PropsWithChildren ) => {
                       },  
         });
         if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
         if(res.status !== 200){
                 throw new Error('Error on fetching person3');
@@ -66,7 +66,7 @@ const PersonApiContetProvider = ({ children }: PropsWithChildren ) => {
         });
         console.log("res.status", res);
         if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
         if(res.status !== 200){
                 throw new Error('Error on fetching person4');
@@ -97,7 +97,7 @@ const PersonApiContetProvider = ({ children }: PropsWithChildren ) => {
         });
         console.log("res.status", res);
         if(res.status == 401){
-                throw new Error('Error with authorization');
+                 console.log("Error with auth")
         }
         if(res.status !== 200){
                 throw new Error('Error on fetching person4');
@@ -116,7 +116,7 @@ const PersonApiContetProvider = ({ children }: PropsWithChildren ) => {
   });
   console.log("res.status", res);
   if(res.status == 401){
-          throw new Error('Error with authorization');
+           console.log("Error with auth")
   }
   if(res.status !== 200){
           throw new Error('Error on fetching person4');

@@ -52,57 +52,7 @@ useEffect(() => {
 }, [])
 
 
-  const dummyData = [
-    {
-        id:'1',
-        startHour: new Date("2024-01-09T10:43:27.048Z"),
-        endHour:  new Date("2024-01-09T10:43:27.048Z"),
-        userId: 1,
-        weekDayNumber: 1
-    },
-    {
-      id:'2',
-      startHour: new Date("2024-01-09T10:43:27.048Z"),
-      endHour: new Date("2024-01-09T10:43:27.048Z"),
-      userId: 1,
-      weekDayNumber: 2
-     },
-    {
-    id:'3',
-    startHour: new Date("2024-01-09T10:43:27.048Z"),
-    endHour: new Date("2024-01-09T10:43:27.048Z"),
-    userId: 1,
-    weekDayNumber: 3
-    },
-    {
-   id:'4',
-    startHour: new Date("2024-01-09T10:43:27.048Z"),
-    endHour: new Date("2024-01-09T10:43:27.048Z"),
-    userId: 1,
-    weekDayNumber: 4
-    },
-    {
-  id:'5',
-  startHour: new Date("2024-01-09T10:43:27.048Z"),
-  endHour: new Date("2024-01-09T10:43:27.048Z"),
-  userId: 1,
-  weekDayNumber: 5
-},
-{
-  id:'6',
-  startHour: new Date("2024-01-09T10:43:27.048Z"),
-  endHour: new Date("2024-01-09T10:43:27.048Z"),
-  userId: 1,
-  weekDayNumber: 6
-},
-{
-  id:'7',
-  startHour: new Date("2024-01-09T10:43:27.048Z"),
-  endHour: new Date("2024-01-09T10:43:27.048Z"),
-  userId: 1,
-  weekDayNumber: 7
-},
-    ];
+  
 
     
 

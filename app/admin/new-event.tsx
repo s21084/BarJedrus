@@ -161,14 +161,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   button: {
-    backgroundColor: '#262626',
+    backgroundColor: '#DBCC95',
     padding: 10,
     margin: 5,
     paddingHorizontal: 20,
     borderRadius: 50,
   },
   buttonText: {
-    color: '#E2E8CE',
+    color: '#CD8D7A',
     fontWeight: '600',
     fontSize: 16,
   },
@@ -177,9 +177,9 @@ const styles = StyleSheet.create({
   input: {
     padding: 5,
     width: 500,
-    borderColor: '#262626',
+    borderColor: '#DBCC95',
     margin: 5,
-    backgroundColor: '#E2E8CE',
+    backgroundColor: '#CD8D7A',
     borderRadius:5,
   },
   customDatePicker: {

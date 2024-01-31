@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { UserType } from '../../types/index';
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
         padding: 20,
         marginVertical: 5,
         marginHorizontal: 5,
-        backgroundColor: '#47CE83',
+        backgroundColor: '#DBCC95',
         borderRadius: 5, 
         overflow: 'hidden',
     },

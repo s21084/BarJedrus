@@ -1,5 +1,5 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs} from 'expo-router';
+import { Tabs} from 'expo-router';
 import { Pressable, useColorScheme , Text } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
 

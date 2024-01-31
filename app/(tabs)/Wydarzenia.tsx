@@ -46,15 +46,6 @@ export default function Event () {
         fetchEvents();
     }, []);
 
-    
-    // if(isLoading){
-    //     return <ActivityIndicator />;
-    // }
-
-    // if (error) {
-    //     return <Text>{error.message}</Text>
-    //   }
-
   
       const sortByDate = () => {
         // @ts-ignore
@@ -82,7 +73,7 @@ export default function Event () {
     if(isVerified){
         return(
             <View style={{
-                flex: 1}}>
+                flex: 1, backgroundColor: '#EAECCC'}}>
             <Hedder />
             <View style={{
             alignItems: 'center', flex: 1}}>
@@ -120,20 +111,7 @@ export default function Event () {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        padding: 25,
-        backgroundColor: '#E2E8CE',
-    },
-    buttonBack: {
-        backgroundColor: '#262626',
-        padding: 10,
-        borderRadius: 5, 
-    },
-    buttonText: {
-        color: '#E2E8CE',
-        
-    },
+    
     sortButtons: {
         flexDirection: 'row', 
         justifyContent: 'space-between',
@@ -141,9 +119,9 @@ const styles = StyleSheet.create({
       },
       sortButton: {
         padding: 5,
-        backgroundColor: '#ACBFA4',
+        backgroundColor: '#DBCC95',
         borderRadius:5,
-        borderColor: 'black',
+        borderColor: '#CD8D7A',
         borderWidth: 2,
         margin: 5
       },

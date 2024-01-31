@@ -24,7 +24,7 @@ const Dish = ({ dish }: DishProps) => {
 const styles = StyleSheet.create({
     content: {
         margin: 2,
-        backgroundColor: '#47CE83',
+        backgroundColor: '#DBCC95',
         borderRadius: 5, 
         alignItems: 'center',
         justifyContent: 'center',
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         marginVertical: 5,
         marginHorizontal: 5,
-        backgroundColor: '#47CE83',
+        backgroundColor: '#DBCC95',
         borderRadius: 5, 
         overflow: 'hidden',
     },

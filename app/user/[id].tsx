@@ -177,13 +177,13 @@ const styles = StyleSheet.create({
     input: {
         padding: 5,
         width: 500,
-        borderColor: '#262626',
+        borderColor: '#DBCC95',
         margin: 5,
         backgroundColor: '#ACBFA4',
         borderRadius:5,
       },
     eventContainer: {
-        backgroundColor: '#E2E8CE',
+        backgroundColor: '#CD8D7A',
         padding: 50,
         margin: 5,
         borderRadius: 5,
@@ -199,12 +199,12 @@ const styles = StyleSheet.create({
         fontStyle: "italic"
     },
     buttonText: {
-        color: '#E2E8CE',
+        color: '#CD8D7A',
         fontWeight: '600',
         fontSize: 16,
       },
     button: {
-        backgroundColor: '#262626',
+        backgroundColor: '#DBCC95',
         padding: 10,
         margin: 5,
         paddingHorizontal: 20,

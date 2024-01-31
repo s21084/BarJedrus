@@ -39,18 +39,11 @@ export default function Wlasciciel () {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        marginVertical: 5,
-        marginHorizontal: 5,
-        backgroundColor: '#47CE83',
-        borderRadius: 5, 
-        overflow: 'hidden',
-    },
     buttonBack: {
         padding: 25,
         marginVertical: 5,
         marginHorizontal: 5,
-        backgroundColor: '#47CE83',
+        backgroundColor: '#DBCC95',
         borderRadius: 5, 
         overflow: 'hidden',
         justifyContent: 'center',

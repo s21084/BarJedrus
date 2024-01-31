@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Redirect } from "expo-router";
 import { useControlTokenApi } from '../lib/api/control';
 import { useEventApi } from '../lib/api/events';

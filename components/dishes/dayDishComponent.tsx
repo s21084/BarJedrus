@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     logInWindow: {
         width:1000,
         alignItems: 'center',
-        backgroundColor: '#ACBFA4',
+        backgroundColor: '#EAECCC',
         borderRadius: 5,
         overflow: 'hidden',
     },
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     dishType: {
-        backgroundColor: "white",
+        backgroundColor: '#DBCC95',
         margin: 5,
         borderRadius: 5,
         alignItems: 'center',

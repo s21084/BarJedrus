@@ -72,12 +72,11 @@ export default function SubscriptionsScreen() {
 
     if(userLogOn){
         return(
-            <View>
+            <View style={{backgroundColor: '#EAECCC'}}>
             <Hedder />
             <View style={{ alignItems: 'center' }}>
             <Text style={{ padding: 10, fontSize: 30 }}>Abonamenty</Text>
-            <View style={{
-            alignItems: 'center', flex: 1}}>
+            <View style={{alignItems: 'center', flex: 1}}>
             <View style={styles.sortButtons}>
                 
                 <Pressable onPress={sortByName} style={styles.sortButton}>
@@ -122,31 +121,16 @@ export default function SubscriptionsScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        padding: 25,
-        backgroundColor: '#E2E8CE',
-    },
     sortButtons: {
         flexDirection: 'row', 
         justifyContent: 'space-between',
         margin: 10, 
       },
-    buttonBack: {
-        backgroundColor: '#262626',
-        padding: 10,
-        borderRadius: 5, 
-    },
-    buttonText: {
-        color: '#E2E8CE',
-        
-    },
     sortButton: {
       padding: 5,
-      backgroundColor: '#ACBFA4',
+      backgroundColor: '#DBCC95',
       borderRadius:5,
-      borderColor: 'black',
+      borderColor: '#CD8D7A',
       borderWidth: 2,
       margin: 5
     },

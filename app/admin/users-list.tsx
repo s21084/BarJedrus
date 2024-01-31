@@ -18,6 +18,7 @@ import UserComponent from '../../components/users/userComponent';
 
 
 export default function UsersList() {
+  //@ts-ignore
   const { listUsers } = useUserApi();
  
 
@@ -30,7 +31,6 @@ export default function UsersList() {
 console.log(data);
   return (
     <View style={styles.container}>
-      <Text>DODAĆ SORTOWANIE</Text>
     <FlatList 
     //@ts-ignore
       data={data}
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     padding: 5,
     marginVertical: 2,
     marginHorizontal: 2,
-    backgroundColor: '#47CE83',
+    backgroundColor: '#DBCC95',
     borderRadius: 5, 
     overflow: 'hidden',
     justifyContent: 'center',
@@ -87,7 +87,7 @@ buttonText: {
     marginVertical: 10,
   },
   button: {
-    backgroundColor: '#262626',
+    backgroundColor: '#DBCC95',
     padding: 10,
     margin: 5,
     paddingHorizontal: 20,
@@ -99,9 +99,9 @@ buttonText: {
   input: {
     padding: 5,
     width: 500,
-    borderColor: '#262626',
+    borderColor: '#DBCC95',
     margin: 5,
-    backgroundColor: '#E2E8CE',
+    backgroundColor: '#CD8D7A',
     borderRadius:5,
   },
 });

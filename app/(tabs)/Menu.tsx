@@ -51,6 +51,8 @@ if (error || !data) {
   return <Text>Dania nie znalezione</Text>
 }
   return (
+    <View>
+    <Hedder />
     <View style={styles.container}>
       <View style={styles.menu}>
         <Pressable style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', margin: 5}}>
@@ -78,25 +80,19 @@ if (error || !data) {
         </View>
       </View>
     </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor:'#EAECCC',
     flex: 1,
   },
   menu: {
     flex: 1,
     padding: 1,
     alignItems: 'center',
-  },
-  buttonBack: {
-    backgroundColor: '#262626',
-    padding: 10,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: '#E2E8CE',
   },
   sortButtons: {
     padding: 5,
@@ -105,10 +101,8 @@ const styles = StyleSheet.create({
   },
   sortButton: {
     padding: 5,
-    backgroundColor: '#ACBFA4',
+    backgroundColor: '#CD8D7A',
     borderRadius:5,
-    borderColor: 'black',
-    borderWidth: 2,
     margin: 5
   },
 });

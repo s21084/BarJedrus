@@ -78,6 +78,9 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="admin/new-dish" options={{ title: 'Nowe danie' }} />
+        <Stack.Screen name="admin/new-event" options={{ title: 'Nowe wydarzenie' }} />
+        <Stack.Screen name="admin/users-list" options={{ title: 'Lista pracowników' }} />
+        <Stack.Screen name="admin/new-subscription" options={{ title: 'Nowy abonamentowicz' }} />
         <Stack.Screen name="components" options={{ headerShown: false }} />
         <Stack.Screen name="/" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)/authenticate" options={{ title: "Podaj hasło" }} />

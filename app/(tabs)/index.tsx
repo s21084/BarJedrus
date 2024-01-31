@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Pressable, StyleSheet, FlatList } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import Hedder from '../../components/normal/hedder';
@@ -55,7 +56,7 @@ useEffect(() => {
     <View>
       <Hedder />
       <View style={styles.container}>
-      <View style={{flexDirection: 'row',backgroundColor: '#47CE83', borderColor: 'black', borderWidth: 5}}>
+      <View style={{flexDirection: 'row',backgroundColor: '#DBCC95', borderColor: 'black', borderWidth: 5}}>
       <View style={styles.informationBar}>
         <Text>Informacja o barze</Text>
         <Text>Bar otwarty w godzinach {formatTime(startHour)} - {formatTime(endHour)}</Text>
@@ -93,18 +94,18 @@ const styles = StyleSheet.create({
   container: {
         padding: 25,
         flex:1,
-        backgroundColor: '#E2E8CE',
+        backgroundColor: '#EAECCC',
         alignItems: 'center'
   },
   containerSchedule: {
     padding: 25,
-    backgroundColor: '#E2E8CE',
+    backgroundColor: '#EAECCC',
     alignItems: 'center'
 },
   contenerWelcome: {
     padding: 15,
     borderRadius:5,
-    backgroundColor: '#47CE83',
+    backgroundColor: '#DBCC95',
 },
 informationBar: {
   flex: 1,
@@ -114,7 +115,7 @@ informationBar: {
   marginVertical: 5,
   marginHorizontal: 5,
   alignItems: 'center',
-  backgroundColor: '#47CE83',
+  backgroundColor: '#DBCC95',
   borderRadius: 5, 
   overflow: 'hidden',
 },

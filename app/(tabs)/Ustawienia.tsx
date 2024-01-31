@@ -169,34 +169,34 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         padding: 25,
-        backgroundColor: '#E2E8CE',
+        backgroundColor: '#EAECCC',
     },
     buttonContainer: {
         marginVertical: 10,
         alignItems: 'center'
       },
       button: {
-        backgroundColor: '#262626',
+        backgroundColor: '#DBCC95',
         padding: 10,
         margin: 5,
         paddingHorizontal: 20,
         borderRadius: 50,
       },
     buttonBack: {
-        backgroundColor: '#262626',
+        backgroundColor: '#DBCC95',
         padding: 10,
         borderRadius: 5, 
     },
     buttonText: {
-        color: '#E2E8CE',
+        color: '#EAECCC',
         
     },
     input: {
         padding: 5,
         width: 400,
-        borderColor: '#262626',
+        borderColor: '#DBCC95',
         margin: 5,
-        backgroundColor: '#E2E8CE',
+        backgroundColor: '#EAECCC',
         borderRadius:5,
       },
 });

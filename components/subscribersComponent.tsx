@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         marginHorizontal: 5,
         alignItems: 'center',
-        backgroundColor: '#47CE83',
+        backgroundColor: '#DBCC95',
         borderRadius: 5, 
         overflow: 'hidden',
     },

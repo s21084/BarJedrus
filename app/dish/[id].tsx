@@ -97,12 +97,12 @@ export default function DishScreen (){
 
 const styles = StyleSheet.create({
     logInWindow: {
-        backgroundColor: '#ACBFA4',
+        backgroundColor: '#EAECCC',
         flex: 1,
         alignItems: 'center'
     },
     dishContainer: {
-        backgroundColor: '#E2E8CE',
+        backgroundColor: '#DBCC95',
         padding: 50,
         margin: 5,
         borderRadius: 5,
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     input: {
         padding: 5,
         width: 200,
-        borderColor: '#262626',
+        borderColor: '#EAECCC',
         margin: 5,
         backgroundColor: '#ACBFA4',
         borderRadius:5,
@@ -125,12 +125,12 @@ const styles = StyleSheet.create({
         fontStyle: "italic"
     },
     buttonText: {
-        color: '#E2E8CE',
+        color: '#EAECCC',
         fontWeight: '600',
         fontSize: 16,
       },
     button: {
-        backgroundColor: '#262626',
+        backgroundColor: '#DBCC95',
         padding: 10,
         margin: 5,
         paddingHorizontal: 20,

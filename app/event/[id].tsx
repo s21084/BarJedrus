@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useSearchParams, useRouter } from "expo-router";
 import { Text, View, StyleSheet, TextInput, Switch, Pressable} from 'react-native';
 import { useMutation } from '@tanstack/react-query';
@@ -156,7 +157,7 @@ export default function EventScreen (){
                     <Pressable style={styles.button} onPress={onEventSave}>
                         <Text style={styles.buttonText}>Edytuj</Text>
                     </Pressable>
-                    <Pressable  onPress={onEventDelete}>
+                    <Pressable style={styles.button} onPress={onEventDelete}>
                         <Text style={styles.buttonText}>Usuń</Text>
                     </Pressable>
                 </View>
@@ -167,12 +168,12 @@ export default function EventScreen (){
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ACBFA4',
+        backgroundColor: '#EAECCC',
         flex: 1,
         alignItems: 'center'
     },
     eventContainer: {
-        backgroundColor: '#E2E8CE',
+        backgroundColor: '#DBCC95',
         padding: 50,
         margin: 5,
         borderRadius: 5,
@@ -181,27 +182,22 @@ const styles = StyleSheet.create({
     input: {
         padding: 5,
         width: 500,
-        borderColor: '#262626',
+        borderColor: '#EAECCC',
         margin: 5,
         backgroundColor: '#ACBFA4',
         borderRadius:5,
       },
-    hedders: {
-        fontSize:15,
-        fontWeight: "normal",
-        padding: 3
-    },
     value: {
         fontSize:20,
         fontStyle: "italic"
     },
     buttonText: {
-        color: '#E2E8CE',
+        color: '#CD8D7A',
         fontWeight: '600',
         fontSize: 16,
       },
     button: {
-        backgroundColor: '#262626',
+        backgroundColor: '#CD8D7A',
         padding: 10,
         margin: 5,
         paddingHorizontal: 20,

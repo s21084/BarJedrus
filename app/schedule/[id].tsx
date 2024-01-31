@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { useSearchParams, Link, useRouter } from "expo-router";
 import { Text, View, FlatList, StyleSheet, TextInput, Pressable} from 'react-native';
 import { useEffect, useState } from 'react';
@@ -101,7 +103,7 @@ export default function UserScreen (){
     useEffect(() => {
       const fetchUser = async () => {
         
-          //@ts-ignore
+           
           let res = await getScheduleByUser(id as string);
           console.log("res ", res.length)
           if(res.length == 0){
@@ -113,20 +115,34 @@ export default function UserScreen (){
             res = await getScheduleByUser(id as string);
           }
           console.log("Po wszstkim res ", res)
+           
           setStartHour1(new Date(res[0].startHour))
+           
           setStartHour2(new Date(res[1].startHour))
+           
           setStartHour3(new Date(res[2].startHour))
+           
           setStartHour4(new Date(res[3].startHour))
+           
           setStartHour5(new Date(res[4].startHour))
+           
           setStartHour6(new Date(res[5].startHour))
+           
           setStartHour7(new Date(res[6].startHour))
-
+          
+           
           setEndHour1(new Date(res[0].endHour))
+           
           setEndHour2(new Date(res[1].endHour))
+           
           setEndHour3(new Date(res[2].endHour))
+           
           setEndHour4(new Date(res[3].endHour))
+           
           setEndHour5(new Date(res[4].endHour))
+           
           setEndHour6(new Date(res[5].endHour))
+           
           setEndHour7(new Date(res[6].endHour))
 
           setSchId1(res[0].id)
@@ -297,14 +313,14 @@ const styles = StyleSheet.create({
     input: {
         padding: 5,
         width: 500,
-        borderColor: '#262626',
+        borderColor: '#DBCC95',
         margin: 5,
         backgroundColor: '#ACBFA4',
         borderRadius:5,
       },
     eventContainer: {
       flexDirection: 'column',
-        backgroundColor: '#E2E8CE',
+        backgroundColor: '#CD8D7A',
         padding: 50,
         margin: 5,
         borderRadius: 5,
@@ -320,12 +336,12 @@ const styles = StyleSheet.create({
         fontStyle: "italic"
     },
     buttonText: {
-        color: '#E2E8CE',
+        color: '#CD8D7A',
         fontWeight: '600',
         fontSize: 16,
       },
     button: {
-        backgroundColor: '#262626',
+        backgroundColor: '#DBCC95',
         padding: 10,
         margin: 5,
         paddingHorizontal: 20,

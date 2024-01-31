@@ -183,20 +183,20 @@ export default function SubscriberScreen (){
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ACBFA4',
+        backgroundColor: '#EAECCC',
         flex: 1,
         alignItems: 'center'
     },
     input: {
         padding: 5,
         width: 500,
-        borderColor: '#262626',
+        borderColor: '#DBCC95',
         margin: 5,
-        backgroundColor: '#ACBFA4',
+        backgroundColor: '#EAECCC',
         borderRadius:5,
       },
     eventContainer: {
-        backgroundColor: '#E2E8CE',
+        backgroundColor: '#DBCC95',
         padding: 50,
         margin: 5,
         borderRadius: 5,
@@ -212,12 +212,12 @@ const styles = StyleSheet.create({
         fontStyle: "italic"
     },
     buttonText: {
-        color: '#E2E8CE',
+        color: 'black',
         fontWeight: '600',
         fontSize: 16,
       },
     button: {
-        backgroundColor: '#262626',
+        backgroundColor: '#CD8D7A',
         padding: 10,
         margin: 5,
         paddingHorizontal: 20,

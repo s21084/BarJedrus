@@ -88,6 +88,7 @@ const editDayDishComponent: React.FC<{}> = () => {
               placeholder="Cena dania dnia"
               value={price}
               keyboardType="numeric"
+              //@ts-ignore
               onChangeText={newNumber => setPrice(Number(newNumber.replace(/[^0-9]/g, '')))}
             />
   
@@ -118,10 +119,11 @@ const editDayDishComponent: React.FC<{}> = () => {
         height: 50,
         justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: '#CD8D7A',
     },
     sortButton: {
       padding: 5,
-      backgroundColor: '#ACBFA4',
+      backgroundColor: '#DBCC95',
       borderRadius:5,
       margin: 5
     },
@@ -129,13 +131,14 @@ const editDayDishComponent: React.FC<{}> = () => {
         marginVertical: 5,
         marginHorizontal: 5,
         padding: 5,
-        backgroundColor: '#ACBFA4',
+        backgroundColor: '#DBCC95',
         borderRadius: 5, 
         overflow: 'hidden',
     },
     input: {
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#DBCC95',
+        backgroundColor: '#EAECCC',
         borderRadius: 5,
         padding: 10,
         marginBottom: 10,

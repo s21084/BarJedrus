@@ -88,6 +88,8 @@ function RootLayoutNav() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         <Stack.Screen name="dish/[id]" options={{ title: "Danie" }} />
+        <Stack.Screen name="user/[id]" options={{ title: "Pracownik" }} />
+        <Stack.Screen name="schedule/[id]" options={{ title: "Harmonogram" }} />
         <Stack.Screen name="subscription/[id]" options={{ title: "Abonement" }} />
         <Stack.Screen name="event/[id]" options={{ title: "Wydarzenie" }} />
       </Stack>

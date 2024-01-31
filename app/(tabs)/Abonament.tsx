@@ -6,8 +6,8 @@ import SubComponent from '../../components/subscribersComponent'
 import { useSubApi } from '../../lib/api/subscribtion';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../../context/AuthContext';
+import { useUserApi } from '../../lib/api/user';
 
-const userLogOn = true; /* TO PÓŹNIEJ BĘDZIE INACZEJ SPRAWDZANE */
 
 
 
@@ -19,6 +19,19 @@ export default function SubscriptionsScreen() {
     const [sortedData, setSortedData] = useState([]); 
     console.log("sortedData ", sortedData)
     const [sortOption, setSortOption] = useState(null);
+    const [isAdmin, setIsAdmin] = useState('');
+const [isVerified, setIsVerified] = useState('');
+const { getUserByEmail} = useUserApi();
+useEffect(() => {
+    const fetchUser = async () => {
+        //@ts-ignore
+        const res = await getUserByEmail(email as string);
+        console.log("res ", res)
+        setIsAdmin(res.isAdmin)
+        setIsVerified(res.isVerified)
+    }
+    fetchUser()
+}, [])
     const {data, isLoading, error } = useQuery({
         queryKey:['subscription'],
         queryFn: listSubscriptions
@@ -70,7 +83,7 @@ export default function SubscriptionsScreen() {
     };
 
 
-    if(userLogOn){
+    if(isVerified){
         return(
             <View style={{backgroundColor: '#EAECCC'}}>
             <Hedder />
@@ -110,11 +123,8 @@ export default function SubscriptionsScreen() {
     }else{
         return(
             <View>
-            <Hedder />
-            <View style={{ alignItems: 'center' }}>
-            <Text style={{ padding: 10, fontSize: 30 }}>WIDOK DLA ZALOGOWANYCH</Text>
-            </View>
-            </View>
+            <Text>Nie masz dostępu do tego widoku</Text>
+        </View>
         );
     }
     

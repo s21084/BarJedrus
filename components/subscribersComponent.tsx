@@ -4,6 +4,10 @@ import { SubscriberType } from '../types/index';
 import { Link, useSearchParams } from 'expo-router';
 import { useSubApi } from '../lib/api/subscribtion';
 import { useQuery } from '@tanstack/react-query';
+import { useUserApi } from '../lib/api/user';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
+
 
 type SubscriberProps = {
     sub: SubscriberType;
@@ -19,23 +23,50 @@ const Subscribe = ( { sub }: SubscriberProps ) => {
         queryFn: () => getSubscription(sub.id as string)
      });
 
+     const { email } = useAuth();
+const [isAdmin, setIsAdmin] = useState('');
+const [isVerified, setIsVerified] = useState('');
+const { getUserByEmail} = useUserApi();
+useEffect(() => {
+    const fetchUser = async () => {
+        //@ts-ignore
+        const res = await getUserByEmail(email as string);
+        console.log("res ", res)
+        setIsAdmin(res.isAdmin)
+        setIsVerified(res.isVerified)
+    }
+    fetchUser()
+}, [])
+
+
+
      console.log("data", data)
 
      if(isLoading){
         return <ActivityIndicator />
     }
     if(error){
-        return <Text>Subskrybeci nie znalezieni</Text>
+        return <Text>Abonamentowicze nie znalezieni</Text>
     }
-    return(
+    if(isAdmin){ return(
         <Link href={`/subscription/${sub.id}`}>
                 <View style={styles.logInWindow}> 
                 <Text>Nazwisko: {data.person.surname}</Text>  
                 <Text>Lokalizacja: {data.onPlace && <Text>Wyjazdowo</Text>}{!data.onPlace && <Text>Na miejscu</Text>}</Text>
                 </View>
         </Link>
-        );
+        ); }else{
+        return(
+                <View style={styles.logInWindow}> 
+                <Text>Nazwisko: {data.person.surname}</Text>  
+                <Text>Lokalizacja: {data.onPlace && <Text>Wyjazdowo</Text>}{!data.onPlace && <Text>Na miejscu</Text>}</Text>
+                </View>
+        )
+    }
+
+    
 }
+
 
 
 

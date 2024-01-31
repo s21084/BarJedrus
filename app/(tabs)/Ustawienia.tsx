@@ -86,8 +86,7 @@ export default function Settings  () {
             // @ts-ignore
           mutate({ id: id, data: { email: email, isAdmin: isAdminBool, isVerified: isVerifiedBool, personId: personId } });
       };
-    
-        return(
+      if(isVerified){return(
             <View>
             <Hedder />
             <View style={{ alignItems: 'center' }}>
@@ -159,7 +158,14 @@ export default function Settings  () {
                 {status=="success" && <Text>Dane zmieniono</Text>}
                 {status=="error" && <Text>Coś nie działa</Text>}
             </View>
-        );
+        );}else{
+        return(
+            <View>
+            <Text>Nie masz dostępu do tego widoku</Text>
+        </View>
+        )
+    }
+        
     
     
 }

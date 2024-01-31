@@ -23,6 +23,10 @@ const SignIn = () => {
         
     }
 
+    const menuNotLog = async () => {
+          router.push({pathname: '/notLog/MenuNiezalogowany'})  
+  }
+
     return (
         <View style={styles.container}>
             <Text style={styles.label}>Zaloguj się lub utwórz konto :)</Text>
@@ -36,9 +40,9 @@ const SignIn = () => {
             <Pressable style={styles.button} onPress={onSignIn}>
                 <Text style={styles.buttonText}>Zaloguj</Text>
             </Pressable>
-            <Link href="/notLog/MenuNiezalogowany" style={styles.button}>
-            <Text style={styles.buttonText}>Menu</Text>
-            </Link>
+            <Pressable style={styles.button} onPress={menuNotLog}>
+                <Text style={styles.buttonText}>Menu</Text>
+            </Pressable>
         </View>
     );
 };
@@ -49,6 +53,15 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       padding: 24,
+    },
+    buttonMenu: {
+      backgroundColor: '#050A12',
+      padding: 10,
+      margin: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: 20,
+      borderRadius: 10,
     },
     label: {
       fontSize: 24,
@@ -78,6 +91,8 @@ const styles = StyleSheet.create({
     buttonText: {
       color: 'white',
       fontWeight: 'bold',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   });
 

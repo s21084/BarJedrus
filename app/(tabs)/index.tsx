@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import { Pressable, StyleSheet, FlatList } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import Hedder from '../../components/normal/hedder';
@@ -13,12 +13,24 @@ import { useUserApi } from '../../lib/api/user';
 export default function Main () {
   const { email } = useAuth();
   const [startHour, setStartHour] = useState(new Date());
+  const [isAdmin, setIsAdmin] = useState('');
+    const [isVerified, setIsVerified] = useState('');
   const [endHour, setEndHour] = useState(new Date());
   const [data, setData] = useState([]);
     const [bonusNote, setBonusNote] = useState('');
     const { getInfoBar } = useInfoBarApi();
     const { getUserByEmail } = useUserApi();
   const { getScheduleByUser } = useScheduleApi()
+  useEffect(() => {
+    const fetchUser = async () => {
+        //@ts-ignore
+        const res = await getUserByEmail(email as string);
+        console.log("res ", res)
+        setIsAdmin(res.isAdmin)
+        setIsVerified(res.isVerified)
+    }
+    fetchUser()
+}, [])
   useEffect(() => {
     const fetchInfo = async () => {
       
@@ -52,7 +64,8 @@ useEffect(() => {
  function formatTime(time) {
   return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
-  return (
+if(isVerified){
+   return (
     <View>
       <Hedder />
       <View style={styles.container}>
@@ -88,6 +101,14 @@ useEffect(() => {
       </View>
     </View>
   );
+  }else{
+    return (
+<View>
+  <Text>Nie masz dostępu do tego widoku</Text>
+</View>
+)
+ }
+ 
 }
 
 const styles = StyleSheet.create({

@@ -25,7 +25,6 @@ export default function Settings  () {
     const { createPerson } = usePersonApi();
     //@ts-ignore
     const { email } = useAuth();
-    console.log("Tuż po wejściu do ustawień: ", email);
     const [id, setId] = useState('');
     const [emails, setEmails] = useState('');
     const [phone, setPhone] = useState('');
@@ -34,12 +33,15 @@ export default function Settings  () {
     const [personId, setPersonId] = useState('');
     const [isAdmin, setIsAdmin] = useState('');
     const [isVerified, setIsVerified] = useState('');
+    const [street, setStreet] = useState('');
+    const [homeNr, setHomeNr] = useState('');
+    const [flatNr, setFlatNr] = useState('');
+    const [city, setCity] = useState('');
     
     useEffect(() => {
         const fetchUser = async () => {
               // @ts-ignore
             const res = await getUserByEmail(email as string);
-            console.log("res ", res)
               // @ts-ignore
             setEmails(email)
             setId(res.id)
@@ -49,6 +51,10 @@ export default function Settings  () {
                 setPhone(res.person.phone)
                 setFirstName(res.person.name)
                 setSuname(res.person.surname)
+                setStreet(res.person.Street)
+                setHomeNr(res.person.HomeNumber)
+                setFlatNr(res.person.FlatNumber)
+                setCity(res.person.City)
             }
             
             setIsAdmin(res.isAdmin)
@@ -69,20 +75,16 @@ export default function Settings  () {
         const isAdminBool = isAdmin as unknown as boolean;
         const isVerifiedBool = isVerified as unknown as boolean;
           if(personId == ''){
-            const res = await createPerson({name: firstName, surname: surname, phone: phone });
-            console.log("Res nid ",res.id)
+            const res = await createPerson({name: firstName, surname: surname, phone: phone, Street: street, HomeNumber: homeNr, FlatNumber: flatNr, City: city  });
             setPersonId(res.id as string)
-            console.log("Personid ",personId)
           }else{
             const EditPerson = async () => {
-                await editPerson({ id: personId, data: { name: firstName, surname: surname, phone: phone } });
+                await editPerson({ id: personId, data: { name: firstName, surname: surname, phone: phone, Street: street, HomeNumber: homeNr, FlatNumber: flatNr, City: city  } });
             }
             EditPerson()
           }
             // @ts-ignore
           mutate({ id: id, data: { email: email, isAdmin: isAdminBool, isVerified: isVerifiedBool, personId: personId } });
-          console.log("Sprawdzam status: ", status)
-          console.log(error)
       };
     
         return(
@@ -91,6 +93,7 @@ export default function Settings  () {
             <View style={{ alignItems: 'center' }}>
             <Text style={{ padding: 10, fontSize: 20 }}>Ustawienia konta:</Text>
             <Text style={{ padding: 10, fontSize: 20 }}>Email: {email}</Text>
+            <View style={{ flexDirection: 'row'}}>
             <TextInput
             style = {styles.input}
             onChangeText={newText => setFirstName(newText)}
@@ -103,6 +106,7 @@ export default function Settings  () {
             defaultValue={surname}
             placeholder="Nazwisko"
             />
+            </View>
             {/* <TextInput
             style = {styles.input}
             onChangeText={newText => setEmails(newText)}
@@ -115,7 +119,36 @@ export default function Settings  () {
             defaultValue={phone}
             placeholder="Twój nr telefonu"
             />
-            
+            <View style={{ flexDirection: 'row'}}>
+            <View>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setStreet(newText)}
+            defaultValue={street}
+            placeholder="Nazwa ulicy"
+            />
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setHomeNr(newText)}
+            defaultValue={homeNr}
+            placeholder="Numer domu"
+            />
+            </View>
+            <View>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setFlatNr(newText)}
+            defaultValue={flatNr}
+            placeholder="Numer mieszkania"
+            />
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setCity(newText)}
+            defaultValue={city}
+            placeholder="Miasto"
+            />
+            </View>
+            </View>
             </View>
                 <View style={styles.buttonContainer}>
                     <Pressable  style={styles.button} onPress={onSave}>
@@ -160,7 +193,7 @@ const styles = StyleSheet.create({
     },
     input: {
         padding: 5,
-        width: 500,
+        width: 400,
         borderColor: '#262626',
         margin: 5,
         backgroundColor: '#E2E8CE',

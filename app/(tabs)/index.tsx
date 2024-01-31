@@ -13,7 +13,6 @@ export default function Main () {
   const { email } = useAuth();
   const [startHour, setStartHour] = useState(new Date());
   const [endHour, setEndHour] = useState(new Date());
-  const [userId, setUserId] = useState('');
   const [data, setData] = useState([]);
     const [bonusNote, setBonusNote] = useState('');
     const { getInfoBar } = useInfoBarApi();
@@ -23,7 +22,6 @@ export default function Main () {
     const fetchInfo = async () => {
       
         const res = await getInfoBar("1");
-        console.log("Informacje o barze: ", res);
         setStartHour(new Date(res.startHour));
         setEndHour(new Date(res.endHour));
         if(res.bonusNote == null){
@@ -38,17 +36,10 @@ export default function Main () {
 useEffect(() => {
   const fetchUser = async () => {
     const resUser = await getUserByEmail(email as string);
-    setUserId(resUser.id)
+    const resUsere = await getScheduleByUser(resUser.id as string);
+    setData(resUsere)
   }
   fetchUser()
-}, [])
-useEffect(() => {
-  const fetchData = async () => {
-    const resUser = await getScheduleByUser(userId as string);
-    console.log("resUser ", resUser)
-    setData(resUser)
-  }
-  fetchData()
 }, [])
 
 

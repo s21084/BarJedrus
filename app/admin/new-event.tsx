@@ -41,6 +41,7 @@ const [priceFull, setPriceFull] = useState('');
   const onEventPress = async () => {
     console.log("decoration before ", decoration)
     if(decoration !== true){setDecoration(false)}
+    if(notes == null){setNotes(' ')}
     console.log("decoration ", decoration)
     const vegeCountNum = Number(vegeCount);
     const meatCountNum = Number(meatCount);
@@ -118,7 +119,7 @@ const [priceFull, setPriceFull] = useState('');
           style = {styles.input}
             value={prePay}
             onChangeText={newText => setPrePay(newText.replace(/[^0-9]/g, ''))}
-            placeholder="Przedwpłata (true false)"
+            placeholder="Przedwpłata (podaj liczbę)"
           />
           <TextInput
           style = {styles.input}

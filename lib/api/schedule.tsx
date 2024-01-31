@@ -54,12 +54,14 @@ const ScheduleApiContextProvider = ({ children }: PropsWithChildren ) => {
                         Authorization: `Bearer ${authToken}`,
                       },  
         });
+        
         if(res.status == 401){
                  console.log("Error with auth")
         }
         if(res.status !== 200){
                 console.log("Error with auth");
         }
+        //console.log(res.json);
         return await res.json();
        
 }

@@ -228,7 +228,7 @@ export default function UserScreen (){
               dayNumber={1}
             />
             <DayComponent 
-              onChangeStart={date => setStartHou2(date)}
+              onChangeStart={date => setStartHour2(date)}
               onChangeEnd={date => setEndHour2(date)}
               selectedStart={startHour2}
               selectedEnd={endHour2}

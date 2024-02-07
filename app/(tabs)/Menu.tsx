@@ -67,7 +67,8 @@ if (error || !data) {
 console.log("isVerified ", isVerified)
 if(isVerified){
   return (
-    <View>
+    <View style={{
+      flex: 1}}>
     <Hedder />
     <View style={styles.container}>
       <View style={styles.menu}>

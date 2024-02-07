@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
         margin: 5,
         borderRadius: 5,
         alignItems: 'center',
-        padding: 25,
+        padding: 20,
     },
 });

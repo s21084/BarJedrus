@@ -1,5 +1,5 @@
 import { useSearchParams, Link, useRouter } from "expo-router";
-import { Text, View, Switch, StyleSheet, SafeAreaView, TextInput, Pressable} from 'react-native';
+import { Text, View, Switch, StyleSheet, SafeAreaView, TextInput, Pressable, Modal, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSubApi } from '../../lib/api/subscribtion';
 import { useMutation } from '@tanstack/react-query';
@@ -29,12 +29,8 @@ export default function NewSub() {
     const [City, setCity] = useState('');
     const router = useRouter();
     const { authToken } = useAuth();
-
-
     const { mutate, isError, error, status } = useMutation({
-
       mutationFn: createSubscription
-    
     });
  
 
@@ -44,22 +40,39 @@ export default function NewSub() {
     if(dishType !== true){setDishType(false)}
     console.log("onPlace ", onPlace)
     console.log("dishType ", dishType)
-          const res = await createPerson({name: name, surname: surname, phone: phone, Street: Street, HomeNumber:HomeNumber, FlatNumber: FlatNumber, City:City });
-          
+       const res = await createPerson({name: name, surname: surname, phone: phone, Street: Street, HomeNumber:HomeNumber, FlatNumber: FlatNumber, City:City });
        const personId = res.id
        console.log("personId", personId)
        console.log("Adress ", Street)
        // @ts-ignore
-           mutate({lastMonthPayed: lastMonthPayed, dishType: dishType, countOfDish: countOfDishNum, onPlace: onPlace, notes: notes, personId: personId });
-        
-        
+         mutate({lastMonthPayed: lastMonthPayed, dishType: dishType, countOfDish: countOfDishNum, onPlace: onPlace, notes: notes, personId: personId });
          router.back();
   };
  
+  const [selectedMonth, setMonth] = useState('Wybierz miesiąc');
+  const [showPicker, setShowPicker] = useState(false);
+  const months = [
+    "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", 
+    "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
+  ];
+
+  const togglePicker = () => {
+    setShowPicker(!showPicker);
+  };
+  const handleMonthSelect = (month) => {
+    setMonth(month);
+    setLastMonthPayed(month);
+    togglePicker();
+  };
+
+
+
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={styles.container}>  
             <View>
+       
             <Text>Imię:</Text>
             <TextInput
             style = {styles.input}
@@ -81,18 +94,31 @@ export default function NewSub() {
             defaultValue={phone}
             placeholder="Telefon"
             />
-            <Text>Wykupiony miesiąc:</Text>
-            <TextInput
-            style = {styles.input}
-            onChangeText={newText => setLastMonthPayed(newText)}
-            defaultValue={lastMonthPayed}
-            placeholder="Ostatni miesiąc zapłacony"
-            />
+             <Text>Wykupiony miesiąc:</Text>
+            <Text onPress={togglePicker} style = {styles.input}>{selectedMonth}</Text>
+              <Modal
+                visible={showPicker}
+                transparent={true}
+                style = {styles.input}
+                animationType="fade"
+                onRequestClose={togglePicker}>
+                <TouchableWithoutFeedback onPress={togglePicker} >
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+                      {months.map((month, index) => (
+                        <TouchableOpacity key={index} onPress={() => handleMonthSelect(month)}>
+                          <Text>{month}</Text>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
+              </Modal>
             <Text>Ilość wykupionych posiłków:</Text>
             <TextInput
             style = {styles.input}
-            onChangeText={newText => setCountOfDish(newText)}
-            defaultValue={countOfDish}
+            onChangeText={newText => setCountOfDish(newText.replace(/[^0-9]/g, ''))}
+            value={countOfDish}
             placeholder="Ilość posiłków wykupionych"
             />
             <Text>Rodzaj obiad (pełny lub połówka):</Text>

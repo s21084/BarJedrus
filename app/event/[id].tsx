@@ -192,7 +192,6 @@ const styles = StyleSheet.create({
         fontStyle: "italic"
     },
     buttonText: {
-        color: '#CD8D7A',
         fontWeight: '600',
         fontSize: 16,
       },

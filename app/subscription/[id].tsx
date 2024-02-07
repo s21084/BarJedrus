@@ -1,5 +1,6 @@
+// @ts-nocheck
 import { useSearchParams, Link, useRouter } from "expo-router";
-import { Text, View, Switch, StyleSheet, TextInput, Pressable} from 'react-native';
+import { Text, View, Switch, StyleSheet, TextInput, Pressable, Modal, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSubApi } from '../../lib/api/subscribtion';
 import { useMutation } from '@tanstack/react-query';
@@ -26,7 +27,10 @@ export default function SubscriberScreen (){
     const [phone, setPhone] = useState('');
     const [surname, setSurname] = useState('');
     const [personId, setPersonId] = useState('');
-    const [adressId, setAdressId] = useState('')
+    const [Street, setStreet] = useState('');
+    const [HomeNumber, setHomeNumber] = useState('');
+    const [FlatNumber, setFlatNumber] = useState('');
+    const [City, setCity] = useState('');
 
     const router = useRouter();
     const { authToken } = useAuth();
@@ -50,13 +54,27 @@ export default function SubscriberScreen (){
         const countOfDishNum = Number(countOfDish)
           mutate({ id: id, data: {lastMonthPayed: lastMonthPayed, dishType: dishType, countOfDish: countOfDishNum, onPlace: onPlace, notes: notes } });
           const EditPerson = async () => {
-            await editPerson({ id: personId, data: { name: name, surname: surname, phone: phone } });
+            await editPerson({ id: personId, data: { name: name, surname: surname, phone: phone,  Street: Street, HomeNumber: HomeNumber, FlatNumber: FlatNumber, City: City  } });
         }
         EditPerson()
         router.back();
       };
 
-
+      const [selectedMonth, setMonth] = useState('Wybierz miesiąc');
+      const [showPicker, setShowPicker] = useState(false);
+      const months = [
+        "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", 
+        "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
+      ];
+    
+      const togglePicker = () => {
+        setShowPicker(!showPicker);
+      };
+      const handleMonthSelect = (month) => {
+        setMonth(month);
+        setLastMonthPayed(month);
+        togglePicker();
+      };
 
 
 
@@ -73,7 +91,11 @@ export default function SubscriberScreen (){
             setNotes(res.notes);
             setName(res.person.name);
             setSurname(res.person.surname);
-            setAdressId(res.person.adressId)
+            setMonth(res.lastMonthPayed);
+            setStreet(res.person.Street);
+            setHomeNumber(res.person.HomeNumber);
+            setFlatNumber(res.person.FlatNumber);
+            setCity(res.person.City);
             
         }
         fetchSub()
@@ -104,18 +126,31 @@ export default function SubscriberScreen (){
             defaultValue={phone}
             placeholder="Telefon"
             />
-            <Text>Wykupiony miesiąc:</Text>
-            <TextInput
-            style = {styles.input}
-            onChangeText={newText => setLastMonthPayed(newText)}
-            defaultValue={lastMonthPayed}
-            placeholder="Ostatni miesiąc zapłacony"
-            />
+             <Text>Wykupiony miesiąc:</Text>
+            <Text onPress={togglePicker} style = {styles.input}>{selectedMonth}</Text>
+              <Modal
+                visible={showPicker}
+                transparent={true}
+                style = {styles.input}
+                animationType="fade"
+                onRequestClose={togglePicker}>
+                <TouchableWithoutFeedback onPress={togglePicker} >
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+                      {months.map((month, index) => (
+                        <TouchableOpacity key={index} onPress={() => handleMonthSelect(month)}>
+                          <Text>{month}</Text>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
+              </Modal>
             <Text>Ilość wykupionych posiłków:</Text>
             <TextInput
             style = {styles.input}
-            onChangeText={newText => setCountOfDish(newText)}
-            defaultValue={countOfDish}
+            onChangeText={newText => setCountOfDish(newText.replace(/[^0-9]/g, ''))}
+            value={countOfDish}
             placeholder="Ilość posiłków wykupionych"
             />
             <Text>Rodzaj obiad (pełny lub połówka):</Text>
@@ -158,7 +193,35 @@ export default function SubscriberScreen (){
             style={{margin: 5}}
           />
           </View>
-          {onPlace && <Text>Adress: {adressId}</Text>}
+          {onPlace && 
+          <>
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setStreet(newText)}
+            defaultValue={Street}
+            placeholder="Ulica"
+            />
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setHomeNumber(newText)}
+            defaultValue={HomeNumber}
+            placeholder="Numer budynku"
+            />
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setFlatNumber(newText)}
+            defaultValue={FlatNumber}
+            placeholder="Numer mieszkania"
+            />
+            <TextInput
+            style = {styles.input}
+            onChangeText={newText => setCity(newText)}
+            defaultValue={City}
+            placeholder="Miasto"
+            />
+            </>
+            
+            }
             <Text>Notatki:</Text>
             <TextInput
             style = {styles.input}

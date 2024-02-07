@@ -66,7 +66,7 @@ const SubApiContextProvider = ({ children }: PropsWithChildren ) => {
 }
 
 const editSubscription = async ({ id, data }: { id: string; data: {lastMonthPayed: string, dishType: boolean, countOfDish: number, onPlace: boolean, notes: string}}) => {
-        //console.log(data.content);
+        console.log("Info edit sub ", JSON.stringify(data));
   const res = await fetch(`${API_URL}/subscription/${id}`,{
           method: 'PUT',
           body: JSON.stringify(data),

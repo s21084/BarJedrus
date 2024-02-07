@@ -4,13 +4,15 @@ import Hedder from '../../components/normal/hedder';
 import EditOpenHoursComponent from '../../components/popUps/editOpenHoursComponent';
 import { useUserApi } from '../../lib/api/user';
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 
 
 
 export default function Wlasciciel () {
-
+    const { email } = useAuth();
     const [isAdmin, setIsAdmin] = useState('');
     const [isVerified, setIsVerified] = useState('');
+    //@ts-ignore
     const { getUserByEmail} = useUserApi();
     useEffect(() => {
         const fetchUser = async () => {

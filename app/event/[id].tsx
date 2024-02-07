@@ -67,6 +67,9 @@ export default function EventScreen (){
           mutate({ id: id as string, data: {name: name, date: isoDate, decoration: decoration, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes, informationBarId: informationBar} });
           router.back();
       };
+
+
+      
       const onEventDelete = async () => {
           const DeleteEvent = async () => {
               await deleteEvent( id as string );

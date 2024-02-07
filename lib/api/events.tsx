@@ -50,7 +50,6 @@ const EventApiContextProvider = ({ children }: PropsWithChildren ) => {
                        'Content-type':'application/json'
                      },
        });
-       console.log("res", res)
        if(res.status == 401){
                 console.log("Error with auth")
        }

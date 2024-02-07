@@ -31,7 +31,6 @@ useEffect(() => {
     const fetchUser = async () => {
         //@ts-ignore
         const res = await getUserByEmail(email as string);
-        console.log("res ", res)
         setIsAdmin(res.isAdmin)
         setIsVerified(res.isVerified)
     }
@@ -40,7 +39,6 @@ useEffect(() => {
 
 
 
-     console.log("data", data)
 
      if(isLoading){
         return <ActivityIndicator />

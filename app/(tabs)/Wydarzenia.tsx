@@ -1,16 +1,14 @@
 import { StyleSheet, View, Text, Pressable, Button, FlatList, ActivityIndicator} from 'react-native';
-import { Link } from 'expo-router';
 import EventComponent from '../../components/events/eventComponent';
 import Hedder from '../../components/normal/hedder';
 import { useUserApi } from '../../lib/api/user';
-//import events from '../../assets/data/event'
-import { useEffect, useState } from 'react';
-//import { listEvents } from '../../lib/api/events';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useEventApi } from '../../lib/api/events';
 import { useAuth } from '../../context/AuthContext';
+import { useFocusEffect } from '@react-navigation/native';
 
-export default function Event () {
+export default function Event ({navigation}) {
     //@ts-ignore
     const { getUserByEmail} = useUserApi();
     const { email } = useAuth();
@@ -22,11 +20,13 @@ export default function Event () {
     const [sortedData, setSortedData] = useState([]); 
     const [sortOption, setSortOption] = useState(null);
 
+
+
+
     useEffect(() => {
         const fetchUser = async () => {
             //@ts-ignore
             const res = await getUserByEmail(email as string);
-            console.log("res ", res)
             setIsAdmin(res.isAdmin)
             setIsVerified(res.isVerified)
         }
@@ -35,17 +35,33 @@ export default function Event () {
 
     console.log("Użytkownik: ", email, " czy jest zweryfikowany ", isVerified, " i czy jest adminem ", isAdmin)
 
-   
+    const {data, isLoading, error} = useQuery({
+        queryKey:['events'],
+        queryFn: listEvents
+     });
+     const fetchEvents = async () => {
+        const eventsData = await listEvents();
+        //@ts-ignore
+        const filteredEvents = eventsData.filter(event => new Date(event.date) >= new Date());
+        setSortedData(filteredEvents);
+    };
     useEffect(() => {
-        const fetchEvents = async () => {
-            const eventsData = await listEvents();
-            //@ts-ignore
-            const filteredEvents = eventsData.filter(event => new Date(event.date) >= new Date());
-            setSortedData(filteredEvents);
-        };
         fetchEvents();
     }, []);
 
+ const toRefreshData = () => {
+        fetchEvents();
+      };
+    useFocusEffect(
+        React.useCallback(() => {
+            console.log('Ekran Event jest aktywny');
+            toRefreshData();
+        }, [])
+    );
+
+
+
+   
   
       const sortByDate = () => {
         // @ts-ignore
@@ -70,6 +86,12 @@ export default function Event () {
       };
 
       
+    if(isLoading){
+        return <ActivityIndicator />
+      }
+      if (error || !data) {
+        return <Text>Dania nie znalezione</Text>
+      }
     if(isVerified){
         return(
             <View style={{
@@ -78,6 +100,9 @@ export default function Event () {
             <View style={{
             alignItems: 'center', flex: 1}}>
                 <Text style={{padding: 10, fontSize: 30}}>Wydarzenia</Text>
+                <Pressable onPress={toRefreshData} style={styles.sortButton}>
+                        <Text>Odśwież dane</Text>
+                    </Pressable>
                 <View style={styles.sortButtons}>
                     <Pressable onPress={sortByDate} style={styles.sortButton}>
                         <Text>Sortuj po dacie</Text>

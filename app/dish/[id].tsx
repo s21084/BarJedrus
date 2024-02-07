@@ -46,6 +46,8 @@ export default function DishScreen (){
             console.log(error)
             router.back();
         };
+
+        
         const onDishDelete = async () => {
             const DeleteDish = async () => {
                 await deleteDish( id as string );

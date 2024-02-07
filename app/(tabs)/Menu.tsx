@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { StyleSheet, View, Pressable, FlatList, ActivityIndicator, Text } from 'react-native';
 import { useUserApi } from '../../lib/api/user';
 import Hedder from '../../components/normal/hedder';
@@ -30,17 +31,24 @@ export default function Offer() {
     queryKey:['dishes'],
     queryFn: listDish
  });
-
+ const fetchEvents = async () => {
+  const dishData = await listDish();
+  setSortedData(dishData);
+};
  useEffect(() => {
-  const fetchEvents = async () => {
-      const dishData = await listDish();
-      //const filteredEvents = eventsData.filter(event => new Date(event.date) >= new Date());
-      setSortedData(dishData);
-  };
   fetchEvents();
 }, []);
  
-  
+const toRefreshData = () => {
+  fetchEvents();
+};
+
+useFocusEffect(
+  React.useCallback(() => {
+      console.log('Ekran Menu jest aktywny');
+      toRefreshData();
+  }, [])
+);
 
   const sortByName = () => {
     // @ts-ignore
@@ -64,7 +72,6 @@ if (error || !data) {
   return <Text>Dania nie znalezione</Text>
 }
 
-console.log("isVerified ", isVerified)
 if(isVerified){
   return (
     <View style={{
@@ -74,6 +81,9 @@ if(isVerified){
       <View style={styles.menu}>
         <Pressable style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', margin: 5}}>
           <DayDishComponent />
+        </Pressable>
+        <Pressable onPress={toRefreshData} style={styles.sortButton}>
+                        <Text>Odśwież dane</Text>
         </Pressable>
         <View style={styles.sortButtons}>
           <Pressable onPress={sortByName} style={styles.sortButton}>

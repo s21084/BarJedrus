@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useRouter } from 'expo-router';
 import {
   View,
@@ -15,25 +15,37 @@ import {
 import { useUserApi } from '../../lib/api/user';
 import { useQuery } from '@tanstack/react-query';
 import UserComponent from '../../components/users/userComponent';
+import { useFocusEffect } from '@react-navigation/native';
 
-
-export default function UsersList() {
+export default  function UsersList() {
   //@ts-ignore
   const { listUsers } = useUserApi();
- 
+  
 
 
   const {data, isLoading, error } = useQuery({
     queryKey:['users'],
     queryFn: listUsers
  });
+ const [usersData, setUsersData] = useState(data); 
+ const fetchUsers = async () => {
+  const usersDataTemp = await listUsers();
+  //@ts-ignore
+  setUsersData(usersDataTemp);
+};
 
-console.log(data);
+ useFocusEffect(
+  React.useCallback(() => {
+      console.log('Ekran Event jest aktywny');
+      fetchUsers();
+  }, [])
+);
+
   return (
     <View style={styles.container}>
     <FlatList 
     //@ts-ignore
-      data={data}
+      data={usersData}
       renderItem={({ item }) => (
         <UserComponent user={item}/>
       )}

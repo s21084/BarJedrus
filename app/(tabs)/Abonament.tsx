@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, Pressable, Button, FlatList, ActivityIndicator} from 'react-native';
 import { Link } from 'expo-router';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import Hedder from '../../components/normal/hedder';
 import SubComponent from '../../components/subscribersComponent'
 import { useSubApi } from '../../lib/api/subscribtion';
@@ -26,7 +27,6 @@ useEffect(() => {
     const fetchUser = async () => {
         //@ts-ignore
         const res = await getUserByEmail(email as string);
-        console.log("res ", res)
         setIsAdmin(res.isAdmin)
         setIsVerified(res.isVerified)
     }
@@ -36,23 +36,33 @@ useEffect(() => {
         queryKey:['subscription'],
         queryFn: listSubscriptions
      });
-
+     const fetchEvents = async () => {
+        const subData = await listSubscriptions();
+        setSortedData(subData);
+    };
      useEffect(() => {
-        const fetchEvents = async () => {
-            const subData = await listSubscriptions();
-           // const filteredEvents = subData.filter(event => new Date(event.date) >= new Date());
-            setSortedData(subData);
-        };
         fetchEvents();
     }, []);
   
-    //  if(isLoading){
-    //      return <ActivityIndicator />;
-    //  }
- 
-    //  if(error) {
-    //      return <Text>{error.message}</Text>
-    //  }
+
+    const toRefreshData = () => {
+        fetchEvents();
+      };
+      
+    useFocusEffect(
+        React.useCallback(() => {
+            // Tutaj możesz wywołać funkcje, które mają być uruchamiane, gdy ekran uzyskuje focus
+            console.log('Ekran Event jest aktywny');
+            // Możesz umieścić tutaj kod do pobierania lub aktualizacji danych
+            toRefreshData();
+        }, [])
+    );
+	
+
+
+
+
+
      const sortByName = () => {
         // @ts-ignore
         const sorted = [...sortedData].sort((a, b) => a.person.surname.localeCompare(b.person.surname));
@@ -90,6 +100,9 @@ useEffect(() => {
             <View style={{ alignItems: 'center' }}>
             <Text style={{ padding: 10, fontSize: 30 }}>Abonamenty</Text>
             <View style={{alignItems: 'center', flex: 1}}>
+            <Pressable onPress={toRefreshData} style={{padding: 5, backgroundColor: '#CD8D7A', borderRadius:5, margin: 5}}>
+                        <Text>Odśwież dane</Text>
+        </Pressable>
             <View style={styles.sortButtons}>
                 
                 <Pressable onPress={sortByName} style={styles.sortButton}>

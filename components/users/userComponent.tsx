@@ -15,7 +15,6 @@ const [personInfo, setPersonInfo] = useState('');
     const PersonGetting = async ( id  : number) => {
         const { getPerson } = usePersonApi();
             const res = await getPerson(id.toString());
-            console.log("res person ", res)
             return(res.json())
         }
 console.log(user.email)

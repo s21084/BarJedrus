@@ -5,8 +5,8 @@ import Hedder from '../../components/normal/hedder';
 import ScheduleComponent from '../../components/scheduleComponent';
 import { useAuth } from '../../context/AuthContext';
 import { useInfoBarApi } from "../../lib/api/infoBar";
-import React, { useState, useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { useScheduleApi } from '../../lib/api/schedule';
 import { useUserApi } from '../../lib/api/user';
 
@@ -25,39 +25,48 @@ export default function Main () {
     const fetchUser = async () => {
         //@ts-ignore
         const res = await getUserByEmail(email as string);
-        console.log("res ", res)
         setIsAdmin(res.isAdmin)
         setIsVerified(res.isVerified)
     }
     fetchUser()
 }, [])
+
+const fetchInfo = async () => {
+  const res = await getInfoBar("1");
+  setStartHour(new Date(res.startHour));
+  setEndHour(new Date(res.endHour));
+  if(res.bonusNote == null){
+    setBonusNote('');
+  }else{
+    setBonusNote(res.bonusNote);
+  }
+}
   useEffect(() => {
-    const fetchInfo = async () => {
-      
-        const res = await getInfoBar("1");
-        setStartHour(new Date(res.startHour));
-        setEndHour(new Date(res.endHour));
-        if(res.bonusNote == null){
-          setBonusNote('');
-        }else{
-          setBonusNote(res.bonusNote);
-        }
-        
-    }
     fetchInfo()
 }, [])
+
+
+const fetchUser = async () => {
+  const resUser = await getUserByEmail(email as string);
+  const resUsere = await getScheduleByUser(resUser.id as string);
+  setData(resUsere)
+}
+
 useEffect(() => {
-  const fetchUser = async () => {
-    const resUser = await getUserByEmail(email as string);
-    const resUsere = await getScheduleByUser(resUser.id as string);
-    setData(resUsere)
-  }
   fetchUser()
 }, [])
 
-
+const toRefreshData = () => {
+  fetchInfo();
+  fetchUser();
+};
   
-
+useFocusEffect(
+  React.useCallback(() => {
+      console.log('Ekran Event jest aktywny');
+      toRefreshData();
+  }, [])
+);
     
 
  //@ts-ignore
@@ -74,6 +83,9 @@ if(isVerified){
         <Text>Informacja o barze</Text>
         <Text>Bar otwarty w godzinach {formatTime(startHour)} - {formatTime(endHour)}</Text>
         <Text>{bonusNote}</Text>
+        <Pressable onPress={toRefreshData} style={{padding: 5, backgroundColor: '#CD8D7A', borderRadius:5, margin: 5}}>
+                        <Text>Odśwież dane</Text>
+        </Pressable>
         </View>
           <View style={styles.contenerWelcome}>
           <Text>Witaj w panelu pracownika. </Text>  

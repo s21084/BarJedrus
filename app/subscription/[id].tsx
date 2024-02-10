@@ -40,7 +40,7 @@ export default function SubscriberScreen (){
             await deleteSub( id as string );
         }
         DeleteSub()
-          router.back();
+        router.replace("../Abonament")
       };
 
       const { mutate, isError, error, status } = useMutation({
@@ -57,7 +57,7 @@ export default function SubscriberScreen (){
             await editPerson({ id: personId, data: { name: name, surname: surname, phone: phone,  Street: Street, HomeNumber: HomeNumber, FlatNumber: FlatNumber, City: City  } });
         }
         EditPerson()
-        router.back();
+        router.replace("../Abonament")
       };
 
       const [selectedMonth, setMonth] = useState('Wybierz miesiąc');

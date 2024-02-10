@@ -36,6 +36,7 @@ export default function UserScreen (){
         }
         DeleteSub()
           router.back();
+          router.replace("../admin/users-list")
       };
 
       const { mutate, isError, error, status } = useMutation({
@@ -53,7 +54,7 @@ export default function UserScreen (){
             await editPerson({ id: personId, data: { name: name, surname: surname, phone: phone } });
         }
         EditPerson()
-        router.back();
+        router.replace("../admin/users-list")
       };
 
 
@@ -64,13 +65,25 @@ export default function UserScreen (){
     useEffect(() => {
         const fetchSub = async () => {
             const res = await getUser( id as string );
-            setPersonId(res.personId)
-            setPhone(res.person.phone)
-            setName(res.person.name);
-            setEmail(res.email);
-            setSurname(res.person.surname);
-            setIsVerified(res.isVerified);
-            setIsAdmin(res.isAdmin);
+            console.log("user ",res)
+            if(res.personId !== null){
+              setPersonId(res.personId)
+              setPhone(res.person.phone)
+              setName(res.person.name);
+              setEmail(res.email);
+              setSurname(res.person.surname);
+              setIsVerified(res.isVerified);
+              setIsAdmin(res.isAdmin);
+            }else{
+              setPersonId("")
+              setPhone("")
+              setName("")
+              setEmail(res.email);
+              setSurname("")
+              setIsVerified(res.isVerified);
+              setIsAdmin(res.isAdmin);
+            }
+           
             
         }
         fetchSub()

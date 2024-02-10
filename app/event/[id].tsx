@@ -65,7 +65,7 @@ export default function EventScreen (){
         const priceFullNum = Number(priceFull)
         //@ts-ignore
           mutate({ id: id as string, data: {name: name, date: isoDate, decoration: decoration, vegeCount: vegeCountNum, meatCount: meatCountNum, prePay: prePayNum, priceFull: priceFullNum, notes: notes, informationBarId: informationBar} });
-          router.back();
+          router.replace("../Wydarzenia")
       };
 
 
@@ -75,7 +75,7 @@ export default function EventScreen (){
               await deleteEvent( id as string );
           }
           DeleteEvent()
-            router.back();
+          router.replace("../Wydarzenia")
         };
 
 

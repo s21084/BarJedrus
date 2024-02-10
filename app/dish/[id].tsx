@@ -44,7 +44,7 @@ export default function DishScreen (){
             mutate({ id: id as string, data: { name, priceForPiece: pricePieceNum, priceForWeight: priceWeightNum } });
             console.log("Sprawdzam status: ", status)
             console.log(error)
-            router.back();
+            router.replace("../Menu")
         };
 
         
@@ -53,7 +53,7 @@ export default function DishScreen (){
                 await deleteDish( id as string );
             }
             DeleteDish()
-              router.back();
+            router.replace("../Menu");
           };
     
     return (

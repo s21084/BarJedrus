@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from "expo-router";
 import {
   View,
   Text,
@@ -27,6 +28,7 @@ const editOpenHoursComponent: React.FC = () => {
     const [startHour, setStartHour] = useState('');
     const [endHour, setEndHour] = useState('');
     const [bonusNote, setBonusNote] = useState('');
+    const router = useRouter();
   
     useEffect(() => {
       const fetchInfo = async () => {
@@ -60,6 +62,7 @@ const editOpenHoursComponent: React.FC = () => {
         mutate({ startHour: startHourForm, endHour: endHourForm, bonusNote: bonusNote});
         console.log("status ", status)
       setIsOpenModal(false);
+      router.replace("./Wlasciciel")
     };
 
     
